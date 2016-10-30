@@ -21,7 +21,7 @@ import { fakeBackendProvider } from './helpers/fake-backend';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { BaseRequestOptions } from '@angular/http';
 
- 
+//handles login and authenticaton
 import { AuthGuard } from './guards/auth.guard';
 import { UserService } from './testservice/user.service';
 import { AuthenticationService } from './login.component/login.service';

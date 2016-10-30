@@ -25,6 +25,7 @@ var app_routing_1 = require('./app.routing/app.routing');
 var fake_backend_1 = require('./helpers/fake-backend');
 var testing_1 = require('@angular/http/testing');
 var http_2 = require('@angular/http');
+//handles login and authenticaton
 var auth_guard_1 = require('./guards/auth.guard');
 var user_service_1 = require('./testservice/user.service');
 var login_service_1 = require('./login.component/login.service');
