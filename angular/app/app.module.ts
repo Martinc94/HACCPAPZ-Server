@@ -17,9 +17,9 @@ import { SettingsComponent }        from './settings.component/settings.componen
 import { routing }          from './app.routing/app.routing';
 
 // used to create fake backend
-import { fakeBackendProvider } from './helpers/fake-backend';
-import { MockBackend, MockConnection } from '@angular/http/testing';
-import { BaseRequestOptions } from '@angular/http';
+//import { fakeBackendProvider } from './helpers/fake-backend';
+//import { MockBackend, MockConnection } from '@angular/http/testing';
+//import { BaseRequestOptions } from '@angular/http';
 
 //handles login and authenticaton
 import { AuthGuard } from './guards/auth.guard';
@@ -48,9 +48,9 @@ import { AuthenticationService } from './login.component/login.service';
         UserService,
  
         // providers used to create fake backend
-        fakeBackendProvider,
-        MockBackend,
-        BaseRequestOptions
+       // fakeBackendProvider,
+        //MockBackend,
+        //BaseRequestOptions
     ],
     bootstrap: [ AppComponent ]
 })

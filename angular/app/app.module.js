@@ -22,9 +22,9 @@ var settings_component_1 = require('./settings.component/settings.component');
 //Services
 var app_routing_1 = require('./app.routing/app.routing');
 // used to create fake backend
-var fake_backend_1 = require('./helpers/fake-backend');
-var testing_1 = require('@angular/http/testing');
-var http_2 = require('@angular/http');
+//import { fakeBackendProvider } from './helpers/fake-backend';
+//import { MockBackend, MockConnection } from '@angular/http/testing';
+//import { BaseRequestOptions } from '@angular/http';
 //handles login and authenticaton
 var auth_guard_1 = require('./guards/auth.guard');
 var user_service_1 = require('./testservice/user.service');
@@ -52,10 +52,6 @@ var AppModule = (function () {
                 auth_guard_1.AuthGuard,
                 login_service_1.AuthenticationService,
                 user_service_1.UserService,
-                // providers used to create fake backend
-                fake_backend_1.fakeBackendProvider,
-                testing_1.MockBackend,
-                http_2.BaseRequestOptions
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 
