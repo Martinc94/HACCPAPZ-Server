@@ -19,7 +19,7 @@ var about_component_1 = require('./about.component/about.component');
 var login_component_1 = require('./login.component/login.component');
 var sign_up_component_1 = require('./sign-up.component/sign-up.component');
 var settings_component_1 = require('./settings.component/settings.component');
-//import { FitnessComponent }        from './fitness.component/fitness.component';
+var fitness_component_1 = require('./fitness.component/fitness.component');
 //Services
 var app_routing_1 = require('./app.routing/app.routing');
 //handles login and authenticaton
@@ -27,7 +27,7 @@ var auth_guard_1 = require('./guards/auth.guard');
 var user_service_1 = require('./testservice/user.service');
 var login_service_1 = require('./login.component/login.service');
 //form services
-//import { FitnessService } from './fitness.component/fitness.service';
+var fitness_service_1 = require('./fitness.component/fitness.service');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -46,11 +46,13 @@ var AppModule = (function () {
                 login_component_1.LoginComponent,
                 sign_up_component_1.SignUpComponent,
                 settings_component_1.SettingsComponent,
+                fitness_component_1.FitnessComponent,
             ],
             providers: [
                 auth_guard_1.AuthGuard,
                 login_service_1.AuthenticationService,
                 user_service_1.UserService,
+                fitness_service_1.FitnessService,
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

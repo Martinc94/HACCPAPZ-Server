@@ -12,7 +12,7 @@ import { AboutComponent }           from './about.component/about.component';
 import { LoginComponent }           from './login.component/login.component';
 import { SignUpComponent }          from './sign-up.component/sign-up.component';
 import { SettingsComponent }        from './settings.component/settings.component';
-//import { FitnessComponent }        from './fitness.component/fitness.component';
+import { FitnessComponent }        from './fitness.component/fitness.component';
 
 //Services
 import { routing }          from './app.routing/app.routing';
@@ -21,7 +21,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { UserService } from './testservice/user.service';
 import { AuthenticationService } from './login.component/login.service';
 //form services
-//import { FitnessService } from './fitness.component/fitness.service';
+import { FitnessService } from './fitness.component/fitness.service';
 
 
 @NgModule({
@@ -38,13 +38,13 @@ import { AuthenticationService } from './login.component/login.service';
         LoginComponent,
         SignUpComponent,
         SettingsComponent,
-//FitnessComponent,
+        FitnessComponent,
     ],
     providers: [
         AuthGuard,
         AuthenticationService,
         UserService,
-        //FitnessService,
+        FitnessService,
     ],
     bootstrap: [ AppComponent ]
 })
