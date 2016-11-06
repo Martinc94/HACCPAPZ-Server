@@ -19,16 +19,15 @@ var about_component_1 = require('./about.component/about.component');
 var login_component_1 = require('./login.component/login.component');
 var sign_up_component_1 = require('./sign-up.component/sign-up.component');
 var settings_component_1 = require('./settings.component/settings.component');
+//import { FitnessComponent }        from './fitness.component/fitness.component';
 //Services
 var app_routing_1 = require('./app.routing/app.routing');
-// used to create fake backend
-//import { fakeBackendProvider } from './helpers/fake-backend';
-//import { MockBackend, MockConnection } from '@angular/http/testing';
-//import { BaseRequestOptions } from '@angular/http';
 //handles login and authenticaton
 var auth_guard_1 = require('./guards/auth.guard');
 var user_service_1 = require('./testservice/user.service');
 var login_service_1 = require('./login.component/login.service');
+//form services
+//import { FitnessService } from './fitness.component/fitness.service';
 var AppModule = (function () {
     function AppModule() {
     }
