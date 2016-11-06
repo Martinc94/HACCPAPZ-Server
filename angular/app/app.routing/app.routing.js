@@ -1,12 +1,13 @@
 "use strict";
 var router_1 = require('@angular/router');
 // page imports
+var auth_guard_1 = require('../guards/auth.guard');
 var home_component_1 = require('../home.component/home.component');
 var about_component_1 = require('../about.component/about.component');
 var login_component_1 = require('../login.component/login.component');
 var sign_up_component_1 = require('../sign-up.component/sign-up.component');
 var settings_component_1 = require('../settings.component/settings.component');
-var auth_guard_1 = require('../guards/auth.guard');
+var fitness_component_1 = require('../fitness.component/fitness.component');
 var appRoutes = [
     { path: 'login', component: login_component_1.LoginComponent },
     { path: '', component: home_component_1.HomeComponent, canActivate: [auth_guard_1.AuthGuard] },
@@ -14,6 +15,7 @@ var appRoutes = [
     { path: 'about', component: about_component_1.AboutComponent },
     { path: 'settings', component: settings_component_1.SettingsComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'signup', component: sign_up_component_1.SignUpComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'fitnesstowork', component: fitness_component_1.FitnessComponent, canActivate: [auth_guard_1.AuthGuard] },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
