@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
-import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map'
+import { Fitness} from '../classes/Fitness/fitness';
+import {Observable} from 'rxjs/Rx'
+import '../rxjs-operators';
  
 @Injectable()
 export class FitnessService {
     public token: string;
     private authHeader = new Headers();
+    private url = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getFitnessToWork';
     
     constructor(private http: Http) {
         // set token if saved in local storage
@@ -16,13 +18,28 @@ export class FitnessService {
         this.authHeader.append('Authorization',this.token);
     }
 
-    getFitnessForms(){
-        return this.http.get('http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getFitnessToWork',({ headers: this.authHeader}))
-            .map(res=> res.json());
-    }
+    getFitnessForms (): Observable<Fitness[]> {
+        return this.http.get(this.url,({ headers: this.authHeader}))
+                        .map(this.extractData)
+                        .catch(this.handleError);
+      }
 
-    getdate(){
-        return this.http.get('http://date.jsontest.com/')
-            .map(res=> res.json());
+    private extractData(res: Response) {
+        let body = res.json();
+        return body || { };
+      }
+
+    private handleError (error: Response | any) {
+      let errMsg: string;
+      if (error instanceof Response) {
+        const body = error.json() || '';
+        const err = body.error || JSON.stringify(body);
+        errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+      } else {
+      errMsg = error.message ? error.message : error.toString();
+      }
+      console.error(errMsg);
+      return Observable.throw(errMsg);
     }
+   
 }

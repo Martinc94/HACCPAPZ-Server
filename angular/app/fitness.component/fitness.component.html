@@ -1,2 +1,18 @@
-<h1 align= "center">Fitness to work forms</h1>
-<p>Forms: {{getData}}</p>
+   <h1 align= "center">Fitness to work forms</h1>
+
+        <div *ngFor="let form of fitnessForms">
+
+            <div class="media">
+
+                <div class="media-body">
+
+                    <div (click)="gotoDetail(form)">
+                        <h3>Fitness to work form: (click here to view)</h3> 
+                    </div>
+                        <h5>{{form.q1EmpName}}</h5>
+                        <h5>{{form.q2DateOfAssessment}}</h5>
+                        <h5>{{form.q3ReasonForAssessment}}</h5>
+                    </div>
+                </div> 
+
+    <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
