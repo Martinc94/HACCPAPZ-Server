@@ -1,0 +1,50 @@
+<h1 align= "center">Fitness to work form</h1>
+
+<p *ngIf="!form">There isnt any form matching id!</p>
+
+
+<div *ngIf="form">
+        <h4>Employee Name:</h4>
+            <h5>{{form.q1EmpName}}</h5>
+
+        <h4>Date Of Assessment:</h4>
+            <h5>{{form.q2DateOfAssessment}}</h5>
+
+        <h4>Reason For Assessment:</h4>
+            <h5>{{form.q3ReasonForAssessment}}</h5>
+
+        <h4>Have you suffered from diarrhoea and/or vomiting within the last 48 hours?:</h4>
+            <h5>{{form.q4}}</h5>
+
+        <h4>If no, have you in the last 48 hours taken any medication to control diarrhoea and/or vomiting?:</h4>
+            <h5>{{form.qMed}}</h5>
+
+        <h4>infected wounds, skin infections or sores?:</h4>
+            <h5>{{form.q5}}</h5>
+
+        <h4>boils, styes or septic fngers?</h4>
+            <h5>{{form.q6}}</h5>
+
+        <h4>discharge from eye, ear or gums/mouth?:</h4>
+            <h5>{{form.q7}}</h5>
+
+        <h4>Have you ever had, or are you known to be a carrier of typhoid or paratyphoid?:</h4>
+            <h5>{{form.q8}}</h5>
+
+        <h4>In the last 21 days have you been in contact with anyone, at home or abroad, who may have been suffering from typhoid or paratyphoid?:</h4>
+            <h5>{{form.q9}}</h5>
+
+        <h4>Action Taken:</h4>
+            <h5>{{form.q10ActionTaken}}</h5>
+
+        <h4>Owner Manager:</h4>
+            <h5>{{form.q11OwnerManager}}</h5>
+
+        <h4>Date Signed:</h4>  
+            <h5>{{form.q12DateSigned}}</h5>
+</div>
+
+<button (click)="goBack()">Back</button>
+
+<p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
+

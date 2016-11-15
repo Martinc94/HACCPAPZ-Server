@@ -10,23 +10,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
-require('rxjs/add/operator/map');
+var Rx_1 = require('rxjs/Rx');
+require('../rxjs-operators');
 var FitnessService = (function () {
     function FitnessService(http) {
         this.http = http;
         this.authHeader = new http_1.Headers();
+        this.url = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getFitnessToWork';
         // set token if saved in local storage
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser.token;
         this.authHeader.append('Authorization', this.token);
     }
     FitnessService.prototype.getFitnessForms = function () {
-        return this.http.get('http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getFitnessToWork', ({ headers: this.authHeader }))
-            .map(function (res) { return res.json(); });
+        return this.http.get(this.url, ({ headers: this.authHeader }))
+            .map(this.extractData)
+            .catch(this.handleError);
     };
-    FitnessService.prototype.getdate = function () {
-        return this.http.get('http://date.jsontest.com/')
-            .map(function (res) { return res.json(); });
+    FitnessService.prototype.extractData = function (res) {
+        var body = res.json();
+        return body || {};
+    };
+    FitnessService.prototype.handleError = function (error) {
+        var errMsg;
+        if (error instanceof http_1.Response) {
+            var body = error.json() || '';
+            var err = body.error || JSON.stringify(body);
+            errMsg = error.status + " - " + (error.statusText || '') + " " + err;
+        }
+        else {
+            errMsg = error.message ? error.message : error.toString();
+        }
+        console.error(errMsg);
+        return Rx_1.Observable.throw(errMsg);
     };
     FitnessService = __decorate([
         core_1.Injectable(), 
