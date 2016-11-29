@@ -21,6 +21,7 @@ var sign_up_component_1 = require('./sign-up.component/sign-up.component');
 var settings_component_1 = require('./settings.component/settings.component');
 var fitness_component_1 = require('./fitness.component/fitness.component');
 var fitness_detail_component_1 = require('./fitness.component/fitness-detail.component/fitness-detail.component');
+var fridgeTemp_component_1 = require('./fridgeTemp.component/fridgeTemp.component');
 //Services
 var app_routing_1 = require('./app.routing/app.routing');
 //handles login and authenticaton
@@ -29,6 +30,7 @@ var user_service_1 = require('./testservice/user.service');
 var login_service_1 = require('./login.component/login.service');
 //form services
 var fitness_service_1 = require('./fitness.component/fitness.service');
+var fridgeTemp_service_1 = require('./fridgeTemp.component/fridgeTemp.service');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -49,12 +51,14 @@ var AppModule = (function () {
                 settings_component_1.SettingsComponent,
                 fitness_component_1.FitnessComponent,
                 fitness_detail_component_1.FitnessDetailComponent,
+                fridgeTemp_component_1.FridgeTempComponent,
             ],
             providers: [
                 auth_guard_1.AuthGuard,
                 login_service_1.AuthenticationService,
                 user_service_1.UserService,
                 fitness_service_1.FitnessService,
+                fridgeTemp_service_1.TempService,
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

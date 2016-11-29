@@ -1,0 +1,20 @@
+   <h1 align= "center">Fridge Temperature forms</h1>
+
+        <div *ngFor="let form of tempForms">
+            <div class="panel panel-default col-med" (click)="gotoDetail(form)">
+                <div class="panel-body">
+                    <div class="media">
+                        <div class="media-body">
+                            <div>
+                                <h3>Fridge Temperature</h3> 
+                            </div>
+                                <h5>Fridge Name: {{form.name}}</h5>
+                                <h5>AM/PM: {{form.timeAMPM}}</h5>
+                                <h5>Temp: {{form.temp}}°C</h5>
+                                <h5>Date: {{form.date}}</h5>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+
+    <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>

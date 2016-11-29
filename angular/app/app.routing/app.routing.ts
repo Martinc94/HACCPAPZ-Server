@@ -12,6 +12,7 @@ import { SignUpComponent }          from '../sign-up.component/sign-up.component
 import { SettingsComponent }        from '../settings.component/settings.component';
 import { FitnessComponent }        from '../fitness.component/fitness.component';
 import { FitnessDetailComponent }       from '../fitness.component/fitness-detail.component/fitness-detail.component';
+import { FridgeTempComponent } from '../fridgeTemp.component/fridgeTemp.component';
 
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -22,6 +23,8 @@ const appRoutes: Routes = [
     { path: 'signup', component: SignUpComponent, canActivate: [AuthGuard] },
     { path: 'fitnesstowork', component: FitnessComponent, canActivate: [AuthGuard] },
     { path: 'fitnessform/:_id',component: FitnessDetailComponent},
+    { path: 'fridgetemp', component: FridgeTempComponent, canActivate: [AuthGuard] },
+
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
     

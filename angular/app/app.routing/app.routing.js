@@ -9,6 +9,7 @@ var sign_up_component_1 = require('../sign-up.component/sign-up.component');
 var settings_component_1 = require('../settings.component/settings.component');
 var fitness_component_1 = require('../fitness.component/fitness.component');
 var fitness_detail_component_1 = require('../fitness.component/fitness-detail.component/fitness-detail.component');
+var fridgeTemp_component_1 = require('../fridgeTemp.component/fridgeTemp.component');
 var appRoutes = [
     { path: 'login', component: login_component_1.LoginComponent },
     { path: '', component: home_component_1.HomeComponent, canActivate: [auth_guard_1.AuthGuard] },
@@ -18,6 +19,7 @@ var appRoutes = [
     { path: 'signup', component: sign_up_component_1.SignUpComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'fitnesstowork', component: fitness_component_1.FitnessComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'fitnessform/:_id', component: fitness_detail_component_1.FitnessDetailComponent },
+    { path: 'fridgetemp', component: fridgeTemp_component_1.FridgeTempComponent, canActivate: [auth_guard_1.AuthGuard] },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
