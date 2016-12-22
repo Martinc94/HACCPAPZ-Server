@@ -2,7 +2,8 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var temperatureSchema   = new Schema({
-    date		    : String,
+    email		: String,
+    date		: String,
     food        : String,
     startTime   : String,
     finishTime  : String,
