@@ -56,7 +56,7 @@ app.get('/', function(req, res) {
 });
 
 //Allows CORS
-pp.all('*', function(req, res, next) {
+app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
@@ -820,7 +820,7 @@ apiRoutes.post('/transport', passport.authenticate('jwt', { session: false}), fu
           var transport = new Transport();
 
           //add validation here for data coming from ionic to make sure is correct and has all required fields
-          var transportVal =transportValidation(req.body.q1,req.body.q2);
+          var transportVal =transportValidation(req.body.date,req.body.food,req.body.batch,req.body.customer,req.body.separation,req.body.temp,req.body.sign,req.body.managersign);
 
           if (transportVal) {
             transport.email=user.email;
@@ -1308,6 +1308,41 @@ apiRoutes.get('/getFridgetemp', passport.authenticate('jwt', { session: false}),
 });
 //end getFridgetemp////////////////////////////////////////////////////////////////////
 
+apiRoutes.get('/getFitnessToWork', passport.authenticate('jwt', { session: false}), function(req, res) {
+  var token = getToken(req.headers);
+  if (token) {
+    var decoded = jwt.decode(token, config.secret);
+    User.findOne({
+      email: decoded.email
+    }, function(err, user) {
+        if (err) throw err;
+        if (!user) {
+          return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
+        } else {
+
+          //get Forms
+          Fitness.
+            find({'email': decoded.email}, function (err, fitforms) {
+              if(err) {
+                return res.status(403).send({success: false});
+                }
+              else{
+              //return forms
+              //return res.status(200).send({forms:fitforms});
+          //return res.status(200).send(fitforms);
+          return res.status(200).json(fitforms);
+              }
+            });//end getForms
+
+        }//end else
+    });
+  } else {
+    return res.status(403).send({success: false, msg: 'No token provided.'});
+  }
+});
+//end getFitnessToWork////////////////////////////////////////////////////////////////////
+
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //Init + Start Server
@@ -1399,8 +1434,8 @@ function hygTrainingValidation( name,position,dateEmp,type,date,
   }
 }//End hygTrainingValidation
 
-function transportValidation(q1,q2) {
-  if (!q1||!q2) {
+function transportValidation(date,food,batch,customer,separation,temp,sign,managersign) {
+  if (!date||!food||!batch||!customer||!separation||!temp||!sign||!managersign) {
     return false;
   }
   else {
