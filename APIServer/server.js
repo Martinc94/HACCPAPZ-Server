@@ -1339,7 +1339,36 @@ apiRoutes.get('/getTransport', passport.authenticate('jwt', { session: false}), 
 });
 //end getTransport//////////////////////////////////////////////////////////////////////////////
 
+apiRoutes.get('/getTempRecords', passport.authenticate('jwt', { session: false}), function(req, res) {
+  var token = getToken(req.headers);
+  if (token) {
+    var decoded = jwt.decode(token, config.secret);
+    User.findOne({
+      email: decoded.email
+    }, function(err, user) {
+        if (err) throw err;
+        if (!user) {
+          return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
+        } else {
+          //get Forms
+          Temperature.
+            find({'email': decoded.email}, function (err, Temperatureforms) {
+              if(err) {
+                return res.status(403).send({success: false});
+                }
+              else{
+                //return forms
+                return res.status(200).json(Temperatureforms);
+              }
+            });//end getForms
 
+        }//end else
+    });
+  } else {
+    return res.status(403).send({success: false, msg: 'No token provided.'});
+  }
+});
+//end getTemperature//////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //Init + Start Server
