@@ -1308,7 +1308,7 @@ apiRoutes.get('/getFridgetemp', passport.authenticate('jwt', { session: false}),
 });
 //end getFridgetemp////////////////////////////////////////////////////////////////////
 
-apiRoutes.get('/getFitnessToWork', passport.authenticate('jwt', { session: false}), function(req, res) {
+apiRoutes.get('/getTransport', passport.authenticate('jwt', { session: false}), function(req, res) {
   var token = getToken(req.headers);
   if (token) {
     var decoded = jwt.decode(token, config.secret);
@@ -1319,18 +1319,15 @@ apiRoutes.get('/getFitnessToWork', passport.authenticate('jwt', { session: false
         if (!user) {
           return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
         } else {
-
           //get Forms
-          Fitness.
-            find({'email': decoded.email}, function (err, fitforms) {
+          Transport.
+            find({'email': decoded.email}, function (err, Transportforms) {
               if(err) {
                 return res.status(403).send({success: false});
                 }
               else{
-              //return forms
-              //return res.status(200).send({forms:fitforms});
-          //return res.status(200).send(fitforms);
-          return res.status(200).json(fitforms);
+                //return forms
+                return res.status(200).json(Transportforms);
               }
             });//end getForms
 
@@ -1340,7 +1337,7 @@ apiRoutes.get('/getFitnessToWork', passport.authenticate('jwt', { session: false
     return res.status(403).send({success: false, msg: 'No token provided.'});
   }
 });
-//end getFitnessToWork////////////////////////////////////////////////////////////////////
+//end getTransport//////////////////////////////////////////////////////////////////////////////
 
 
 
