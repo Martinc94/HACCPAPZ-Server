@@ -26,9 +26,7 @@ var Transport= require('./app/models/transport');
 var Temperature= require('./app/models/temperature');
 var Food= require('./app/models/food');
 
-
-
-//Some of Code modified from http://devdactic.com/restful-api-user-authentication-1
+//Some of user auth Code adapted from http://devdactic.com/restful-api-user-authentication-1
 
 //works but google suspend account
 /*var transporter = nodemailer.createTransport({
@@ -57,20 +55,8 @@ app.get('/', function(req, res) {
   res.send('Hello! The API is at http://localhost:' + port + '/api');
 });
 
-/*//Allows CORS
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});*/
-
-/*app.all('/', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-});*/
-
-app.all('*', function(req, res, next) {
+//Allows CORS
+pp.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
@@ -104,8 +90,7 @@ apiRoutes.post('/signup', function(req, res) {
         return res.json({success: false, msg: 'Email already exists.'});
       }
       res.json({success: true, msg: 'Successful created new user.'});
-      //CreateDB for user here
-      //
+      //add new settings
 
     });
   }
@@ -1324,6 +1309,9 @@ apiRoutes.get('/getFridgetemp', passport.authenticate('jwt', { session: false}),
 //end getFridgetemp////////////////////////////////////////////////////////////////////
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////
+//Init + Start Server
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 // connect the api routes under /api/*
 app.use('/api', apiRoutes);
@@ -1332,8 +1320,9 @@ app.use('/api', apiRoutes);
 app.listen(port);
 console.log('Server live on: http://localhost:' + port);
 
-
-//Functions//////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+//Functions and Validation 
+////////////////////////////////////////////////////////////////////////////////////////////////
 getToken = function (headers) {
   if (headers && headers.authorization) {
     var parted = headers.authorization.split(' ');
