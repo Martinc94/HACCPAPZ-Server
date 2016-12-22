@@ -16,6 +16,7 @@ import { SignUpComponent }          from './sign-up.component/sign-up.component'
 import { SettingsComponent }        from './settings.component/settings.component';
 import { FitnessComponent }        from './fitness.component/fitness.component';
 import { FitnessDetailComponent }       from './fitness.component/fitness-detail.component/fitness-detail.component';
+import { FridgeTempComponent } from './fridgeTemp.component/fridgeTemp.component';
 
 //Services
 import { routing }          from './app.routing/app.routing';
@@ -25,6 +26,7 @@ import { UserService } from './testservice/user.service';
 import { AuthenticationService } from './login.component/login.service';
 //form services
 import { FitnessService } from './fitness.component/fitness.service';
+import { TempService } from './fridgeTemp.component/fridgeTemp.service';
 
 @NgModule({
     imports: [
@@ -42,12 +44,14 @@ import { FitnessService } from './fitness.component/fitness.service';
         SettingsComponent,
         FitnessComponent,
         FitnessDetailComponent,
+        FridgeTempComponent,
     ],
     providers: [
         AuthGuard,
         AuthenticationService,
         UserService,
         FitnessService,
+        TempService,
     ],
     bootstrap: [ AppComponent ]
 })

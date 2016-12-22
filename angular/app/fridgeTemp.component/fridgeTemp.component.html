@@ -1,16 +1,17 @@
-   <h1 align= "center">Fitness to work forms</h1>
+   <h1 align= "center">Fridge Temperature forms</h1>
 
-        <div *ngFor="let form of fitnessForms">
+        <div *ngFor="let form of tempForms">
             <div class="panel panel-default col-med" (click)="gotoDetail(form)">
                 <div class="panel-body">
                     <div class="media">
                         <div class="media-body">
                             <div>
-                                <h3>Fitness to work form: (click here to view)</h3> 
+                                <h3>Fridge Temperature</h3> 
                             </div>
-                                <h5>{{form.q1EmpName}}</h5>
-                                <h5>{{form.q2DateOfAssessment}}</h5>
-                                <h5>{{form.q3ReasonForAssessment}}</h5>
+                                <h5>Fridge Name: {{form.name}}</h5>
+                                <h5>AM/PM: {{form.timeAMPM}}</h5>
+                                <h5>Temp: {{form.temp}}°C</h5>
+                                <h5>Date: {{form.date}}</h5>
                             </div>
                         </div> 
                     </div>
