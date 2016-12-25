@@ -26,9 +26,7 @@ var Transport= require('./app/models/transport');
 var Temperature= require('./app/models/temperature');
 var Food= require('./app/models/food');
 
-
-
-//Some of Code modified from http://devdactic.com/restful-api-user-authentication-1
+//Some of user auth Code adapted from http://devdactic.com/restful-api-user-authentication-1
 
 //works but google suspend account
 /*var transporter = nodemailer.createTransport({
@@ -57,19 +55,7 @@ app.get('/', function(req, res) {
   res.send('Hello! The API is at http://localhost:' + port + '/api');
 });
 
-/*//Allows CORS
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});*/
-
-/*app.all('/', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-});*/
-
+//Allows CORS
 app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
@@ -104,8 +90,7 @@ apiRoutes.post('/signup', function(req, res) {
         return res.json({success: false, msg: 'Email already exists.'});
       }
       res.json({success: true, msg: 'Successful created new user.'});
-      //CreateDB for user here
-      //
+      //add new settings
 
     });
   }
@@ -642,7 +627,7 @@ apiRoutes.post('/hygieneInspection', passport.authenticate('jwt', { session: fal
           var hygieneInspection = new HygieneInspection();
 
           //add validation here for data coming from ionic to make sure is correct and has all required fields
-          var hygVal =hygInspectionValidation(req.body.date,req.body.frequency,req.body.name,req.body.position,req.body.sign,req.body.q1 ,req.body.q2,req.body.q3 ,req.body.q4,req.body.q5,req.body.q6,req.body.q7,req.body.q8,req.body.q9 ,req.body.q10,req.body.q21,req.body.q22,req.body.q23,req.body.q24,req.body.q25,req.body.q26,req.body.q27,req.body.q28,req.body.q29,req.body.q30,req.body.q31,req.body.q32,req.body.q33,req.body.q34,req.body.q35,req.body.q36,req.body.q37,req.body.q38,req.body.q39,req.body.q40,req.body.q41,req.body.q42,req.body.q43,req.body.q44,req.body.q45);
+          var hygVal =hygInspectionValidation(req.body.date,req.body.frequency,req.body.name,req.body.position,req.body.sign,req.body.q1 ,req.body.q2,req.body.q3 ,req.body.q4,req.body.q5,req.body.q6,req.body.q7,req.body.q8,req.body.q9 ,req.body.q10,req.body.q11,req.body.q12,req.body.q13,req.body.q14,req.body.q15,req.body.q16,req.body.q17,req.body.q18,req.body.q19,req.body.q20,req.body.q21,req.body.q22,req.body.q23,req.body.q24,req.body.q25,req.body.q26,req.body.q27,req.body.q28,req.body.q29,req.body.q30,req.body.q31,req.body.q32,req.body.q33,req.body.q34,req.body.q35,req.body.q36,req.body.q37,req.body.q38,req.body.q39,req.body.q40,req.body.q41,req.body.q42,req.body.q43,req.body.q44,req.body.q45);
 
           if (hygVal) {
             hygieneInspection.email=user.email;
@@ -835,7 +820,7 @@ apiRoutes.post('/transport', passport.authenticate('jwt', { session: false}), fu
           var transport = new Transport();
 
           //add validation here for data coming from ionic to make sure is correct and has all required fields
-          var transportVal =transportValidation(req.body.q1,req.body.q2);
+          var transportVal =transportValidation(req.body.date,req.body.food,req.body.batch,req.body.customer,req.body.separation,req.body.temp,req.body.sign,req.body.managersign);
 
           if (transportVal) {
             transport.email=user.email;
@@ -1323,7 +1308,164 @@ apiRoutes.get('/getFridgetemp', passport.authenticate('jwt', { session: false}),
 });
 //end getFridgetemp////////////////////////////////////////////////////////////////////
 
+apiRoutes.get('/getTransport', passport.authenticate('jwt', { session: false}), function(req, res) {
+  var token = getToken(req.headers);
+  if (token) {
+    var decoded = jwt.decode(token, config.secret);
+    User.findOne({
+      email: decoded.email
+    }, function(err, user) {
+        if (err) throw err;
+        if (!user) {
+          return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
+        } else {
+          //get Forms
+          Transport.
+            find({'email': decoded.email}, function (err, Transportforms) {
+              if(err) {
+                return res.status(403).send({success: false});
+                }
+              else{
+                //return forms
+                return res.status(200).json(Transportforms);
+              }
+            });//end getForms
 
+        }//end else
+    });
+  } else {
+    return res.status(403).send({success: false, msg: 'No token provided.'});
+  }
+});
+//end getTransport//////////////////////////////////////////////////////////////////////////////
+
+apiRoutes.get('/getTempRecords', passport.authenticate('jwt', { session: false}), function(req, res) {
+  var token = getToken(req.headers);
+  if (token) {
+    var decoded = jwt.decode(token, config.secret);
+    User.findOne({
+      email: decoded.email
+    }, function(err, user) {
+        if (err) throw err;
+        if (!user) {
+          return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
+        } else {
+          //get Forms
+          Temperature.
+            find({'email': decoded.email}, function (err, Temperatureforms) {
+              if(err) {
+                return res.status(403).send({success: false});
+                }
+              else{
+                //return forms
+                return res.status(200).json(Temperatureforms);
+              }
+            });//end getForms
+
+        }//end else
+    });
+  } else {
+    return res.status(403).send({success: false, msg: 'No token provided.'});
+  }
+});
+//end getTempRecords//////////////////////////////////////////////////////////////////////////////
+
+apiRoutes.get('/getHothold', passport.authenticate('jwt', { session: false}), function(req, res) {
+  var token = getToken(req.headers);
+  if (token) {
+    var decoded = jwt.decode(token, config.secret);
+    User.findOne({
+      email: decoded.email
+    }, function(err, user) {
+        if (err) throw err;
+        if (!user) {
+          return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
+        } else {
+          //get Forms
+          Hothold.
+            find({'email': decoded.email}, function (err, Hotholdforms) {
+              if(err) {
+                return res.status(403).send({success: false});
+                }
+              else{
+                //return forms
+                return res.status(200).json(Hotholdforms);
+              }
+            });//end getForms
+
+        }//end else
+    });
+  } else {
+    return res.status(403).send({success: false, msg: 'No token provided.'});
+  }
+});
+//end getHothold//////////////////////////////////////////////////////////////////////////////
+
+apiRoutes.get('/getHygieneInspection', passport.authenticate('jwt', { session: false}), function(req, res) {
+  var token = getToken(req.headers);
+  if (token) {
+    var decoded = jwt.decode(token, config.secret);
+    User.findOne({
+      email: decoded.email
+    }, function(err, user) {
+        if (err) throw err;
+        if (!user) {
+          return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
+        } else {
+          //get Forms
+          HygieneInspection.
+            find({'email': decoded.email}, function (err, HygieneInspectionforms) {
+              if(err) {
+                return res.status(403).send({success: false});
+                }
+              else{
+                //return forms
+                return res.status(200).json(HygieneInspectionforms);
+              }
+            });//end getForms
+
+        }//end else
+    });
+  } else {
+    return res.status(403).send({success: false, msg: 'No token provided.'});
+  }
+});
+//end getHygieneInspection//////////////////////////////////////////////////////////////////////////////
+
+apiRoutes.get('/getHygieneTraining', passport.authenticate('jwt', { session: false}), function(req, res) {
+  var token = getToken(req.headers);
+  if (token) {
+    var decoded = jwt.decode(token, config.secret);
+    User.findOne({
+      email: decoded.email
+    }, function(err, user) {
+        if (err) throw err;
+        if (!user) {
+          return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
+        } else {
+          //get Forms
+          HygieneTraining.
+            find({'email': decoded.email}, function (err, HygieneTrainingforms) {
+              if(err) {
+                return res.status(403).send({success: false});
+                }
+              else{
+                //return forms
+                return res.status(200).json(HygieneTrainingforms);
+              }
+            });//end getForms
+
+        }//end else
+    });
+  } else {
+    return res.status(403).send({success: false, msg: 'No token provided.'});
+  }
+});
+//end getHygieneInspection//////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+//Init + Start Server
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 // connect the api routes under /api/*
 app.use('/api', apiRoutes);
@@ -1332,8 +1474,9 @@ app.use('/api', apiRoutes);
 app.listen(port);
 console.log('Server live on: http://localhost:' + port);
 
-
-//Functions//////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+//Functions and Validation 
+////////////////////////////////////////////////////////////////////////////////////////////////
 getToken = function (headers) {
   if (headers && headers.authorization) {
     var parted = headers.authorization.split(' ');
@@ -1386,9 +1529,9 @@ function hotholdValidation(date,food,time,firstTemp,secondTemp,thirdTemp,comment
   }
 }//End hotholdValidation
 
-function hygInspectionValidation(date,frequency,name,position,sign,q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q21,q22,q23,q24,q25,q26,q27,q28,q29,q30,q31,q32,q33,q34,q35,q36,q37,q38,q39,q40,q41,q42,q43,q44,q45) {
+function hygInspectionValidation(date,frequency,name,position,sign,q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,q12,q13,q14,q15,q16,q17,q18,q19,q20,q21,q22,q23,q24,q25,q26,q27,q28,q29,q30,q31,q32,q33,q34,q35,q36,q37,q38,q39,q40,q41,q42,q43,q44,q45) {
     //||!frequency
-  if (!date||!name||!position||!sign||!q1||!q2||!q3||!q4||!q5||!q6||!q7||!q8||!q9||!q10||!q21||!q22||!q23||!q24||!q25||!q26||!q27||!q28||!q29||!q30||!q31||!q32||!q33||!q34||!q35||!q36||!q37||!q38||!q39||!q40||!q41||!q42||!q43||!q44||!q45) {
+  if (!date||!name||!position||!sign||!q1||!q2||!q3||!q4||!q5||!q6||!q7||!q8||!q9||!q10||!q11||!q12||!q13||!q14||!q15||!q16||!q17||!q18||!q19||!q20||!q21||!q22||!q23||!q24||!q25||!q26||!q27||!q28||!q29||!q30||!q31||!q32||!q33||!q34||!q35||!q36||!q37||!q38||!q39||!q40||!q41||!q42||!q43||!q44||!q45) {
       console.log(date,name,position,sign,q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q21,q22,q23,q24,q25,q26,q27,q28,q29,q30,q31,q32,q33,q34,q35,q36,q37,q38,q39,q40,q41,q42,q43,q44,q45);
     return false;
   }
@@ -1410,8 +1553,8 @@ function hygTrainingValidation( name,position,dateEmp,type,date,
   }
 }//End hygTrainingValidation
 
-function transportValidation(q1,q2) {
-  if (!q1||!q2) {
+function transportValidation(date,food,batch,customer,separation,temp,sign,managersign) {
+  if (!date||!food||!batch||!customer||!separation||!temp||!sign||!managersign) {
     return false;
   }
   else {
