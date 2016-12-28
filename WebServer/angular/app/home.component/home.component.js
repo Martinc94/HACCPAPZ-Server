@@ -9,20 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // System imports
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var HomeComponent = (function () {
     function HomeComponent() {
         this.title = "Haccpapz Home";
     }
-    HomeComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'home-page',
-            templateUrl: 'home.component.html'
-        }), 
-        __metadata('design:paramtypes', [])
-    ], HomeComponent);
     return HomeComponent;
 }());
+HomeComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'home-page',
+        templateUrl: 'home.component.html'
+    }),
+    __metadata("design:paramtypes", [])
+], HomeComponent);
 exports.HomeComponent = HomeComponent;
 //# sourceMappingURL=home.component.js.map

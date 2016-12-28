@@ -12,26 +12,22 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var Rx_1 = require("rxjs/Rx");
 require("../rxjs-operators");
-var TempService = (function () {
-    function TempService(http) {
+var FormService = (function () {
+    function FormService(http) {
         this.http = http;
         this.authHeader = new http_1.Headers();
-        this.url = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getFridgetemp';
+        //private url = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getFitnessToWork';
+        this.tempRecUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getTempRecords';
         // set token if saved in local storage
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser.token;
         this.authHeader.append('Authorization', this.token);
     }
-    TempService.prototype.getTempForms = function () {
-        return this.http.get(this.url, ({ headers: this.authHeader }))
-            .map(this.extractData)
-            .catch(this.handleError);
-    };
-    TempService.prototype.extractData = function (res) {
+    FormService.prototype.extractData = function (res) {
         var body = res.json();
         return body || {};
     };
-    TempService.prototype.handleError = function (error) {
+    FormService.prototype.handleError = function (error) {
         var errMsg;
         if (error instanceof http_1.Response) {
             var body = error.json() || '';
@@ -44,11 +40,16 @@ var TempService = (function () {
         console.error(errMsg);
         return Rx_1.Observable.throw(errMsg);
     };
-    return TempService;
+    FormService.prototype.getTempForms = function () {
+        return this.http.get(this.tempRecUrl, ({ headers: this.authHeader }))
+            .map(this.extractData)
+            .catch(this.handleError);
+    };
+    return FormService;
 }());
-TempService = __decorate([
+FormService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])
-], TempService);
-exports.TempService = TempService;
-//# sourceMappingURL=fridgeTemp.service.js.map
+], FormService);
+exports.FormService = FormService;
+//# sourceMappingURL=form.service.js.map

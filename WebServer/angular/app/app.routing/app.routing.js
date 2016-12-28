@@ -1,15 +1,17 @@
 "use strict";
-var router_1 = require('@angular/router');
+var router_1 = require("@angular/router");
 // page imports
-var auth_guard_1 = require('../guards/auth.guard');
-var home_component_1 = require('../home.component/home.component');
-var about_component_1 = require('../about.component/about.component');
-var login_component_1 = require('../login.component/login.component');
-var sign_up_component_1 = require('../sign-up.component/sign-up.component');
-var settings_component_1 = require('../settings.component/settings.component');
-var fitness_component_1 = require('../fitness.component/fitness.component');
-var fitness_detail_component_1 = require('../fitness.component/fitness-detail.component/fitness-detail.component');
-var fridgeTemp_component_1 = require('../fridgeTemp.component/fridgeTemp.component');
+var auth_guard_1 = require("../guards/auth.guard");
+var home_component_1 = require("../home.component/home.component");
+var about_component_1 = require("../about.component/about.component");
+var login_component_1 = require("../login.component/login.component");
+var sign_up_component_1 = require("../sign-up.component/sign-up.component");
+var settings_component_1 = require("../settings.component/settings.component");
+var fitness_component_1 = require("../fitness.component/fitness.component");
+var fitness_detail_component_1 = require("../fitness.component/fitness-detail.component/fitness-detail.component");
+var fridgeTemp_component_1 = require("../fridgeTemp.component/fridgeTemp.component");
+var tempRec_component_1 = require("../tempRecords.component/tempRec.component");
+var tempRec_detail_component_1 = require("../tempRecords.component/tempRec-detail.component/tempRec-detail.component");
 var appRoutes = [
     { path: 'login', component: login_component_1.LoginComponent },
     { path: '', component: home_component_1.HomeComponent, canActivate: [auth_guard_1.AuthGuard] },
@@ -20,6 +22,8 @@ var appRoutes = [
     { path: 'fitnesstowork', component: fitness_component_1.FitnessComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'fitnessform/:_id', component: fitness_detail_component_1.FitnessDetailComponent },
     { path: 'fridgetemp', component: fridgeTemp_component_1.FridgeTempComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'temprecords', component: tempRec_component_1.TempRecComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'temprecform/:_id', component: tempRec_detail_component_1.TempRecDetailComponent, canActivate: [auth_guard_1.AuthGuard] },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];

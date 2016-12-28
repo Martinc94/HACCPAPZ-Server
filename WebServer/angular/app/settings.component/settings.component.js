@@ -9,20 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // System imports
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var SettingsComponent = (function () {
     function SettingsComponent() {
         this.title = "Settings Page";
     }
-    SettingsComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'settings-page',
-            templateUrl: 'settings.component.html'
-        }), 
-        __metadata('design:paramtypes', [])
-    ], SettingsComponent);
     return SettingsComponent;
 }());
+SettingsComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'settings-page',
+        templateUrl: 'settings.component.html'
+    }),
+    __metadata("design:paramtypes", [])
+], SettingsComponent);
 exports.SettingsComponent = SettingsComponent;
 //# sourceMappingURL=settings.component.js.map

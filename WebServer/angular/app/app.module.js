@@ -8,63 +8,69 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var forms_1 = require('@angular/forms');
-var http_1 = require('@angular/http');
+var core_1 = require("@angular/core");
+var platform_browser_1 = require("@angular/platform-browser");
+var forms_1 = require("@angular/forms");
+var http_1 = require("@angular/http");
 //Pages
-var app_component_1 = require('./app.component');
-var home_component_1 = require('./home.component/home.component');
-var about_component_1 = require('./about.component/about.component');
-var login_component_1 = require('./login.component/login.component');
-var sign_up_component_1 = require('./sign-up.component/sign-up.component');
-var settings_component_1 = require('./settings.component/settings.component');
-var fitness_component_1 = require('./fitness.component/fitness.component');
-var fitness_detail_component_1 = require('./fitness.component/fitness-detail.component/fitness-detail.component');
-var fridgeTemp_component_1 = require('./fridgeTemp.component/fridgeTemp.component');
+var app_component_1 = require("./app.component");
+var home_component_1 = require("./home.component/home.component");
+var about_component_1 = require("./about.component/about.component");
+var login_component_1 = require("./login.component/login.component");
+var sign_up_component_1 = require("./sign-up.component/sign-up.component");
+var settings_component_1 = require("./settings.component/settings.component");
+var fitness_component_1 = require("./fitness.component/fitness.component");
+var fitness_detail_component_1 = require("./fitness.component/fitness-detail.component/fitness-detail.component");
+var fridgeTemp_component_1 = require("./fridgeTemp.component/fridgeTemp.component");
+var tempRec_component_1 = require("./tempRecords.component/tempRec.component");
+var tempRec_detail_component_1 = require("./tempRecords.component/tempRec-detail.component/tempRec-detail.component");
 //Services
-var app_routing_1 = require('./app.routing/app.routing');
+var app_routing_1 = require("./app.routing/app.routing");
 //handles login and authenticaton
-var auth_guard_1 = require('./guards/auth.guard');
-var user_service_1 = require('./testservice/user.service');
-var login_service_1 = require('./login.component/login.service');
+var auth_guard_1 = require("./guards/auth.guard");
+var user_service_1 = require("./testservice/user.service");
+var login_service_1 = require("./login.component/login.service");
 //form services
-var fitness_service_1 = require('./fitness.component/fitness.service');
-var fridgeTemp_service_1 = require('./fridgeTemp.component/fridgeTemp.service');
+var fitness_service_1 = require("./fitness.component/fitness.service");
+var fridgeTemp_service_1 = require("./fridgeTemp.component/fridgeTemp.service");
+var form_service_1 = require("./FormService/form.service");
 var AppModule = (function () {
     function AppModule() {
     }
-    AppModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                platform_browser_1.BrowserModule,
-                forms_1.FormsModule,
-                http_1.HttpModule,
-                app_routing_1.routing
-            ],
-            declarations: [
-                app_component_1.AppComponent,
-                home_component_1.HomeComponent,
-                about_component_1.AboutComponent,
-                login_component_1.LoginComponent,
-                sign_up_component_1.SignUpComponent,
-                settings_component_1.SettingsComponent,
-                fitness_component_1.FitnessComponent,
-                fitness_detail_component_1.FitnessDetailComponent,
-                fridgeTemp_component_1.FridgeTempComponent,
-            ],
-            providers: [
-                auth_guard_1.AuthGuard,
-                login_service_1.AuthenticationService,
-                user_service_1.UserService,
-                fitness_service_1.FitnessService,
-                fridgeTemp_service_1.TempService,
-            ],
-            bootstrap: [app_component_1.AppComponent]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AppModule);
     return AppModule;
 }());
+AppModule = __decorate([
+    core_1.NgModule({
+        imports: [
+            platform_browser_1.BrowserModule,
+            forms_1.FormsModule,
+            http_1.HttpModule,
+            app_routing_1.routing
+        ],
+        declarations: [
+            app_component_1.AppComponent,
+            home_component_1.HomeComponent,
+            about_component_1.AboutComponent,
+            login_component_1.LoginComponent,
+            sign_up_component_1.SignUpComponent,
+            settings_component_1.SettingsComponent,
+            fitness_component_1.FitnessComponent,
+            fitness_detail_component_1.FitnessDetailComponent,
+            fridgeTemp_component_1.FridgeTempComponent,
+            tempRec_component_1.TempRecComponent,
+            tempRec_detail_component_1.TempRecDetailComponent,
+        ],
+        providers: [
+            auth_guard_1.AuthGuard,
+            login_service_1.AuthenticationService,
+            user_service_1.UserService,
+            fitness_service_1.FitnessService,
+            fridgeTemp_service_1.TempService,
+            form_service_1.FormService,
+        ],
+        bootstrap: [app_component_1.AppComponent]
+    }),
+    __metadata("design:paramtypes", [])
+], AppModule);
 exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map

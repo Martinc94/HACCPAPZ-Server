@@ -10,31 +10,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var fridgeTemp_service_1 = require("../fridgeTemp.component/fridgeTemp.service");
+var form_service_1 = require("../FormService/form.service");
 require("../rxjs-operators");
-var FridgeTempComponent = (function () {
-    function FridgeTempComponent(router, tempService) {
+var TempRecComponent = (function () {
+    function TempRecComponent(router, formService) {
         this.router = router;
-        this.tempService = tempService;
+        this.formService = formService;
         this.mode = 'Observable';
     }
-    FridgeTempComponent.prototype.ngOnInit = function () {
-        this.getTempForms();
+    TempRecComponent.prototype.ngOnInit = function () {
+        this.getForms();
     };
-    FridgeTempComponent.prototype.getTempForms = function () {
+    TempRecComponent.prototype.getForms = function () {
         var _this = this;
-        this.tempService.getTempForms().subscribe(function (temp) { return _this.tempForms = temp; }, function (error) { return _this.errorMessage = error; });
+        this.formService.getTempForms().subscribe(function (temp) { return _this.tempForms = temp; }, function (error) { return _this.errorMessage = error; });
     }; //end getTempForms
-    return FridgeTempComponent;
+    //view form
+    TempRecComponent.prototype.gotoDetail = function (tempRec) {
+        var link = ['/temprecform', tempRec._id];
+        this.router.navigate(link);
+    };
+    return TempRecComponent;
 }());
-FridgeTempComponent = __decorate([
+TempRecComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        selector: 'fridgeTemp',
-        templateUrl: 'fridgeTemp.component.html'
+        selector: 'TempRec',
+        templateUrl: 'tempRec.component.html'
     }),
     __metadata("design:paramtypes", [router_1.Router,
-        fridgeTemp_service_1.TempService])
-], FridgeTempComponent);
-exports.FridgeTempComponent = FridgeTempComponent;
-//# sourceMappingURL=fridgeTemp.component.js.map
+        form_service_1.FormService])
+], TempRecComponent);
+exports.TempRecComponent = TempRecComponent;
+//# sourceMappingURL=TempRec.component.js.map

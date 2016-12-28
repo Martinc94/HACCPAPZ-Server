@@ -8,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var fitness_service_1 = require('../fitness.component/fitness.service');
-require('../rxjs-operators');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var fitness_service_1 = require("../fitness.component/fitness.service");
+require("../rxjs-operators");
 var FitnessComponent = (function () {
     function FitnessComponent(router, fitnessService) {
         this.router = router;
@@ -30,15 +30,16 @@ var FitnessComponent = (function () {
         var link = ['/fitnessform', fitness._id];
         this.router.navigate(link);
     };
-    FitnessComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'fitness',
-            templateUrl: 'fitness.component.html'
-        }), 
-        __metadata('design:paramtypes', [router_1.Router, fitness_service_1.FitnessService])
-    ], FitnessComponent);
     return FitnessComponent;
 }());
+FitnessComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'fitness',
+        templateUrl: 'fitness.component.html'
+    }),
+    __metadata("design:paramtypes", [router_1.Router,
+        fitness_service_1.FitnessService])
+], FitnessComponent);
 exports.FitnessComponent = FitnessComponent;
 //# sourceMappingURL=fitness.component.js.map
