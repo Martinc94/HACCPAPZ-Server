@@ -24,6 +24,10 @@ var fitness_detail_component_1 = require("./fitness.component/fitness-detail.com
 var fridgeTemp_component_1 = require("./fridgeTemp.component/fridgeTemp.component");
 var tempRec_component_1 = require("./tempRecords.component/tempRec.component");
 var tempRec_detail_component_1 = require("./tempRecords.component/tempRec-detail.component/tempRec-detail.component");
+var hothold_component_1 = require("./hothold.component/hothold.component");
+var hothold_detail_component_1 = require("./hothold.component/hothold-detail.component/hothold-detail.component");
+var hygIns_component_1 = require("./hygIns.component/hygIns.component");
+var hygIns_detail_component_1 = require("./hygIns.component/hygIns-detail.component/hygIns-detail.component");
 //Services
 var app_routing_1 = require("./app.routing/app.routing");
 //handles login and authenticaton
@@ -59,6 +63,10 @@ AppModule = __decorate([
             fridgeTemp_component_1.FridgeTempComponent,
             tempRec_component_1.TempRecComponent,
             tempRec_detail_component_1.TempRecDetailComponent,
+            hothold_component_1.HotholdComponent,
+            hothold_detail_component_1.HotholdDetailComponent,
+            hygIns_component_1.HygInsComponent,
+            hygIns_detail_component_1.HygInsDetailComponent,
         ],
         providers: [
             auth_guard_1.AuthGuard,

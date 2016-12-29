@@ -12,34 +12,34 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var form_service_1 = require("../FormService/form.service");
 require("../rxjs-operators");
-var TempRecComponent = (function () {
-    function TempRecComponent(router, formService) {
+var HygInsComponent = (function () {
+    function HygInsComponent(router, formService) {
         this.router = router;
         this.formService = formService;
         this.mode = 'Observable';
     }
-    TempRecComponent.prototype.ngOnInit = function () {
+    HygInsComponent.prototype.ngOnInit = function () {
         this.getForms();
     };
-    TempRecComponent.prototype.getForms = function () {
+    HygInsComponent.prototype.getForms = function () {
         var _this = this;
-        this.formService.getTempForms().subscribe(function (temp) { return _this.tempForms = temp; }, function (error) { return _this.errorMessage = error; });
-    }; //end getTempForms
+        this.formService.getHygInsForms().subscribe(function (temp) { return _this.hygInsForms = temp; }, function (error) { return _this.errorMessage = error; });
+    }; //end getForms
     //view form
-    TempRecComponent.prototype.gotoDetail = function (tempRec) {
-        var link = ['/temprecform', tempRec._id];
+    HygInsComponent.prototype.gotoDetail = function (hygIns) {
+        var link = ['/hygInsform', hygIns._id];
         this.router.navigate(link);
     };
-    return TempRecComponent;
+    return HygInsComponent;
 }());
-TempRecComponent = __decorate([
+HygInsComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        selector: 'TempRec',
-        templateUrl: 'tempRec.component.html'
+        selector: 'HygIns',
+        templateUrl: 'hygIns.component.html'
     }),
     __metadata("design:paramtypes", [router_1.Router,
         form_service_1.FormService])
-], TempRecComponent);
-exports.TempRecComponent = TempRecComponent;
-//# sourceMappingURL=tempRec.component.js.map
+], HygInsComponent);
+exports.HygInsComponent = HygInsComponent;
+//# sourceMappingURL=hygIns.component.js.map

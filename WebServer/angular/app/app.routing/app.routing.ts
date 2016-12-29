@@ -15,6 +15,10 @@ import { FitnessDetailComponent }   from '../fitness.component/fitness-detail.co
 import { FridgeTempComponent }      from '../fridgeTemp.component/fridgeTemp.component';
 import { TempRecComponent }         from '../tempRecords.component/tempRec.component';
 import { TempRecDetailComponent }   from '../tempRecords.component/tempRec-detail.component/tempRec-detail.component';
+import { HotholdComponent }         from '../hothold.component/hothold.component';
+import { HotholdDetailComponent }   from '../hothold.component/hothold-detail.component/hothold-detail.component';
+import { HygInsComponent }         from '../hygIns.component/hygIns.component';
+import { HygInsDetailComponent }   from '../hygIns.component/hygIns-detail.component/hygIns-detail.component';
 
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -28,13 +32,18 @@ const appRoutes: Routes = [
     { path: 'fridgetemp', component: FridgeTempComponent, canActivate: [AuthGuard] },
     { path: 'temprecords', component: TempRecComponent, canActivate: [AuthGuard] },
     { path: 'temprecform/:_id',component: TempRecDetailComponent, canActivate: [AuthGuard] },
+    { path: 'hothold', component: HotholdComponent, canActivate: [AuthGuard] },
+    { path: 'hotholdform/:_id',component: HotholdDetailComponent, canActivate: [AuthGuard] },
+    { path: 'hygieneIns', component: HygInsComponent, canActivate: [AuthGuard] },
+    { path: 'hygInsform/:_id',component: HygInsDetailComponent, canActivate: [AuthGuard] },
 
+    //Not Implemented
+    { path: 'hygieneTraining', component: HomeComponent, canActivate: [AuthGuard] },
+    { path: 'transport', component: HomeComponent, canActivate: [AuthGuard] },
+    
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
-    
-    
-    
-    
+
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

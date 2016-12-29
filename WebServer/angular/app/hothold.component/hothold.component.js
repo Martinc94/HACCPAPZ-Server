@@ -12,34 +12,34 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var form_service_1 = require("../FormService/form.service");
 require("../rxjs-operators");
-var TempRecComponent = (function () {
-    function TempRecComponent(router, formService) {
+var HotholdComponent = (function () {
+    function HotholdComponent(router, formService) {
         this.router = router;
         this.formService = formService;
         this.mode = 'Observable';
     }
-    TempRecComponent.prototype.ngOnInit = function () {
+    HotholdComponent.prototype.ngOnInit = function () {
         this.getForms();
     };
-    TempRecComponent.prototype.getForms = function () {
+    HotholdComponent.prototype.getForms = function () {
         var _this = this;
-        this.formService.getTempForms().subscribe(function (temp) { return _this.tempForms = temp; }, function (error) { return _this.errorMessage = error; });
-    }; //end getTempForms
+        this.formService.getHotholdForms().subscribe(function (form) { return _this.hotholdForms = form; }, function (error) { return _this.errorMessage = error; });
+    }; //end getForms
     //view form
-    TempRecComponent.prototype.gotoDetail = function (tempRec) {
-        var link = ['/temprecform', tempRec._id];
+    HotholdComponent.prototype.gotoDetail = function (hothold) {
+        var link = ['/hotholdform', hothold._id];
         this.router.navigate(link);
     };
-    return TempRecComponent;
+    return HotholdComponent;
 }());
-TempRecComponent = __decorate([
+HotholdComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        selector: 'TempRec',
-        templateUrl: 'tempRec.component.html'
+        selector: 'Hothold',
+        templateUrl: 'hothold.component.html'
     }),
     __metadata("design:paramtypes", [router_1.Router,
         form_service_1.FormService])
-], TempRecComponent);
-exports.TempRecComponent = TempRecComponent;
-//# sourceMappingURL=tempRec.component.js.map
+], HotholdComponent);
+exports.HotholdComponent = HotholdComponent;
+//# sourceMappingURL=hothold.component.js.map

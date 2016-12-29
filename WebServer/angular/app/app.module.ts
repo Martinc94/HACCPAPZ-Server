@@ -18,6 +18,11 @@ import { FitnessDetailComponent }   from './fitness.component/fitness-detail.com
 import { FridgeTempComponent }      from './fridgeTemp.component/fridgeTemp.component';
 import { TempRecComponent }         from './tempRecords.component/tempRec.component';
 import { TempRecDetailComponent }   from './tempRecords.component/tempRec-detail.component/tempRec-detail.component';
+import { HotholdComponent }         from './hothold.component/hothold.component';
+import { HotholdDetailComponent }   from './hothold.component/hothold-detail.component/hothold-detail.component';
+import { HygInsComponent }         from './hygIns.component/hygIns.component';
+import { HygInsDetailComponent }   from './hygIns.component/hygIns-detail.component/hygIns-detail.component';
+
 
 //Services
 import { routing }          from './app.routing/app.routing';
@@ -49,6 +54,10 @@ import { FormService }       from './FormService/form.service';
         FridgeTempComponent,
         TempRecComponent,
         TempRecDetailComponent,
+        HotholdComponent,
+        HotholdDetailComponent,
+        HygInsComponent,
+        HygInsDetailComponent,
     ],
     providers: [
         AuthGuard,

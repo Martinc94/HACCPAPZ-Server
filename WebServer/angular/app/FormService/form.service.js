@@ -16,8 +16,11 @@ var FormService = (function () {
     function FormService(http) {
         this.http = http;
         this.authHeader = new http_1.Headers();
-        //private url = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getFitnessToWork';
+        //Urls
         this.tempRecUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getTempRecords';
+        this.hotholdUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getHothold';
+        this.hygieneInsUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getHygieneInspection';
+        this.hygieneTrainUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getHygieneTraining';
         // set token if saved in local storage
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser.token;
@@ -42,6 +45,21 @@ var FormService = (function () {
     };
     FormService.prototype.getTempForms = function () {
         return this.http.get(this.tempRecUrl, ({ headers: this.authHeader }))
+            .map(this.extractData)
+            .catch(this.handleError);
+    };
+    FormService.prototype.getHotholdForms = function () {
+        return this.http.get(this.hotholdUrl, ({ headers: this.authHeader }))
+            .map(this.extractData)
+            .catch(this.handleError);
+    };
+    FormService.prototype.getHygInsForms = function () {
+        return this.http.get(this.hygieneInsUrl, ({ headers: this.authHeader }))
+            .map(this.extractData)
+            .catch(this.handleError);
+    };
+    FormService.prototype.getHygTrainForms = function () {
+        return this.http.get(this.hygieneTrainUrl, ({ headers: this.authHeader }))
             .map(this.extractData)
             .catch(this.handleError);
     };

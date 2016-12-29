@@ -12,6 +12,10 @@ var fitness_detail_component_1 = require("../fitness.component/fitness-detail.co
 var fridgeTemp_component_1 = require("../fridgeTemp.component/fridgeTemp.component");
 var tempRec_component_1 = require("../tempRecords.component/tempRec.component");
 var tempRec_detail_component_1 = require("../tempRecords.component/tempRec-detail.component/tempRec-detail.component");
+var hothold_component_1 = require("../hothold.component/hothold.component");
+var hothold_detail_component_1 = require("../hothold.component/hothold-detail.component/hothold-detail.component");
+var hygIns_component_1 = require("../hygIns.component/hygIns.component");
+var hygIns_detail_component_1 = require("../hygIns.component/hygIns-detail.component/hygIns-detail.component");
 var appRoutes = [
     { path: 'login', component: login_component_1.LoginComponent },
     { path: '', component: home_component_1.HomeComponent, canActivate: [auth_guard_1.AuthGuard] },
@@ -24,6 +28,13 @@ var appRoutes = [
     { path: 'fridgetemp', component: fridgeTemp_component_1.FridgeTempComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'temprecords', component: tempRec_component_1.TempRecComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'temprecform/:_id', component: tempRec_detail_component_1.TempRecDetailComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'hothold', component: hothold_component_1.HotholdComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'hotholdform/:_id', component: hothold_detail_component_1.HotholdDetailComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'hygieneIns', component: hygIns_component_1.HygInsComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'hygInsform/:_id', component: hygIns_detail_component_1.HygInsDetailComponent, canActivate: [auth_guard_1.AuthGuard] },
+    //Not Implemented
+    { path: 'hygieneTraining', component: home_component_1.HomeComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'transport', component: home_component_1.HomeComponent, canActivate: [auth_guard_1.AuthGuard] },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];

@@ -2,14 +2,21 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import {Observable} from 'rxjs/Rx'
 import '../rxjs-operators';
-import { TempRec} from '../classes/TempRec/TempRec';
+import {TempRec} from '../classes/TempRec/TempRec';
+import {Hothold} from '../classes/Hothold/Hothold';
+import {HygIns} from '../classes/HygIns/HygIns';
+import {HygTrain} from '../classes/HygTrain/HygTrain';
+
  
 @Injectable()
 export class FormService {
     public token: string;
     private authHeader = new Headers();
-    //private url = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getFitnessToWork';
+    //Urls
     private tempRecUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getTempRecords';
+    private hotholdUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getHothold';
+    private hygieneInsUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getHygieneInspection';
+    private hygieneTrainUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getHygieneTraining';
     
     constructor(private http: Http) {
         // set token if saved in local storage
@@ -41,6 +48,24 @@ export class FormService {
         return this.http.get(this.tempRecUrl,({ headers: this.authHeader}))
                         .map(this.extractData)
                         .catch(this.handleError);
-      }
+    }
+
+    getHotholdForms (): Observable<Hothold[]> {
+        return this.http.get(this.hotholdUrl,({ headers: this.authHeader}))
+                        .map(this.extractData)
+                        .catch(this.handleError);
+    }
+
+    getHygInsForms (): Observable<HygIns[]> {
+        return this.http.get(this.hygieneInsUrl,({ headers: this.authHeader}))
+                        .map(this.extractData)
+                        .catch(this.handleError);
+    }
+
+    getHygTrainForms (): Observable<HygTrain[]> {
+        return this.http.get(this.hygieneTrainUrl,({ headers: this.authHeader}))
+                        .map(this.extractData)
+                        .catch(this.handleError);
+    }
    
 }
