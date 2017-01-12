@@ -6,6 +6,7 @@ import {TempRec} from '../classes/TempRec/TempRec';
 import {Hothold} from '../classes/Hothold/Hothold';
 import {HygIns} from '../classes/HygIns/HygIns';
 import {HygTrain} from '../classes/HygTrain/HygTrain';
+import {Transport} from '../classes/Transport/Transport';
 
  
 @Injectable()
@@ -17,6 +18,7 @@ export class FormService {
     private hotholdUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getHothold';
     private hygieneInsUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getHygieneInspection';
     private hygieneTrainUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getHygieneTraining';
+    private transportUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getTransport';
     
     constructor(private http: Http) {
         // set token if saved in local storage
@@ -64,6 +66,12 @@ export class FormService {
 
     getHygTrainForms (): Observable<HygTrain[]> {
         return this.http.get(this.hygieneTrainUrl,({ headers: this.authHeader}))
+                        .map(this.extractData)
+                        .catch(this.handleError);
+    }
+
+    getTransportForms (): Observable<Transport[]> {
+        return this.http.get(this.transportUrl,({ headers: this.authHeader}))
                         .map(this.extractData)
                         .catch(this.handleError);
     }

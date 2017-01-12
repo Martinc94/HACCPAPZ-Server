@@ -30,6 +30,9 @@ var hygIns_component_1 = require("./hygIns.component/hygIns.component");
 var hygIns_detail_component_1 = require("./hygIns.component/hygIns-detail.component/hygIns-detail.component");
 var hygTra_component_1 = require("./hygTra.component/hygTra.component");
 var hygTra_detail_component_1 = require("./hygTra.component/hygTra-detail.component/hygTra-detail.component");
+var transport_component_1 = require("./transport.component/transport.component");
+var transport_detail_component_1 = require("./transport.component/transport-detail.component/transport-detail.component");
+var dashboard_component_1 = require("./dashboard.component/dashboard.component");
 //Services
 var app_routing_1 = require("./app.routing/app.routing");
 //handles login and authenticaton
@@ -71,6 +74,9 @@ AppModule = __decorate([
             hygIns_detail_component_1.HygInsDetailComponent,
             hygTra_component_1.hygTraComponent,
             hygTra_detail_component_1.HygTraDetailComponent,
+            transport_component_1.TransportComponent,
+            transport_detail_component_1.TransportDetailComponent,
+            dashboard_component_1.DashboardComponent,
         ],
         providers: [
             auth_guard_1.AuthGuard,

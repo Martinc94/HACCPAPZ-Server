@@ -8,10 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+// System imports
 var core_1 = require("@angular/core");
-var AppComponent = (function () {
-    function AppComponent() {
-        this.title = 'haccpapz';
+var DashboardComponent = (function () {
+    function DashboardComponent() {
+        this.title = "User Dashboard";
         try {
             var currentUser = JSON.parse(localStorage.getItem('currentUser'));
             this.userName = currentUser.username;
@@ -20,16 +21,15 @@ var AppComponent = (function () {
             this.userName = null;
         }
     }
-    return AppComponent;
+    return DashboardComponent;
 }());
-AppComponent = __decorate([
+DashboardComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        selector: 'my-app',
-        templateUrl: 'app.component.html',
-        styleUrls: ['app.component.css']
+        selector: 'dashboard-page',
+        templateUrl: 'dashboard.component.html'
     }),
     __metadata("design:paramtypes", [])
-], AppComponent);
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+], DashboardComponent);
+exports.DashboardComponent = DashboardComponent;
+//# sourceMappingURL=dashboard.component.js.map

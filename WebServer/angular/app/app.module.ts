@@ -24,7 +24,9 @@ import { HygInsComponent }         from './hygIns.component/hygIns.component';
 import { HygInsDetailComponent }   from './hygIns.component/hygIns-detail.component/hygIns-detail.component';
 import { hygTraComponent }         from './hygTra.component/hygTra.component';
 import { HygTraDetailComponent }   from './hygTra.component/hygTra-detail.component/hygTra-detail.component';
-
+import { TransportComponent }         from './transport.component/transport.component';
+import { TransportDetailComponent }   from './transport.component/transport-detail.component/transport-detail.component';
+import { DashboardComponent }          from './dashboard.component/dashboard.component';
 
 //Services
 import { routing }          from './app.routing/app.routing';
@@ -62,6 +64,9 @@ import { FormService }       from './FormService/form.service';
         HygInsDetailComponent,
         hygTraComponent,
         HygTraDetailComponent,
+        TransportComponent,
+        TransportDetailComponent,
+        DashboardComponent,
     ],
     providers: [
         AuthGuard,

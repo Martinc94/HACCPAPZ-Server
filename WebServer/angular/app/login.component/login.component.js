@@ -30,7 +30,7 @@ var LoginComponent = (function () {
             .subscribe(function (result) {
             if (result === true) {
                 // login successful
-                _this.router.navigate(['/']);
+                _this.router.navigate(['/dashboard']);
             }
             else {
                 // login failed

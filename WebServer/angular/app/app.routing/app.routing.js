@@ -18,6 +18,9 @@ var hygIns_component_1 = require("../hygIns.component/hygIns.component");
 var hygIns_detail_component_1 = require("../hygIns.component/hygIns-detail.component/hygIns-detail.component");
 var hygTra_component_1 = require("../hygTra.component/hygTra.component");
 var hygTra_detail_component_1 = require("../hygTra.component/hygTra-detail.component/hygTra-detail.component");
+var transport_component_1 = require("../transport.component/transport.component");
+var transport_detail_component_1 = require("../transport.component/transport-detail.component/transport-detail.component");
+var dashboard_component_1 = require("../dashboard.component/dashboard.component");
 var appRoutes = [
     { path: 'login', component: login_component_1.LoginComponent },
     { path: '', component: home_component_1.HomeComponent, canActivate: [auth_guard_1.AuthGuard] },
@@ -36,9 +39,10 @@ var appRoutes = [
     { path: 'hygInsform/:_id', component: hygIns_detail_component_1.HygInsDetailComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'hygieneTraining', component: hygTra_component_1.hygTraComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'hygtraform/:_id', component: hygTra_detail_component_1.HygTraDetailComponent, canActivate: [auth_guard_1.AuthGuard] },
-    //Not Implemented
-    { path: 'transport', component: home_component_1.HomeComponent, canActivate: [auth_guard_1.AuthGuard] },
-    //FoodAndDelivery
+    { path: 'transport', component: transport_component_1.TransportComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'transportform/:_id', component: transport_detail_component_1.TransportDetailComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'dashboard', component: dashboard_component_1.DashboardComponent, canActivate: [auth_guard_1.AuthGuard] },
+    //Add FoodAndDelivery
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];

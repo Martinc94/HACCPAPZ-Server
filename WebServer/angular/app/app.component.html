@@ -35,19 +35,18 @@
           </ul>
         </li>
         <li><a href="/settings">Settings</a></li>
+        <li><a href="/dashboard">User Dashboard</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-  
-        <li><a>{{userName}}</a></li>
+        <li><a href="/dashboard">{{userName}}</a></li>
         <li><a *ngIf="this.userName === null" href="/login">Login</a></li>
         <li><a *ngIf="this.userName !== null" href="/login">Logout</a></li>
-        
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
+  </div>
 </nav>
- 
+
   <div class="container-fluid" style="margin-top: 70px;">
   <router-outlet></router-outlet>
 </div>

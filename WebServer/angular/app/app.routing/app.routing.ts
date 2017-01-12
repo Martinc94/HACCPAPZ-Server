@@ -21,6 +21,10 @@ import { HygInsComponent }         from '../hygIns.component/hygIns.component';
 import { HygInsDetailComponent }   from '../hygIns.component/hygIns-detail.component/hygIns-detail.component';
 import { hygTraComponent }         from '../hygTra.component/hygTra.component';
 import { HygTraDetailComponent }   from '../hygTra.component/hygTra-detail.component/hygTra-detail.component';
+import { TransportComponent }         from '../transport.component/transport.component';
+import { TransportDetailComponent }   from '../transport.component/transport-detail.component/transport-detail.component';
+import { DashboardComponent }          from '../dashboard.component/dashboard.component';
+
 
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -40,10 +44,11 @@ const appRoutes: Routes = [
     { path: 'hygInsform/:_id',component: HygInsDetailComponent, canActivate: [AuthGuard] },
     { path: 'hygieneTraining', component: hygTraComponent, canActivate: [AuthGuard] },
     { path: 'hygtraform/:_id',component: HygTraDetailComponent, canActivate: [AuthGuard] },
-
-    //Not Implemented
-    { path: 'transport', component: HomeComponent, canActivate: [AuthGuard] },
-    //FoodAndDelivery
+    { path: 'transport', component: TransportComponent, canActivate: [AuthGuard] },
+    { path: 'transportform/:_id',component: TransportDetailComponent, canActivate: [AuthGuard] },
+    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+    
+    //Add FoodAndDelivery
     
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
