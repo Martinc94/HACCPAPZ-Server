@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TempService } from '../fridgeTemp.component/fridgeTemp.service';
+import { FormService } from '../FormService/form.service';
 import { Temp} from '../classes/Temp/temp';
 import '../rxjs-operators';
 
@@ -19,7 +19,7 @@ export class FridgeTempComponent implements OnInit {
     
 
     constructor(private router: Router,
-            private tempService: TempService){
+            private formService: FormService){
     }
 
     ngOnInit() {
@@ -27,7 +27,7 @@ export class FridgeTempComponent implements OnInit {
     }
 
     getTempForms(){
-        this.tempService.getTempForms(
+        this.formService.getFridgeTempForms(
         ).subscribe(
             temp => this.tempForms = temp,
             error =>  this.errorMessage = <any>error);

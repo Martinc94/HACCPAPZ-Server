@@ -34,14 +34,14 @@ var transport_component_1 = require("./transport.component/transport.component")
 var transport_detail_component_1 = require("./transport.component/transport-detail.component/transport-detail.component");
 var dashboard_component_1 = require("./dashboard.component/dashboard.component");
 //Services
+//////////////////////////////////////////////////////////////
+//Handles Routing
 var app_routing_1 = require("./app.routing/app.routing");
-//handles login and authenticaton
+//login and authenticaton services
 var auth_guard_1 = require("./guards/auth.guard");
 var user_service_1 = require("./testservice/user.service");
 var login_service_1 = require("./login.component/login.service");
-//form services
-var fitness_service_1 = require("./fitness.component/fitness.service");
-var fridgeTemp_service_1 = require("./fridgeTemp.component/fridgeTemp.service");
+//form service
 var form_service_1 = require("./FormService/form.service");
 var AppModule = (function () {
     function AppModule() {
@@ -82,8 +82,6 @@ AppModule = __decorate([
             auth_guard_1.AuthGuard,
             login_service_1.AuthenticationService,
             user_service_1.UserService,
-            fitness_service_1.FitnessService,
-            fridgeTemp_service_1.TempService,
             form_service_1.FormService,
         ],
         bootstrap: [app_component_1.AppComponent]

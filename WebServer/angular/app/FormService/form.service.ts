@@ -7,7 +7,8 @@ import {Hothold} from '../classes/Hothold/Hothold';
 import {HygIns} from '../classes/HygIns/HygIns';
 import {HygTrain} from '../classes/HygTrain/HygTrain';
 import {Transport} from '../classes/Transport/Transport';
-
+import {Fitness} from '../classes/Fitness/fitness';
+import {Temp} from '../classes/Temp/temp';
  
 @Injectable()
 export class FormService {
@@ -19,7 +20,9 @@ export class FormService {
     private hygieneInsUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getHygieneInspection';
     private hygieneTrainUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getHygieneTraining';
     private transportUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getTransport';
-    
+    private fitnessUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getFitnessToWork';
+    private fridgeTempUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getFridgetemp';
+
     constructor(private http: Http) {
         // set token if saved in local storage
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -72,6 +75,18 @@ export class FormService {
 
     getTransportForms (): Observable<Transport[]> {
         return this.http.get(this.transportUrl,({ headers: this.authHeader}))
+                        .map(this.extractData)
+                        .catch(this.handleError);
+    }
+
+    getFitnessForms (): Observable<Fitness[]> {
+        return this.http.get(this.fitnessUrl,({ headers: this.authHeader}))
+                        .map(this.extractData)
+                        .catch(this.handleError);
+    }
+
+    getFridgeTempForms (): Observable<Temp[]> {
+        return this.http.get(this.fridgeTempUrl,({ headers: this.authHeader}))
                         .map(this.extractData)
                         .catch(this.handleError);
     }

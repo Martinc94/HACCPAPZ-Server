@@ -22,6 +22,8 @@ var FormService = (function () {
         this.hygieneInsUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getHygieneInspection';
         this.hygieneTrainUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getHygieneTraining';
         this.transportUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getTransport';
+        this.fitnessUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getFitnessToWork';
+        this.fridgeTempUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getFridgetemp';
         // set token if saved in local storage
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser.token;
@@ -66,6 +68,16 @@ var FormService = (function () {
     };
     FormService.prototype.getTransportForms = function () {
         return this.http.get(this.transportUrl, ({ headers: this.authHeader }))
+            .map(this.extractData)
+            .catch(this.handleError);
+    };
+    FormService.prototype.getFitnessForms = function () {
+        return this.http.get(this.fitnessUrl, ({ headers: this.authHeader }))
+            .map(this.extractData)
+            .catch(this.handleError);
+    };
+    FormService.prototype.getFridgeTempForms = function () {
+        return this.http.get(this.fridgeTempUrl, ({ headers: this.authHeader }))
             .map(this.extractData)
             .catch(this.handleError);
     };

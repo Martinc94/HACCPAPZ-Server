@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FitnessService } from '../fitness.component/fitness.service';
+import { FormService } from '../FormService/form.service';
 import { Fitness} from '../classes/Fitness/fitness';
 import '../rxjs-operators';
 
@@ -19,7 +19,7 @@ export class FitnessComponent implements OnInit {
     
 
     constructor(private router: Router,
-            private fitnessService: FitnessService){
+            private formService: FormService){
     }
 
     ngOnInit() {
@@ -27,7 +27,7 @@ export class FitnessComponent implements OnInit {
     }
 
     getFitnessForms(){
-        this.fitnessService.getFitnessForms(
+        this.formService.getFitnessForms(
         ).subscribe(
             fitness => this.fitnessForms = fitness,
             error =>  this.errorMessage = <any>error);

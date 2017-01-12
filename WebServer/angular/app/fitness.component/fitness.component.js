@@ -10,12 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var fitness_service_1 = require("../fitness.component/fitness.service");
+var form_service_1 = require("../FormService/form.service");
 require("../rxjs-operators");
 var FitnessComponent = (function () {
-    function FitnessComponent(router, fitnessService) {
+    function FitnessComponent(router, formService) {
         this.router = router;
-        this.fitnessService = fitnessService;
+        this.formService = formService;
         this.mode = 'Observable';
     }
     FitnessComponent.prototype.ngOnInit = function () {
@@ -23,7 +23,7 @@ var FitnessComponent = (function () {
     };
     FitnessComponent.prototype.getFitnessForms = function () {
         var _this = this;
-        this.fitnessService.getFitnessForms().subscribe(function (fitness) { return _this.fitnessForms = fitness; }, function (error) { return _this.errorMessage = error; });
+        this.formService.getFitnessForms().subscribe(function (fitness) { return _this.fitnessForms = fitness; }, function (error) { return _this.errorMessage = error; });
     }; //end getFitnessForms
     //view form
     FitnessComponent.prototype.gotoDetail = function (fitness) {
@@ -39,7 +39,7 @@ FitnessComponent = __decorate([
         templateUrl: 'fitness.component.html'
     }),
     __metadata("design:paramtypes", [router_1.Router,
-        fitness_service_1.FitnessService])
+        form_service_1.FormService])
 ], FitnessComponent);
 exports.FitnessComponent = FitnessComponent;
 //# sourceMappingURL=fitness.component.js.map

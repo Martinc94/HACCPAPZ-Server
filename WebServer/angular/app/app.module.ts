@@ -29,14 +29,14 @@ import { TransportDetailComponent }   from './transport.component/transport-deta
 import { DashboardComponent }          from './dashboard.component/dashboard.component';
 
 //Services
+//////////////////////////////////////////////////////////////
+//Handles Routing
 import { routing }          from './app.routing/app.routing';
-//handles login and authenticaton
+//login and authenticaton services
 import { AuthGuard } from './guards/auth.guard';
 import { UserService } from './testservice/user.service';
 import { AuthenticationService } from './login.component/login.service';
-//form services
-import { FitnessService }    from './fitness.component/fitness.service';
-import { TempService }       from './fridgeTemp.component/fridgeTemp.service';
+//form service
 import { FormService }       from './FormService/form.service';
 
 @NgModule({
@@ -72,8 +72,6 @@ import { FormService }       from './FormService/form.service';
         AuthGuard,
         AuthenticationService,
         UserService,
-        FitnessService,
-        TempService,
         FormService,
     ],
     bootstrap: [ AppComponent ]
