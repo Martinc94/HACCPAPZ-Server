@@ -1,0 +1,49 @@
+<h1 align= "center">Hygiene Training Record form</h1>
+
+<p *ngIf="!form">There isnt any form matching id!</p>
+
+
+<div *ngIf="form">
+        <h4>Name:</h4>
+            <h5>{{form.name}}</h5>
+
+        <h4>Position:</h4>
+            <h5>{{form.position}}</h5>
+
+        <h4>Date Of Employment:</h4>
+            <h5>{{form.dateOfEmployment}}</h5>
+
+        <h4>Nature Of Training:</h4>
+            <h5>{{form.NatureOfTraining}}</h5>
+
+        <h4>Date:</h4>
+            <h5>{{form.date}}</h5>
+
+        <h4>Trainer:</h4>
+            <h5>{{form.trainer}}</h5>
+
+        <h4>Employee Signature :</h4>
+            <h5>{{form.EmployeeSignature}}</h5>
+
+        <h4>Further Training Training Nature:</h4>
+            <h5>{{form.furtherTrainingNature}}</h5>
+
+        <h4>Further Training Provider:</h4>
+            <h5>{{form.furtherProvider}}</h5>
+
+        <h4>Further Training Date Competed:</h4>
+            <h5>{{form.furtherDateCompeted}}</h5>
+
+        <h4>Further Training EmpSig :</h4>
+            <h5>{{form.furtherEmpSig}}</h5>
+
+        <!--<h4>furtherEmployeeSig:</h4>
+            <h5>{{form.furtherEmployeeSig}}</h5>-->
+
+        
+</div>
+
+<button (click)="goBack()">Back</button>
+
+<p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
+
