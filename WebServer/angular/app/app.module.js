@@ -28,6 +28,8 @@ var hothold_component_1 = require("./hothold.component/hothold.component");
 var hothold_detail_component_1 = require("./hothold.component/hothold-detail.component/hothold-detail.component");
 var hygIns_component_1 = require("./hygIns.component/hygIns.component");
 var hygIns_detail_component_1 = require("./hygIns.component/hygIns-detail.component/hygIns-detail.component");
+var hygTra_component_1 = require("./hygTra.component/hygTra.component");
+var hygTra_detail_component_1 = require("./hygTra.component/hygTra-detail.component/hygTra-detail.component");
 //Services
 var app_routing_1 = require("./app.routing/app.routing");
 //handles login and authenticaton
@@ -67,6 +69,8 @@ AppModule = __decorate([
             hothold_detail_component_1.HotholdDetailComponent,
             hygIns_component_1.HygInsComponent,
             hygIns_detail_component_1.HygInsDetailComponent,
+            hygTra_component_1.hygTraComponent,
+            hygTra_detail_component_1.HygTraDetailComponent,
         ],
         providers: [
             auth_guard_1.AuthGuard,

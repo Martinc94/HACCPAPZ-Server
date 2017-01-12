@@ -22,6 +22,8 @@ import { HotholdComponent }         from './hothold.component/hothold.component'
 import { HotholdDetailComponent }   from './hothold.component/hothold-detail.component/hothold-detail.component';
 import { HygInsComponent }         from './hygIns.component/hygIns.component';
 import { HygInsDetailComponent }   from './hygIns.component/hygIns-detail.component/hygIns-detail.component';
+import { hygTraComponent }         from './hygTra.component/hygTra.component';
+import { HygTraDetailComponent }   from './hygTra.component/hygTra-detail.component/hygTra-detail.component';
 
 
 //Services
@@ -58,6 +60,8 @@ import { FormService }       from './FormService/form.service';
         HotholdDetailComponent,
         HygInsComponent,
         HygInsDetailComponent,
+        hygTraComponent,
+        HygTraDetailComponent,
     ],
     providers: [
         AuthGuard,

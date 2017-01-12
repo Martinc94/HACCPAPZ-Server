@@ -19,6 +19,8 @@ import { HotholdComponent }         from '../hothold.component/hothold.component
 import { HotholdDetailComponent }   from '../hothold.component/hothold-detail.component/hothold-detail.component';
 import { HygInsComponent }         from '../hygIns.component/hygIns.component';
 import { HygInsDetailComponent }   from '../hygIns.component/hygIns-detail.component/hygIns-detail.component';
+import { hygTraComponent }         from '../hygTra.component/hygTra.component';
+import { HygTraDetailComponent }   from '../hygTra.component/hygTra-detail.component/hygTra-detail.component';
 
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -36,10 +38,12 @@ const appRoutes: Routes = [
     { path: 'hotholdform/:_id',component: HotholdDetailComponent, canActivate: [AuthGuard] },
     { path: 'hygieneIns', component: HygInsComponent, canActivate: [AuthGuard] },
     { path: 'hygInsform/:_id',component: HygInsDetailComponent, canActivate: [AuthGuard] },
+    { path: 'hygieneTraining', component: hygTraComponent, canActivate: [AuthGuard] },
+    { path: 'hygtraform/:_id',component: HygTraDetailComponent, canActivate: [AuthGuard] },
 
     //Not Implemented
-    { path: 'hygieneTraining', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'transport', component: HomeComponent, canActivate: [AuthGuard] },
+    //FoodAndDelivery
     
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

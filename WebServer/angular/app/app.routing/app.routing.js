@@ -16,6 +16,8 @@ var hothold_component_1 = require("../hothold.component/hothold.component");
 var hothold_detail_component_1 = require("../hothold.component/hothold-detail.component/hothold-detail.component");
 var hygIns_component_1 = require("../hygIns.component/hygIns.component");
 var hygIns_detail_component_1 = require("../hygIns.component/hygIns-detail.component/hygIns-detail.component");
+var hygTra_component_1 = require("../hygTra.component/hygTra.component");
+var hygTra_detail_component_1 = require("../hygTra.component/hygTra-detail.component/hygTra-detail.component");
 var appRoutes = [
     { path: 'login', component: login_component_1.LoginComponent },
     { path: '', component: home_component_1.HomeComponent, canActivate: [auth_guard_1.AuthGuard] },
@@ -32,9 +34,11 @@ var appRoutes = [
     { path: 'hotholdform/:_id', component: hothold_detail_component_1.HotholdDetailComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'hygieneIns', component: hygIns_component_1.HygInsComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'hygInsform/:_id', component: hygIns_detail_component_1.HygInsDetailComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'hygieneTraining', component: hygTra_component_1.hygTraComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'hygtraform/:_id', component: hygTra_detail_component_1.HygTraDetailComponent, canActivate: [auth_guard_1.AuthGuard] },
     //Not Implemented
-    { path: 'hygieneTraining', component: home_component_1.HomeComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'transport', component: home_component_1.HomeComponent, canActivate: [auth_guard_1.AuthGuard] },
+    //FoodAndDelivery
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
