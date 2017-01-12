@@ -8,14 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var fridgeTemp_service_1 = require('../fridgeTemp.component/fridgeTemp.service');
-require('../rxjs-operators');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var form_service_1 = require("../FormService/form.service");
+require("../rxjs-operators");
 var FridgeTempComponent = (function () {
-    function FridgeTempComponent(router, tempService) {
+    function FridgeTempComponent(router, formService) {
         this.router = router;
-        this.tempService = tempService;
+        this.formService = formService;
         this.mode = 'Observable';
     }
     FridgeTempComponent.prototype.ngOnInit = function () {
@@ -23,17 +23,18 @@ var FridgeTempComponent = (function () {
     };
     FridgeTempComponent.prototype.getTempForms = function () {
         var _this = this;
-        this.tempService.getTempForms().subscribe(function (temp) { return _this.tempForms = temp; }, function (error) { return _this.errorMessage = error; });
+        this.formService.getFridgeTempForms().subscribe(function (temp) { return _this.tempForms = temp; }, function (error) { return _this.errorMessage = error; });
     }; //end getTempForms
-    FridgeTempComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'fridgeTemp',
-            templateUrl: 'fridgeTemp.component.html'
-        }), 
-        __metadata('design:paramtypes', [router_1.Router, fridgeTemp_service_1.TempService])
-    ], FridgeTempComponent);
     return FridgeTempComponent;
 }());
+FridgeTempComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'fridgeTemp',
+        templateUrl: 'fridgeTemp.component.html'
+    }),
+    __metadata("design:paramtypes", [router_1.Router,
+        form_service_1.FormService])
+], FridgeTempComponent);
 exports.FridgeTempComponent = FridgeTempComponent;
 //# sourceMappingURL=fridgeTemp.component.js.map

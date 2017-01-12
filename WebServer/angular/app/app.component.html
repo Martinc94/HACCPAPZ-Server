@@ -26,29 +26,27 @@
           <ul class="dropdown-menu">
             <li><a href="#">Food & Delivery Records</a></li>
             <li><a href="/fridgetemp">Refrigeration Records</a></li>
-            <li><a href="#">Temperature Records</a></li>
-            <li><a href="#">Hot Holding Records</a></li>
-            <li><a href="#">Hygiene Inspection</a></li>
-            <li><a href="#">Hygiene Training</a></li>
+            <li><a href="/temprecords">Temperature Records</a></li>
+            <li><a href="/hothold">Hot Holding Records</a></li>
+            <li><a href="/hygieneIns">Hygiene Inspection</a></li>
+            <li><a href="/hygieneTraining">Hygiene Training</a></li>
             <li><a href="/fitnesstowork">Fitness to Work</a></li>
-            <li><a href="#">Transport & Delivery</a></li>
+            <li><a href="/transport">Transport & Delivery</a></li>
           </ul>
         </li>
         <li><a href="/settings">Settings</a></li>
+        <li><a href="/dashboard">User Dashboard</a></li>
       </ul>
-
-      
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/login">Login</a></li> 
-        <li><a href="/login">Logout</a></li> 
+        <li><a href="/dashboard">{{userName}}</a></li>
+        <li><a *ngIf="this.userName === null" href="/login">Login</a></li>
+        <li><a *ngIf="this.userName !== null" href="/login">Logout</a></li>
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
+  </div>
 </nav>
- 
+
   <div class="container-fluid" style="margin-top: 70px;">
-
   <router-outlet></router-outlet>
-
 </div>

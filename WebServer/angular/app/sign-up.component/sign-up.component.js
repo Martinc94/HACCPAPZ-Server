@@ -9,20 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // System imports
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var SignUpComponent = (function () {
     function SignUpComponent() {
         this.title = "Sign Up Page";
     }
-    SignUpComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'sign-up-page',
-            templateUrl: 'sign-up.component.html'
-        }), 
-        __metadata('design:paramtypes', [])
-    ], SignUpComponent);
     return SignUpComponent;
 }());
+SignUpComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'sign-up-page',
+        templateUrl: 'sign-up.component.html'
+    }),
+    __metadata("design:paramtypes", [])
+], SignUpComponent);
 exports.SignUpComponent = SignUpComponent;
 //# sourceMappingURL=sign-up.component.js.map

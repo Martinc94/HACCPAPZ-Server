@@ -9,10 +9,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
-require('rxjs/add/operator/map');
-var login_service_1 = require('../login.component/login.service');
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+require("rxjs/add/operator/map");
+var login_service_1 = require("../login.component/login.service");
 var UserService = (function () {
     function UserService(http, authenticationService) {
         this.http = http;
@@ -26,11 +26,12 @@ var UserService = (function () {
         return this.http.get('/api/users', options)
             .map(function (response) { return response.json(); });
     };
-    UserService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, login_service_1.AuthenticationService])
-    ], UserService);
     return UserService;
 }());
+UserService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http,
+        login_service_1.AuthenticationService])
+], UserService);
 exports.UserService = UserService;
 //# sourceMappingURL=user.service.js.map

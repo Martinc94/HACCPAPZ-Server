@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var login_service_1 = require('../login.component/login.service');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var login_service_1 = require("../login.component/login.service");
 var LoginComponent = (function () {
     function LoginComponent(router, authenticationService) {
         this.router = router;
@@ -30,7 +30,7 @@ var LoginComponent = (function () {
             .subscribe(function (result) {
             if (result === true) {
                 // login successful
-                _this.router.navigate(['/']);
+                _this.router.navigate(['/dashboard']);
             }
             else {
                 // login failed
@@ -39,14 +39,15 @@ var LoginComponent = (function () {
             }
         });
     };
-    LoginComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            templateUrl: 'login.component.html'
-        }), 
-        __metadata('design:paramtypes', [router_1.Router, login_service_1.AuthenticationService])
-    ], LoginComponent);
     return LoginComponent;
 }());
+LoginComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        templateUrl: 'login.component.html'
+    }),
+    __metadata("design:paramtypes", [router_1.Router,
+        login_service_1.AuthenticationService])
+], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

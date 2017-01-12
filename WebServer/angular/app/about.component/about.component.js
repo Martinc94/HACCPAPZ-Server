@@ -9,19 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // System imports
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 var AboutComponent = (function () {
     function AboutComponent() {
     }
-    AboutComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'about-page',
-            templateUrl: 'about.component.html'
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AboutComponent);
     return AboutComponent;
 }());
+AboutComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'about-page',
+        templateUrl: 'about.component.html'
+    }),
+    __metadata("design:paramtypes", [])
+], AboutComponent);
 exports.AboutComponent = AboutComponent;
 //# sourceMappingURL=about.component.js.map

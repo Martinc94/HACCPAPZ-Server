@@ -1,0 +1,50 @@
+<h1 align= "center">Temperature Record form</h1>
+
+<p *ngIf="!form">There isnt any form matching id!</p>
+
+
+<div *ngIf="form">
+        <h4>Date:</h4>
+            <h5>{{form.date}}</h5>
+
+        <h4>Food:</h4>
+            <h5>{{form.food}}</h5>
+
+        <h4>Start Time:</h4>
+            <h5>{{form.startTime}}</h5>
+
+        <h4>Finish Time:</h4>
+            <h5>{{form.finishTime}}</h5>
+
+        <h4>Cook Temperature:</h4>
+            <h5>{{form.cookTemp}}</h5>
+
+        <h4>Cook Sign:</h4>
+            <h5>{{form.cookSign}}</h5>
+
+        <h4>fridge Time:</h4>
+            <h5>{{form.fridgeTime}}</h5>
+
+        <h4>Cool sign:</h4>
+            <h5>{{form.coolSign}}</h5>
+
+        <h4>Reheat Temp:</h4>
+            <h5>{{form.reheatTemp}}</h5>
+
+        <h4>Reheat Sign:</h4>
+            <h5>{{form.reheatSign}}</h5>
+
+        <h4>Comment:</h4>
+            <h5>{{form.comment}}</h5>
+
+        <h4>Check On:</h4>
+            <h5>{{form.checkon}}</h5>
+
+        <h4>Manager Sign:</h4>  
+            <h5>{{form.managersign}}</h5>
+</div>
+
+<button (click)="goBack()">Back</button>
+
+<p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
+

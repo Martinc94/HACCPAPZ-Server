@@ -1,0 +1,39 @@
+<h1 align= "center">Transport Record form</h1>
+
+<p *ngIf="!form">There isnt any form matching id!</p>
+
+
+<div *ngIf="form">
+        <h4>Date:</h4>
+            <h5>{{form.date}}</h5>
+
+        <h4>Food:</h4>
+            <h5>{{form.food}}</h5>
+
+        <h4>Batch:</h4>
+            <h5>{{form.batch}}</h5>
+
+        <h4>Customer:</h4>
+            <h5>{{form.customer}}</h5>
+
+        <h4>Separation:</h4>
+            <h5>{{form.separation}}</h5>
+
+        <h4>Temp:</h4>
+            <h5>{{form.temp}}</h5>
+
+        <h4>Sign:</h4>
+            <h5>{{form.sign}}</h5>
+
+        <h4>Checkon:</h4>
+            <h5>{{form.checkon}}</h5>
+
+        <h4>Managersign:</h4>
+            <h5>{{form.managersign}}</h5>
+   
+</div>
+
+<button (click)="goBack()">Back</button>
+
+<p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
+

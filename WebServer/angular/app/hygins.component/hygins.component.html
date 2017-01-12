@@ -1,0 +1,19 @@
+   <h1 align= "center">Hygiene Inspection Record forms</h1>
+
+        <div *ngFor="let form of hygInsForms">
+            <div class="panel panel-default col-med" (click)="gotoDetail(form)">
+                <div class="panel-body">
+                    <div class="media">
+                        <div class="media-body">
+                            <div>
+                                <h3>Hygiene Inspection Record form: (click here to view)</h3> 
+                            </div>
+                                <h5>{{form.name}}</h5>
+                                <h5>{{form.position}}</h5>
+                                <h5>{{form.date}}</h5>    
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+
+    <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>

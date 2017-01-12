@@ -8,14 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var fitness_service_1 = require('../fitness.component/fitness.service');
-require('../rxjs-operators');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var form_service_1 = require("../FormService/form.service");
+require("../rxjs-operators");
 var FitnessComponent = (function () {
-    function FitnessComponent(router, fitnessService) {
+    function FitnessComponent(router, formService) {
         this.router = router;
-        this.fitnessService = fitnessService;
+        this.formService = formService;
         this.mode = 'Observable';
     }
     FitnessComponent.prototype.ngOnInit = function () {
@@ -23,22 +23,23 @@ var FitnessComponent = (function () {
     };
     FitnessComponent.prototype.getFitnessForms = function () {
         var _this = this;
-        this.fitnessService.getFitnessForms().subscribe(function (fitness) { return _this.fitnessForms = fitness; }, function (error) { return _this.errorMessage = error; });
+        this.formService.getFitnessForms().subscribe(function (fitness) { return _this.fitnessForms = fitness; }, function (error) { return _this.errorMessage = error; });
     }; //end getFitnessForms
     //view form
     FitnessComponent.prototype.gotoDetail = function (fitness) {
         var link = ['/fitnessform', fitness._id];
         this.router.navigate(link);
     };
-    FitnessComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'fitness',
-            templateUrl: 'fitness.component.html'
-        }), 
-        __metadata('design:paramtypes', [router_1.Router, fitness_service_1.FitnessService])
-    ], FitnessComponent);
     return FitnessComponent;
 }());
+FitnessComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'fitness',
+        templateUrl: 'fitness.component.html'
+    }),
+    __metadata("design:paramtypes", [router_1.Router,
+        form_service_1.FormService])
+], FitnessComponent);
 exports.FitnessComponent = FitnessComponent;
 //# sourceMappingURL=fitness.component.js.map

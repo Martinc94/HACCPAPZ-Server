@@ -91,6 +91,7 @@ apiRoutes.post('/signup', function(req, res) {
       }
       res.json({success: true, msg: 'Successful created new user.'});
       //add new settings
+      createSettings(req.body.email);
 
     });
   }
@@ -1592,8 +1593,8 @@ function temperatureValidation(date,food,startTime,finishTime,cookTemp,cookSign,
   }
 }//End refridgerationValidation
 
-function supplierValidation(sName1,sName2) {
-  if (!sName1||!sName2) {
+function supplierValidation(sName1) {
+  if (!sName1) {
     return false;
   }
   else {
@@ -1601,11 +1602,32 @@ function supplierValidation(sName1,sName2) {
   }
 }//End settingsValidation
 
-function foodValidation(food1,food2) {
-  if (!food1||!food2) {
+function foodValidation(food1) {
+  if (!food1) {
     return false;
   }
   else {
     return true;
   }
 }//End settingsValidation
+
+function createSettings(newEmail) {
+  var newSupplier = new Supplier({
+      email: newEmail
+    });
+    // save the user
+    newSupplier.save(function(err) {});
+
+    var newFood = new Food({
+      email: newEmail
+    });
+    // save the user
+    newFood.save(function(err) {});
+
+    var newRefridgerationUnit = new RefridgerationUnit({
+      email: newEmail
+    });
+    // save the user
+    newRefridgerationUnit.save(function(err) {});
+    
+}//End createSettings

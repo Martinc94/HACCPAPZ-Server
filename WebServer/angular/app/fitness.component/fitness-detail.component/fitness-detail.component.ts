@@ -4,7 +4,7 @@ import { ActivatedRoute, Params }   from '@angular/router';
 import { Location }                 from '@angular/common';
 
 import { Fitness } from '../../classes/fitness/fitness';
-import { FitnessService } from '../../fitness.component/fitness.service';
+import { FormService } from '../../FormService/form.service';;
 
 @Component({
   moduleId: module.id,
@@ -20,7 +20,7 @@ export class FitnessDetailComponent implements OnInit {
     mode = 'Observable';
     
     constructor(
-      private fitnessService: FitnessService,
+      private formService: FormService,
       private route: ActivatedRoute,
       private location: Location
     ) {}
@@ -36,14 +36,11 @@ export class FitnessDetailComponent implements OnInit {
     }//end ngOnInit
 
     getFitnessForm(id:string){
-      this.fitnessService.getFitnessForms()
+      this.formService.getFitnessForms()
       .subscribe(
         forms => this.form=forms.find(form => form._id == id),
         error =>  this.errorMessage = <any>error)//end subscribe
     }
-
-   
-
 
     goBack(): void {
       this.location.back();

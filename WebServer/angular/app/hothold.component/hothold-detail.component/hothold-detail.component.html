@@ -1,0 +1,42 @@
+<h1 align= "center">Hothold Record form</h1>
+
+<p *ngIf="!form">There isnt any form matching id!</p>
+
+
+<div *ngIf="form">
+        <h4>Date:</h4>
+            <h5>{{form.date}}</h5>
+
+        <h4>Food:</h4>
+            <h5>{{form.food}}</h5>
+
+        <h4>Time:</h4>
+            <h5>{{form.time}}</h5>
+
+        <h4>First Temp:</h4>
+            <h5>{{form.firstTemp}}</h5>
+
+        <h4>Second Temp:</h4>
+            <h5>{{form.secondTemp}}</h5>
+
+        <h4>Third Temp:</h4>
+            <h5>{{form.thirdTemp}}</h5>
+
+        <h4>Comment :</h4>
+            <h5>{{form.comment}}</h5>
+
+        <h4>Sign:</h4>
+            <h5>{{form.sign}}</h5>
+
+        <h4>Checkon:</h4>
+            <h5>{{form.checkon}}</h5>
+
+        <h4>Manager Sign:</h4>
+            <h5>{{form.managersign}}</h5>
+
+</div>
+
+<button (click)="goBack()">Back</button>
+
+<p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
+
