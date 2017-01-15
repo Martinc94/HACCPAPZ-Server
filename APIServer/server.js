@@ -1031,8 +1031,6 @@ apiRoutes.post('/temperature', passport.authenticate('jwt', { session: false}), 
             temperature.checkon=req.body.checkon;
             temperature.managersign=req.body.managersign;
 
-
-
             //save to db
             temperature.save(function(err) {
               if (err)
@@ -1139,7 +1137,7 @@ apiRoutes.get('/food', passport.authenticate('jwt', { session: false}), function
     return res.status(403).send({success: false, msg: 'No token provided.'});
   }
 });
-//end getfood////////////////////////////////////////////////////////////////////
+//end food////////////////////////////////////////////////////////////////////
 
 apiRoutes.put('/food', passport.authenticate('jwt', { session: false}), function(req, res) {
   var token = getToken(req.headers);
@@ -1463,6 +1461,107 @@ apiRoutes.get('/getHygieneTraining', passport.authenticate('jwt', { session: fal
   }
 });
 //end getHygieneInspection//////////////////////////////////////////////////////////////////////////////
+
+apiRoutes.get('/getfood', passport.authenticate('jwt', { session: false}), function(req, res) {
+  var token = getToken(req.headers);
+  if (token) {
+    var decoded = jwt.decode(token, config.secret);
+    User.findOne({
+      email: decoded.email
+    }, function(err, user) {
+        if (err) throw err;
+
+        if (!user) {
+          return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
+        } else {
+          //get settings
+          Food.findOne({
+            email: user.email
+          }, function (err, food) {
+            if (err) throw err;
+            if (!food) {
+              return res.status(403).send({success: false, msg: 'food not found.'});
+            } else {
+
+            //return settings
+            return res.status(200).json([food]);
+          }
+          })
+        }
+    });
+  } else {
+    return res.status(403).send({success: false, msg: 'No token provided.'});
+  }
+});
+//end getfood////////////////////////////////////////////////////////////////////
+
+apiRoutes.get('/getrefridgerationUnit', passport.authenticate('jwt', { session: false}), function(req, res) {
+  var token = getToken(req.headers);
+  if (token) {
+    var decoded = jwt.decode(token, config.secret);
+    User.findOne({
+      email: decoded.email
+    }, function(err, user) {
+        if (err) throw err;
+
+       if (!user) {
+          return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
+        } else {
+          //get refUnits
+          RefridgerationUnit.findOne({
+            email: user.email
+          }, function (err, refridgerationUnit) {
+            if (err) throw err;
+            if (!refridgerationUnit) {
+              res.status(403).send({success: false, msg: 'RefridgerationUnits not found.'});
+            } else {
+
+            //return settings
+            return res.status(200).json([refridgerationUnit]);
+
+          }
+          })
+
+        }//end Else
+    });
+  } else {
+    return res.status(403).send({success: false, msg: 'No token provided.'});
+  }
+});
+//end getRefridgerationUnit /////////////////////////////////////////////////////////////////////
+
+apiRoutes.get('/getsuppliers', passport.authenticate('jwt', { session: false}), function(req, res) {
+  var token = getToken(req.headers);
+  if (token) {
+    var decoded = jwt.decode(token, config.secret);
+    User.findOne({
+      email: decoded.email
+    }, function(err, user) {
+        if (err) throw err;
+
+        if (!user) {
+          return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
+        } else {
+          //get settings
+          Supplier.findOne({
+            email: user.email
+          }, function (err, supplier) {
+            if (err) throw err;
+            if (!supplier) {
+              return res.status(403).send({success: false, msg: 'Suppliers not found.'});
+            } else {
+
+            //return settings
+             return res.status(200).json([supplier]);
+          }
+          })
+        }
+    });
+  } else {
+    return res.status(403).send({success: false, msg: 'No token provided.'});
+  }
+});
+//end getSuppliers////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //Init + Start Server

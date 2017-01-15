@@ -2,7 +2,7 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
-import { HttpModule}    from '@angular/http';
+import { HttpModule}     from '@angular/http';
 
 import {} from '@angular/core/testing';
 
@@ -20,13 +20,13 @@ import { TempRecComponent }         from './tempRecords.component/tempRec.compon
 import { TempRecDetailComponent }   from './tempRecords.component/tempRec-detail.component/tempRec-detail.component';
 import { HotholdComponent }         from './hothold.component/hothold.component';
 import { HotholdDetailComponent }   from './hothold.component/hothold-detail.component/hothold-detail.component';
-import { HygInsComponent }         from './hygIns.component/hygIns.component';
-import { HygInsDetailComponent }   from './hygIns.component/hygIns-detail.component/hygIns-detail.component';
-import { hygTraComponent }         from './hygTra.component/hygTra.component';
-import { HygTraDetailComponent }   from './hygTra.component/hygTra-detail.component/hygTra-detail.component';
-import { TransportComponent }         from './transport.component/transport.component';
-import { TransportDetailComponent }   from './transport.component/transport-detail.component/transport-detail.component';
-import { DashboardComponent }          from './dashboard.component/dashboard.component';
+import { HygInsComponent }          from './hygIns.component/hygIns.component';
+import { HygInsDetailComponent }    from './hygIns.component/hygIns-detail.component/hygIns-detail.component';
+import { hygTraComponent }          from './hygTra.component/hygTra.component';
+import { HygTraDetailComponent }    from './hygTra.component/hygTra-detail.component/hygTra-detail.component';
+import { TransportComponent }       from './transport.component/transport.component';
+import { TransportDetailComponent } from './transport.component/transport-detail.component/transport-detail.component';
+import { DashboardComponent }       from './dashboard.component/dashboard.component';
 
 //Services
 //////////////////////////////////////////////////////////////
@@ -37,7 +37,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { UserService } from './testservice/user.service';
 import { AuthenticationService } from './login.component/login.service';
 //form service
-import { FormService }       from './FormService/form.service';
+import { FormService } from './FormService/form.service';
+import { SettingsService } from './SettingsService/Settings.service';
 
 @NgModule({
     imports: [
@@ -73,6 +74,7 @@ import { FormService }       from './FormService/form.service';
         AuthenticationService,
         UserService,
         FormService,
+        SettingsService,
     ],
     bootstrap: [ AppComponent ]
 })

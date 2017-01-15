@@ -43,6 +43,7 @@ var user_service_1 = require("./testservice/user.service");
 var login_service_1 = require("./login.component/login.service");
 //form service
 var form_service_1 = require("./FormService/form.service");
+var Settings_service_1 = require("./SettingsService/Settings.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -83,6 +84,7 @@ AppModule = __decorate([
             login_service_1.AuthenticationService,
             user_service_1.UserService,
             form_service_1.FormService,
+            Settings_service_1.SettingsService,
         ],
         bootstrap: [app_component_1.AppComponent]
     }),

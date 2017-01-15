@@ -1,1 +1,74 @@
-<h1>{{title}}</h1>
+<h1 align= "center">Settings</h1>
+<!--Suppliers -->
+    <div *ngFor="let form of supplierForms">
+        <div class="panel panel-default col-med">
+            <div class="panel-body">
+                <div class="media">
+                    <div class="media-body">
+                        <div>
+                            <h3>Stored supplier settings</h3> 
+                        </div>
+                            <h5>{{form.sName1}}</h5>
+                            <h5>{{form.sName2}}</h5>
+                            <h5>{{form.sName3}}</h5>
+                            <h5>{{form.sName4}}</h5>   
+                            <h5>{{form.sName5}}</h5>
+                            <h5>{{form.sName6}}</h5>
+                            <h5>{{form.sName7}}</h5>
+                            <h5>{{form.sName8}}</h5>
+                            <h5>{{form.sName9}}</h5>
+                            <h5>{{form.sName10}}</h5>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+
+    <!--Food -->
+    <div *ngFor="let form of foodForms">
+    <div class="panel panel-default col-med">
+        <div class="panel-body">
+            <div class="media">
+                <div class="media-body">
+                    <div>
+                        <h3>Stored food settings</h3> 
+                    </div>
+                        <h5>{{form.food1}}</h5>
+                        <h5>{{form.food2}}</h5>
+                        <h5>{{form.food3}}</h5>
+                        <h5>{{form.food4}}</h5>   
+                        <h5>{{form.food5}}</h5>
+                        <h5>{{form.food6}}</h5>
+                        <h5>{{form.food7}}</h5>
+                        <h5>{{form.food8}}</h5>
+                        <h5>{{form.food9}}</h5>
+                        <h5>{{form.food10}}</h5>
+                    </div>
+                </div> 
+            </div>
+        </div>
+
+    <!--Fridge -->
+    <div *ngFor="let form of fridgeForms">
+    <div class="panel panel-default col-med">
+        <div class="panel-body">
+            <div class="media">
+                <div class="media-body">
+                    <div>
+                        <h3>Stored fridge settings</h3> 
+                    </div>
+                        <h5>{{form.name1}}</h5>
+                        <h5>{{form.name2}}</h5>
+                        <h5>{{form.name3}}</h5>
+                        <h5>{{form.name4}}</h5>   
+                        <h5>{{form.name5}}</h5>
+                        <h5>{{form.name6}}</h5>
+                        <h5>{{form.name7}}</h5>
+                        <h5>{{form.name8}}</h5>
+                        <h5>{{form.name9}}</h5>
+                        <h5>{{form.name10}}</h5>
+                    </div>
+                </div> 
+            </div>
+        </div>
+
+<p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
