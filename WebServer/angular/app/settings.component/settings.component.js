@@ -10,10 +10,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 // System imports
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var Settings_service_1 = require("../SettingsService/Settings.service");
+require("../rxjs-operators");
 var SettingsComponent = (function () {
-    function SettingsComponent() {
-        this.title = "Settings Page";
+    function SettingsComponent(router, settingsService) {
+        this.router = router;
+        this.settingsService = settingsService;
+        this.mode = 'Observable';
     }
+    SettingsComponent.prototype.ngOnInit = function () {
+        this.getFoodForms();
+        this.getSupplierForms();
+        this.getFridgeForms();
+    };
+    SettingsComponent.prototype.getFoodForms = function () {
+        var _this = this;
+        this.settingsService.getFoodSettings().subscribe(function (food) { return _this.foodForms = food; }, function (error) { return _this.errorMessage = error; });
+    }; //end getFoodForms
+    SettingsComponent.prototype.getSupplierForms = function () {
+        var _this = this;
+        this.settingsService.getSupplierSettings().subscribe(function (food) { return _this.supplierForms = food; }, function (error) { return _this.errorMessage = error; });
+    }; //end getSupplierForms
+    SettingsComponent.prototype.getFridgeForms = function () {
+        var _this = this;
+        this.settingsService.getFridgeSettings().subscribe(function (food) { return _this.fridgeForms = food; }, function (error) { return _this.errorMessage = error; });
+    }; //end getFridgeForms
     return SettingsComponent;
 }());
 SettingsComponent = __decorate([
@@ -22,7 +44,8 @@ SettingsComponent = __decorate([
         selector: 'settings-page',
         templateUrl: 'settings.component.html'
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [router_1.Router,
+        Settings_service_1.SettingsService])
 ], SettingsComponent);
 exports.SettingsComponent = SettingsComponent;
 //# sourceMappingURL=settings.component.js.map

@@ -1,8 +1,14 @@
 
 // System imports
-import { Component }    from '@angular/core';
-import { Router }       from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { SettingsService } from '../SettingsService/Settings.service';
+import '../rxjs-operators';
+import { Observable }     from 'rxjs/Observable';
 
+import {Food} from '../classes/Settings/Food/Food';
+import {Supplier} from '../classes/Settings/Supplier/Supplier';
+import {Fridge} from '../classes/Settings/Fridge/Fridge';
 
 @Component({
   moduleId: module.id,
@@ -10,7 +16,41 @@ import { Router }       from '@angular/router';
   templateUrl: 'settings.component.html'
 })
 
-export class SettingsComponent {
+export class SettingsComponent implements OnInit {
+    errorMessage: string;
+    mode = 'Observable';
+    foodForms: Food[];
+    supplierForms: Supplier[];
+    fridgeForms: Fridge[];
 
-    title = "Settings Page";
+    constructor(private router: Router,
+            private settingsService: SettingsService){
+    }
+
+    ngOnInit() {
+        this.getFoodForms();
+        this.getSupplierForms();
+        this.getFridgeForms();
+    }
+
+    getFoodForms(){
+        this.settingsService.getFoodSettings(
+        ).subscribe(
+            food => this.foodForms = food,
+            error =>  this.errorMessage = <any>error);
+    }//end getFoodForms
+
+    getSupplierForms(){
+        this.settingsService.getSupplierSettings(
+        ).subscribe(
+            food => this.supplierForms = food,
+            error =>  this.errorMessage = <any>error);
+    }//end getSupplierForms
+
+    getFridgeForms(){
+        this.settingsService.getFridgeSettings(
+        ).subscribe(
+            food => this.fridgeForms = food,
+            error =>  this.errorMessage = <any>error);
+    }//end getFridgeForms
 }
