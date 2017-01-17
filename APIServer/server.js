@@ -1563,6 +1563,87 @@ apiRoutes.get('/getsuppliers', passport.authenticate('jwt', { session: false}), 
 });
 //end getSuppliers////////////////////////////////////////////////////////////////////
 
+apiRoutes.get('/getFoodDelivery', passport.authenticate('jwt', { session: false}), function(req, res) {
+  var token = getToken(req.headers);
+  if (token) {
+    var decoded = jwt.decode(token, config.secret);
+    User.findOne({
+      email: decoded.email
+    }, function(err, user) {
+        if (err) throw err;
+        if (!user) {
+          return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
+        } else {
+          //get Forms
+          Delivery.
+            find({'email': decoded.email}, function (err, Deliveryforms) {
+              if(err) {
+                return res.status(403).send({success: false});
+                }
+              else{
+                //return forms
+                return res.status(200).json(Deliveryforms);
+              }
+            });//end getForms
+
+        }//end else
+    });
+  } else {
+    return res.status(403).send({success: false, msg: 'No token provided.'});
+  }
+});
+//end getFoodDelivery//////////////////////////////////////////////////////////////////////////////
+
+apiRoutes.post('/foodDelivery', passport.authenticate('jwt', { session: false}), function(req, res) {
+  var token = getToken(req.headers);
+  if (token) {
+    var decoded = jwt.decode(token, config.secret);
+    User.findOne({
+      email: decoded.email
+    }, function(err, user) {
+        if (err) throw err;
+
+        if (!user) {
+          return res.status(403).send({success: false, msg: 'Authentication failed.'});
+        } else {
+
+          var foodDelivery = new Delivery();
+
+          //add validation here for data coming from ionic to make sure is correct and has all required fields
+          var foodDelVal =foodDeliveryValidation(req.body.date,req.body.food);
+
+          if (foodDelVal) {
+            foodDelivery.email=user.email;
+            foodDelivery.date=req.body.date;
+            foodDelivery.food=req.body.food;
+            foodDelivery.batchCode=req.body.batchCode;
+            foodDelivery.supplier=req.body.supplier;
+            foodDelivery.useBy=req.body.useBy;
+            foodDelivery.temp=req.body.temp;
+            foodDelivery.vehicleCheck=req.body.vehicleCheck;
+            foodDelivery.comment=req.body.comment;
+            foodDelivery.sign=req.body.sign;
+
+            //save to db
+            foodDelivery.save(function(err) {
+              if (err)
+                  res.send(err);
+
+            res.json({success: true, msg: 'Form Saved'});
+          });
+        }//end if Fitval
+        else {
+          res.send({success: false, msg: 'Not enough information provided.'});
+        }//end Else
+
+        }
+    });
+  } else {
+    return res.status(403).send({success: false, msg: 'No token provided.'});
+  }
+});
+//end FoodDelivery/////////////////////////////////////////////////////////////////////
+
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //Init + Start Server
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1730,3 +1811,12 @@ function createSettings(newEmail) {
     newRefridgerationUnit.save(function(err) {});
     
 }//End createSettings
+
+function foodDeliveryValidation(date,food) {
+  if (!date||!food) {
+    return false;
+  }
+  else {
+    return true;
+  }
+}//End foodDeliveryValidation
