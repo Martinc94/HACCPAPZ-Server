@@ -24,6 +24,8 @@ import { HygTraDetailComponent }   from '../hygTra.component/hygTra-detail.compo
 import { TransportComponent }         from '../transport.component/transport.component';
 import { TransportDetailComponent }   from '../transport.component/transport-detail.component/transport-detail.component';
 import { DashboardComponent }          from '../dashboard.component/dashboard.component';
+import { FoodDeliveryComponent }       from '../foodDelivery.component/foodDelivery.component';
+import { FoodDeliveryDetailComponent }       from '../foodDelivery.component/foodDelivery-detail.component/foodDelivery-detail.component';
 
 
 const appRoutes: Routes = [
@@ -47,8 +49,8 @@ const appRoutes: Routes = [
     { path: 'transport', component: TransportComponent, canActivate: [AuthGuard] },
     { path: 'transportform/:_id',component: TransportDetailComponent, canActivate: [AuthGuard] },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-    
-    //Add FoodAndDelivery
+    { path: 'foodDelivery', component: FoodDeliveryComponent, canActivate: [AuthGuard] },
+    { path: 'foodDeliveryform/:_id',component: FoodDeliveryDetailComponent, canActivate: [AuthGuard] },
     
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

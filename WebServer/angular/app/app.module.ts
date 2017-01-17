@@ -27,6 +27,8 @@ import { HygTraDetailComponent }    from './hygTra.component/hygTra-detail.compo
 import { TransportComponent }       from './transport.component/transport.component';
 import { TransportDetailComponent } from './transport.component/transport-detail.component/transport-detail.component';
 import { DashboardComponent }       from './dashboard.component/dashboard.component';
+import { FoodDeliveryComponent }       from './foodDelivery.component/foodDelivery.component';
+import { FoodDeliveryDetailComponent }       from './foodDelivery.component/foodDelivery-detail.component/foodDelivery-detail.component';
 
 //Services
 //////////////////////////////////////////////////////////////
@@ -68,6 +70,8 @@ import { SettingsService } from './SettingsService/Settings.service';
         TransportComponent,
         TransportDetailComponent,
         DashboardComponent,
+        FoodDeliveryComponent,
+        FoodDeliveryDetailComponent,
     ],
     providers: [
         AuthGuard,

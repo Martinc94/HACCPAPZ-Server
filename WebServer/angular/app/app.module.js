@@ -5,6 +5,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
@@ -30,6 +33,8 @@ var hygTra_detail_component_1 = require("./hygTra.component/hygTra-detail.compon
 var transport_component_1 = require("./transport.component/transport.component");
 var transport_detail_component_1 = require("./transport.component/transport-detail.component/transport-detail.component");
 var dashboard_component_1 = require("./dashboard.component/dashboard.component");
+var foodDelivery_component_1 = require("./foodDelivery.component/foodDelivery.component");
+var foodDelivery_detail_component_1 = require("./foodDelivery.component/foodDelivery-detail.component/foodDelivery-detail.component");
 //Services
 //////////////////////////////////////////////////////////////
 //Handles Routing
@@ -75,6 +80,8 @@ AppModule = __decorate([
             transport_component_1.TransportComponent,
             transport_detail_component_1.TransportDetailComponent,
             dashboard_component_1.DashboardComponent,
+            foodDelivery_component_1.FoodDeliveryComponent,
+            foodDelivery_detail_component_1.FoodDeliveryDetailComponent,
         ],
         providers: [
             auth_guard_1.AuthGuard,
@@ -84,7 +91,8 @@ AppModule = __decorate([
             Settings_service_1.SettingsService,
         ],
         bootstrap: [app_component_1.AppComponent]
-    })
+    }),
+    __metadata("design:paramtypes", [])
 ], AppModule);
 exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map

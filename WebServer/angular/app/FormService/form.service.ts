@@ -9,6 +9,7 @@ import {HygTrain} from '../classes/HygTrain/HygTrain';
 import {Transport} from '../classes/Transport/Transport';
 import {Fitness} from '../classes/Fitness/fitness';
 import {Temp} from '../classes/Temp/temp';
+import {FoodDelivery} from '../classes/FoodDelivery/FoodDelivery';
  
 @Injectable()
 export class FormService {
@@ -22,6 +23,7 @@ export class FormService {
     private transportUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getTransport';
     private fitnessUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getFitnessToWork';
     private fridgeTempUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getFridgetemp';
+    private foodDeliveryUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getFoodDelivery';
 
     constructor(private http: Http) {
         // set token if saved in local storage
@@ -90,5 +92,10 @@ export class FormService {
                         .map(this.extractData)
                         .catch(this.handleError);
     }
-   
+
+    getfoodDeliveryForms (): Observable<FoodDelivery[]> {
+        return this.http.get(this.foodDeliveryUrl,({ headers: this.authHeader}))
+                        .map(this.extractData)
+                        .catch(this.handleError);
+    }  
 }
