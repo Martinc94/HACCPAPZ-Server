@@ -429,7 +429,7 @@ apiRoutes.post('/hothold', passport.authenticate('jwt', { session: false}), func
           var hothold = new Hothold();
 
           //add validation here for data coming from ionic to make sure is correct and has all required fields
-          var hotholdVal =hotholdValidation(req.body.date,req.body.food,req.body.time,req.body.firstTemp,req.body.secondTemp,req.body.thirdTemp,req.body.comment,req.body.sign,req.body.checkon,req.body.managersign);
+          var hotholdVal =hotholdValidation(req.body.date,req.body.food,req.body.time,req.body.firstTemp,req.body.secondTemp,req.body.thirdTemp,req.body.comment,req.body.sign);
 
           if (hotholdVal) {
 
@@ -821,7 +821,7 @@ apiRoutes.post('/transport', passport.authenticate('jwt', { session: false}), fu
           var transport = new Transport();
 
           //add validation here for data coming from ionic to make sure is correct and has all required fields
-          var transportVal =transportValidation(req.body.date,req.body.food,req.body.batch,req.body.customer,req.body.separation,req.body.temp,req.body.sign,req.body.managersign);
+          var transportVal =transportValidation(req.body.date,req.body.food,req.body.batch,req.body.customer,req.body.separation,req.body.temp,req.body.sign);
 
           if (transportVal) {
             transport.email=user.email;
@@ -1012,7 +1012,7 @@ apiRoutes.post('/temperature', passport.authenticate('jwt', { session: false}), 
           var temperature = new Temperature();
 
           //add validation here for data coming from ionic to make sure is correct and has all required fields
-          var temperatureVal =temperatureValidation(req.body.date,req.body.food,req.body.startTime,req.body.finishTime,req.body.cookTemp,req.body.cookSign,req.body.fridgeTime, req.body.coolSign,req.body.reheatTemp,req.body.reheatSign,req.body.comment,req.body.checkon,req.body.managersign);
+          var temperatureVal =temperatureValidation(req.body.date,req.body.food,req.body.startTime,req.body.finishTime,req.body.cookTemp,req.body.cookSign,req.body.fridgeTime, req.body.coolSign,req.body.reheatTemp,req.body.reheatSign,req.body.comment);
 
           if (temperatureVal) {
 
@@ -1701,8 +1701,8 @@ function refridgerationValidation(temp) {
   }
 }//End refridgerationValidation
 
-function hotholdValidation(date,food,time,firstTemp,secondTemp,thirdTemp,comment,sign,checkon,managersign) {
-  if (date==''||!food||time==''||!firstTemp||!secondTemp||!thirdTemp||!comment||!sign||!checkon||!managersign) {
+function hotholdValidation(date,food,time,firstTemp,secondTemp,thirdTemp,comment,sign) {
+  if (date==''||!food||time==''||!firstTemp||!secondTemp||!thirdTemp||!comment||!sign) {
     return false;
   }
   else {
@@ -1734,8 +1734,8 @@ function hygTrainingValidation( name,position,dateEmp,type,date,
   }
 }//End hygTrainingValidation
 
-function transportValidation(date,food,batch,customer,separation,temp,sign,managersign) {
-  if (!date||!food||!batch||!customer||!separation||!temp||!sign||!managersign) {
+function transportValidation(date,food,batch,customer,separation,temp,sign) {
+  if (!date||!food||!batch||!customer||!separation||!temp||!sign) {
     return false;
   }
   else {
@@ -1764,8 +1764,8 @@ function getFridgesQuery(email){
    return query;
 }
 
-function temperatureValidation(date,food,startTime,finishTime,cookTemp,cookSign,fridgeTime,coolSign,reheatTemp,reheatSign,comment,checkon,managersign) {
-  if (  date==''||!food||!startTime||!finishTime||!cookTemp||!cookSign||!fridgeTime||!coolSign||!reheatTemp||!reheatSign||!comment||!checkon||!managersign) {
+function temperatureValidation(date,food,startTime,finishTime,cookTemp,cookSign,fridgeTime,coolSign,reheatTemp,reheatSign,comment) {
+  if (  date==''||!food||!startTime||!finishTime||!cookTemp||!cookSign||!fridgeTime||!coolSign||!reheatTemp||!reheatSign||!comment) {
     return false;
   }
   else {
