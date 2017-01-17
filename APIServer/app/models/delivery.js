@@ -3,8 +3,15 @@ var Schema       = mongoose.Schema;
 
 var deliverySchema   = new Schema({
     email:    String,
-    q1: String,
-    q2: String
+    date: String,
+    food: String,
+    batchCode: String,
+    supplier: String,
+    useBy: String,
+    temp: String,
+    vehicleCheck: String,
+    comment: String,
+    sign: String
 });
 
 module.exports = mongoose.model('Delivery', deliverySchema);

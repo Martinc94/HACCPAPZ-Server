@@ -21,6 +21,8 @@ var hygTra_detail_component_1 = require("../hygTra.component/hygTra-detail.compo
 var transport_component_1 = require("../transport.component/transport.component");
 var transport_detail_component_1 = require("../transport.component/transport-detail.component/transport-detail.component");
 var dashboard_component_1 = require("../dashboard.component/dashboard.component");
+var foodDelivery_component_1 = require("../foodDelivery.component/foodDelivery.component");
+var foodDelivery_detail_component_1 = require("../foodDelivery.component/foodDelivery-detail.component/foodDelivery-detail.component");
 var appRoutes = [
     { path: 'login', component: login_component_1.LoginComponent },
     { path: '', component: home_component_1.HomeComponent, canActivate: [auth_guard_1.AuthGuard] },
@@ -42,7 +44,8 @@ var appRoutes = [
     { path: 'transport', component: transport_component_1.TransportComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'transportform/:_id', component: transport_detail_component_1.TransportDetailComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent, canActivate: [auth_guard_1.AuthGuard] },
-    //Add FoodAndDelivery
+    { path: 'foodDelivery', component: foodDelivery_component_1.FoodDeliveryComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'foodDeliveryform/:_id', component: foodDelivery_detail_component_1.FoodDeliveryDetailComponent, canActivate: [auth_guard_1.AuthGuard] },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];

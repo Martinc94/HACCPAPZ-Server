@@ -33,6 +33,8 @@ var hygTra_detail_component_1 = require("./hygTra.component/hygTra-detail.compon
 var transport_component_1 = require("./transport.component/transport.component");
 var transport_detail_component_1 = require("./transport.component/transport-detail.component/transport-detail.component");
 var dashboard_component_1 = require("./dashboard.component/dashboard.component");
+var foodDelivery_component_1 = require("./foodDelivery.component/foodDelivery.component");
+var foodDelivery_detail_component_1 = require("./foodDelivery.component/foodDelivery-detail.component/foodDelivery-detail.component");
 //Services
 //////////////////////////////////////////////////////////////
 //Handles Routing
@@ -78,6 +80,8 @@ AppModule = __decorate([
             transport_component_1.TransportComponent,
             transport_detail_component_1.TransportDetailComponent,
             dashboard_component_1.DashboardComponent,
+            foodDelivery_component_1.FoodDeliveryComponent,
+            foodDelivery_detail_component_1.FoodDeliveryDetailComponent,
         ],
         providers: [
             auth_guard_1.AuthGuard,
