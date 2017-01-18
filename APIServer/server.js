@@ -483,21 +483,21 @@ apiRoutes.post('/suppliers', passport.authenticate('jwt', { session: false}), fu
           var suppliers = new Supplier();
 
           //add validation here for data coming from ionic to make sure is correct and has all required fields
-            var valid = supplierValidation(req.body.sName1,req.body.sName2);
+            var valid = supplierValidation(req.body.Supplier1,req.body.Supplier2);
 
             if (valid) {
               //save user.email in settings
               suppliers.email=user.email;
-              suppliers.sName1=req.body.sName1;
-              suppliers.sName2=req.body.sName2;
-              suppliers.sName3=req.body.sName3;
-              suppliers.sName4=req.body.sName4;
-              suppliers.sName5=req.body.sName5;
-              suppliers.sName6=req.body.sName6;
-              suppliers.sName7=req.body.sName7;
-              suppliers.sName8=req.body.sName8;
-              suppliers.sName9=req.body.sName9;
-              suppliers.sName10=req.body.sName10;
+              suppliers.Supplier1=req.body.Supplier1;
+              suppliers.Supplier2=req.body.Supplier2;
+              suppliers.Supplier3=req.body.Supplier3;
+              suppliers.Supplier4=req.body.Supplier4;
+              suppliers.Supplier5=req.body.Supplier5;
+              suppliers.Supplier6=req.body.Supplier6;
+              suppliers.Supplier7=req.body.Supplier7;
+              suppliers.Supplier8=req.body.Supplier8;
+              suppliers.Supplier9=req.body.Supplier9;
+              suppliers.Supplier10=req.body.Supplier10;
 
               //save to db
               suppliers.save(function(err) {
@@ -542,10 +542,10 @@ apiRoutes.get('/suppliers', passport.authenticate('jwt', { session: false}), fun
               //console.log(supplier.supplierName);
 
             //return settings
-            res.json({Supplier1:supplier.sName1,
-          Supplier2:supplier.sName2,Supplier3:supplier.sName3,Supplier4:supplier.sName4,
-          Supplier5:supplier.sName5,Supplier6:supplier.sName6,Supplier7:supplier.sName7,
-          Supplier8:supplier.sName8,Supplier9:supplier.sName9,Supplier10:supplier.sName10,});
+            res.json({Supplier1:supplier.Supplier1,
+          Supplier2:supplier.Supplier2,Supplier3:supplier.Supplier3,Supplier4:supplier.Supplier4,
+          Supplier5:supplier.Supplier5,Supplier6:supplier.Supplier6,Supplier7:supplier.Supplier7,
+          Supplier8:supplier.Supplier8,Supplier9:supplier.Supplier9,Supplier10:supplier.Supplier10,});
           }
           })
         }
@@ -577,20 +577,20 @@ apiRoutes.put('/suppliers', passport.authenticate('jwt', { session: false}), fun
               return res.status(403).send({success: false, msg: 'Suppliers not found.'});
             } else {
 
-              var valid = supplierValidation(req.body.sName1);
+              var valid = supplierValidation(req.body.Supplier1);
 
               if (valid) {
                 //update supplier
-                suppliers.sName1=req.body.sName1;
-                suppliers.sName2=req.body.sName2;
-                suppliers.sName3=req.body.sName3;
-                suppliers.sName4=req.body.sName4;
-                suppliers.sName5=req.body.sName5;
-                suppliers.sName6=req.body.sName6;
-                suppliers.sName7=req.body.sName7;
-                suppliers.sName8=req.body.sName8;
-                suppliers.sName9=req.body.sName9;
-                suppliers.sName10=req.body.sName10;
+                suppliers.Supplier1=req.body.Supplier1;
+                suppliers.Supplier2=req.body.Supplier2;
+                suppliers.Supplier3=req.body.Supplier3;
+                suppliers.Supplier4=req.body.Supplier4;
+                suppliers.Supplier5=req.body.Supplier5;
+                suppliers.Supplier6=req.body.Supplier6;
+                suppliers.Supplier7=req.body.Supplier7;
+                suppliers.Supplier8=req.body.Supplier8;
+                suppliers.Supplier9=req.body.Supplier9;
+                suppliers.Supplier10=req.body.Supplier10;
 
                 //save to db
                 suppliers.save(function(err) {
@@ -1068,21 +1068,21 @@ apiRoutes.post('/food', passport.authenticate('jwt', { session: false}), functio
           var food = new Food();
 
           //add validation here for data coming from ionic to make sure is correct and has all required fields
-            var valid = foodValidation(req.body.food1,req.body.food2);
+            var valid = foodValidation(req.body.Food1);
 
             if (valid) {
               //save user.email in settings
               food.email=user.email;
-              food.food1=req.body.food1;
-              food.food2=req.body.food2;
-              food.food3=req.body.food3;
-              food.food4=req.body.food4;
-              food.food5=req.body.food5;
-              food.food6=req.body.food6;
-              food.food7=req.body.food7;
-              food.food8=req.body.food8;
-              food.food9=req.body.food9;
-              food.food10=req.body.food10;
+              food.Food1=req.body.Food1;
+              food.Food2=req.body.Food2;
+              food.Food3=req.body.Food3;
+              food.Food4=req.body.Food4;
+              food.Food5=req.body.Food5;
+              food.Food6=req.body.Food6;
+              food.Food7=req.body.Food7;
+              food.Food8=req.body.Food8;
+              food.Food9=req.body.Food9;
+              food.Food10=req.body.Food10;
 
               //save to db
               food.save(function(err) {
@@ -1125,10 +1125,10 @@ apiRoutes.get('/food', passport.authenticate('jwt', { session: false}), function
             } else {
 
             //return settings
-            res.json({Food1:food.food1,
-          Food2:food.food2,Food3:food.food3,Food4:food.food4,
-          Food5:food.food5,Food6:food.food6,Food7:food.food7,
-          Food8:food.food8,Food9:food.food9,Food10:food.food10});
+            res.json({Food1:food.Food1,
+          Food2:food.Food2,Food3:food.Food3,Food4:food.Food4,
+          Food5:food.Food5,Food6:food.Food6,Food7:food.Food7,
+          Food8:food.Food8,Food9:food.Food9,Food10:food.Food10});
           }
           })
         }
@@ -1160,20 +1160,20 @@ apiRoutes.put('/food', passport.authenticate('jwt', { session: false}), function
               return res.status(403).send({success: false, msg: 'Food not found.'});
             } else {
 
-              var valid = foodValidation(req.body.food1);
+              var valid = foodValidation(req.body.Food1);
 
               if (valid) {
                 //update food
-                food.food1=req.body.food1;
-                food.food2=req.body.food2;
-                food.food3=req.body.food3;
-                food.food4=req.body.food4;
-                food.food5=req.body.food5;
-                food.food6=req.body.food6;
-                food.food7=req.body.food7;
-                food.food8=req.body.food8;
-                food.food9=req.body.food9;
-                food.food10=req.body.food10;
+                food.Food1=req.body.Food1;
+                food.Food2=req.body.Food2;
+                food.Food3=req.body.Food3;
+                food.Food4=req.body.Food4;
+                food.Food5=req.body.Food5;
+                food.Food6=req.body.Food6;
+                food.Food7=req.body.Food7;
+                food.Food8=req.body.Food8;
+                food.Food9=req.body.Food9;
+                food.Food10=req.body.Food10;
 
                 //save to db
                 food.save(function(err) {
@@ -1773,8 +1773,8 @@ function temperatureValidation(date,food,startTime,finishTime,cookTemp,cookSign,
   }
 }//End refridgerationValidation
 
-function supplierValidation(sName1) {
-  if (!sName1) {
+function supplierValidation(Supplier1) {
+  if (!Supplier1) {
     return false;
   }
   else {
@@ -1782,8 +1782,8 @@ function supplierValidation(sName1) {
   }
 }//End settingsValidation
 
-function foodValidation(food1) {
-  if (!food1) {
+function foodValidation(Food1) {
+  if (!Food1) {
     return false;
   }
   else {
