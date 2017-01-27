@@ -38,7 +38,6 @@ var foodDelivery_detail_component_1 = require("./foodDelivery.component/foodDeli
 var app_routing_1 = require("./app.routing/app.routing");
 //login and authenticaton services
 var auth_guard_1 = require("./guards/auth.guard");
-var user_service_1 = require("./testservice/user.service");
 var login_service_1 = require("./login.component/login.service");
 //form service
 var form_service_1 = require("./FormService/form.service");
@@ -83,7 +82,6 @@ AppModule = __decorate([
         providers: [
             auth_guard_1.AuthGuard,
             login_service_1.AuthenticationService,
-            user_service_1.UserService,
             form_service_1.FormService,
             Settings_service_1.SettingsService,
         ],

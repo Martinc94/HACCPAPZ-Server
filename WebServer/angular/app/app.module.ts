@@ -36,7 +36,7 @@ import { FoodDeliveryDetailComponent }       from './foodDelivery.component/food
 import { routing }          from './app.routing/app.routing';
 //login and authenticaton services
 import { AuthGuard } from './guards/auth.guard';
-import { UserService } from './testservice/user.service';
+
 import { AuthenticationService } from './login.component/login.service';
 //form service
 import { FormService } from './FormService/form.service';
@@ -76,7 +76,6 @@ import { SettingsService } from './SettingsService/Settings.service';
     providers: [
         AuthGuard,
         AuthenticationService,
-        UserService,
         FormService,
         SettingsService,
     ],
