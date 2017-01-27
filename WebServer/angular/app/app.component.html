@@ -40,13 +40,8 @@
 
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/dashboard">{{this.authenticationService.userName}}</a></li>
-        
-
         <li><a *ngIf="this.authenticationService.userName === null" href="/login">Login</a></li>
         <li><a *ngIf="this.authenticationService.userName !== null" href="/login">Logout</a></li>
-
-
-        
       </ul>
     </div>
   </div>
