@@ -14,7 +14,21 @@ var AppComponent = (function () {
     function AppComponent(authenticationService) {
         this.authenticationService = authenticationService;
         this.title = 'haccpapz';
+        this.getUserName();
     }
+    AppComponent.prototype.getUserName = function () {
+        this.userName = this.authenticationService.userName;
+        if (this.userName == undefined) {
+            try {
+                var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.userName = currentUser.username;
+            }
+            catch (error) {
+                this.userName = null;
+            }
+        } //end if
+        return this.userName;
+    };
     return AppComponent;
 }());
 AppComponent = __decorate([
