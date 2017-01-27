@@ -1,5 +1,6 @@
 
 import { Component } from '@angular/core';
+import { AuthenticationService } from './login.component/login.service';
 
 @Component({
   moduleId: module.id,
@@ -11,9 +12,16 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'haccpapz';
   public token: string;
-  public userName: string;
+  //public userName: string;
+  
+  constructor(
+        private authenticationService: AuthenticationService) {
 
-  constructor() {
+        }
+ 
+    
+
+  /*constructor() {
     try {
       var currentUser = JSON.parse(localStorage.getItem('currentUser'));
       this.userName = currentUser.username;
@@ -22,5 +30,5 @@ export class AppComponent {
       this.userName = null;
     }
         
-  }
+  }*/
 }

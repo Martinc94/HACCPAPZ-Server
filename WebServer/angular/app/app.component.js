@@ -9,16 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var login_service_1 = require("./login.component/login.service");
 var AppComponent = (function () {
-    function AppComponent() {
+    //public userName: string;
+    function AppComponent(authenticationService) {
+        this.authenticationService = authenticationService;
         this.title = 'haccpapz';
-        try {
-            var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            this.userName = currentUser.username;
-        }
-        catch (error) {
-            this.userName = null;
-        }
     }
     return AppComponent;
 }());
@@ -29,7 +25,7 @@ AppComponent = __decorate([
         templateUrl: 'app.component.html',
         styleUrls: ['app.component.css']
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [login_service_1.AuthenticationService])
 ], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map
