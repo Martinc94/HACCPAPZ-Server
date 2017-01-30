@@ -1644,6 +1644,48 @@ apiRoutes.post('/foodDelivery', passport.authenticate('jwt', { session: false}),
 });
 //end FoodDelivery/////////////////////////////////////////////////////////////////////
 
+apiRoutes.post('/foodDeliveryPhoto', passport.authenticate('jwt', { session: false}), function(req, res) {
+  var token = getToken(req.headers);
+  if (token) {
+    var decoded = jwt.decode(token, config.secret);
+    User.findOne({
+      email: decoded.email
+    }, function(err, user) {
+        if (err) throw err;
+
+        if (!user) {
+          return res.status(403).send({success: false, msg: 'Authentication failed.'});
+        } else {
+
+          /*var foodDelivery = new Delivery();
+
+          //add validation here for data coming from ionic to make sure is correct and has all required fields
+          var foodDelVal =foodDeliveryValidation(req.body.date,req.body.food);*/
+
+          //if has image save
+          if(false){
+
+          //save image to db
+
+         
+
+            res.json({success: true, msg: 'Photo Saved'});
+          //});
+
+        }//end if 
+      
+        else {
+          res.send({success: false, msg: 'Error Saving photo.'});
+        }//end Else
+
+        }
+    });
+  } else {
+    return res.status(403).send({success: false, msg: 'No token provided.'});
+  }
+});
+//end FoodDeliveryPhoto/////////////////////////////////////////////////////////////////////
+
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //Init + Start Server
 ////////////////////////////////////////////////////////////////////////////////////////////////
