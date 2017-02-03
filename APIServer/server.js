@@ -1,16 +1,20 @@
 //Variables
 var express     = require('express');
-var cors = require('cors');
+var cors 		= require('cors');
 var app         = express();
 var bodyParser  = require('body-parser');
 var morgan      = require('morgan');
 var mongoose    = require('mongoose');
-var passport  = require('passport');
+var passport  	= require('passport');
 var config      = require('./config/database'); // get db config file
 var User        = require('./app/models/user'); // get the mongoose model
 var port        = process.env.PORT || 8080;
 var jwt         = require('jwt-simple');
 //var nodemailer = require('nodemailer');
+var fs = require('fs');
+var multer = require('multer');
+var crypto = require('crypto');
+
 //Schemas
 var Settings     = require('./app/models/settings');
 var LoginTime     = require('./app/models/loginTimes');
@@ -26,6 +30,8 @@ var Transport= require('./app/models/transport');
 var Temperature= require('./app/models/temperature');
 var Food= require('./app/models/food');
 
+var Photo = require('./app/models/photo');
+
 //Some of user auth Code adapted from http://devdactic.com/restful-api-user-authentication-1
 
 //works but google suspend account
@@ -40,14 +46,37 @@ var Food= require('./app/models/food');
 app.use(cors());
 
 // get our request parameters
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(bodyParser.json({limit: "50mb"}));
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 
 // log to console
 app.use(morgan('dev'));
 
 // Use the passport package in our application
 app.use(passport.initialize());
+
+//Multer for photos
+//var upload =multer({dest:'C:/uploads'});
+
+var path = require('path')
+var multer = require('multer')
+
+var storage = multer.diskStorage({
+  destination: 'C:/uploads',
+  filename: function (req, file, cb) {
+    crypto.pseudoRandomBytes(16, function (err, raw) {
+      if (err) return cb(err)
+
+      cb(null, raw.toString('hex') + path.extname(file.originalname))
+    })
+  }
+})
+
+var upload = multer({ storage: storage })
+
 
 // demo Route (GET http://localhost:8080)
 //can be removed
@@ -62,6 +91,7 @@ app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   next();
 });
+
 
 // connect to Mongodb database using mongoose
 var db =mongoose.connect(config.database);
@@ -1644,7 +1674,7 @@ apiRoutes.post('/foodDelivery', passport.authenticate('jwt', { session: false}),
 });
 //end FoodDelivery/////////////////////////////////////////////////////////////////////
 
-apiRoutes.post('/foodDeliveryPhoto', passport.authenticate('jwt', { session: false}), function(req, res) {
+apiRoutes.post('/foodDeliveryPhoto',upload.single('photo'), passport.authenticate('jwt', { session: false}), function(req, res) {
   var token = getToken(req.headers);
   if (token) {
     var decoded = jwt.decode(token, config.secret);
@@ -1656,17 +1686,20 @@ apiRoutes.post('/foodDeliveryPhoto', passport.authenticate('jwt', { session: fal
         if (!user) {
           return res.status(403).send({success: false, msg: 'Authentication failed.'});
         } else {
-
-          /*var foodDelivery = new Delivery();
-
-          //add validation here for data coming from ionic to make sure is correct and has all required fields
-          var foodDelVal =foodDeliveryValidation(req.body.date,req.body.food);*/
+		  
+		  console.log(req.body);//contains any text
+		  
+		  //console.log(req.file);//file 
+		  
+		  console.log(req.file.fieldname);
+		  
+		  console.log(req.file.filename);
 
           //if has image save
-          if(false){
-
-          //save image to db
-
+        if(true){
+			
+		      //save image to db
+		
          
 
             res.json({success: true, msg: 'Photo Saved'});
