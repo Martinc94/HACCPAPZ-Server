@@ -30,8 +30,6 @@ var Transport= require('./app/models/transport');
 var Temperature= require('./app/models/temperature');
 var Food= require('./app/models/food');
 
-var Photo = require('./app/models/photo');
-
 //Some of user auth Code adapted from http://devdactic.com/restful-api-user-authentication-1
 
 //works but google suspend account
@@ -61,8 +59,8 @@ app.use(passport.initialize());
 //Multer for photos
 //var upload =multer({dest:'C:/uploads'});
 
-var path = require('path')
-var multer = require('multer')
+var path = require('path');
+var multer = require('multer');
 
 var storage = multer.diskStorage({
   destination: 'C:/uploads',
@@ -72,11 +70,10 @@ var storage = multer.diskStorage({
 
       cb(null, raw.toString('hex') + path.extname(file.originalname))
     })
-  }
+  }//end fileName
 })
 
 var upload = multer({ storage: storage })
-
 
 // demo Route (GET http://localhost:8080)
 //can be removed
@@ -1624,7 +1621,7 @@ apiRoutes.get('/getFoodDelivery', passport.authenticate('jwt', { session: false}
 });
 //end getFoodDelivery//////////////////////////////////////////////////////////////////////////////
 
-apiRoutes.post('/foodDelivery', passport.authenticate('jwt', { session: false}), function(req, res) {
+/*apiRoutes.post('/foodDelivery', passport.authenticate('jwt', { session: false}), function(req, res) {
   var token = getToken(req.headers);
   if (token) {
     var decoded = jwt.decode(token, config.secret);
@@ -1672,9 +1669,9 @@ apiRoutes.post('/foodDelivery', passport.authenticate('jwt', { session: false}),
     return res.status(403).send({success: false, msg: 'No token provided.'});
   }
 });
-//end FoodDelivery/////////////////////////////////////////////////////////////////////
+//end FoodDelivery/////////////////////////////////////////////////////////////////////*/
 
-apiRoutes.post('/foodDeliveryPhoto',upload.single('photo'), passport.authenticate('jwt', { session: false}), function(req, res) {
+apiRoutes.post('/foodDelivery',upload.single('photo'), passport.authenticate('jwt', { session: false}), function(req, res) {
   var token = getToken(req.headers);
   if (token) {
     var decoded = jwt.decode(token, config.secret);
@@ -1686,24 +1683,36 @@ apiRoutes.post('/foodDeliveryPhoto',upload.single('photo'), passport.authenticat
         if (!user) {
           return res.status(403).send({success: false, msg: 'Authentication failed.'});
         } else {
-		  
-		  console.log(req.body);//contains any text
-		  
-		  //console.log(req.file);//file 
-		  
-		  console.log(req.file.fieldname);
-		  
-		  console.log(req.file.filename);
-
-          //if has image save
-        if(true){
 			
-		      //save image to db
-		
-         
+			var foodDelivery = new Delivery();
 
-            res.json({success: true, msg: 'Photo Saved'});
-          //});
+			//add validation here for data coming from ionic to make sure is correct and has all required fields
+			var foodDelVal =foodDeliveryValidation(req.body.date,req.body.food);
+
+			if(foodDelVal){
+				
+				foodDelivery.email=user.email;
+				foodDelivery.date=req.body.date;
+				foodDelivery.food=req.body.food;
+				foodDelivery.batchCode=req.body.batchCode;
+				foodDelivery.supplier=req.body.supplier;
+				foodDelivery.useBy=req.body.useBy;
+				foodDelivery.temp=req.body.temp;
+				foodDelivery.vehicleCheck=req.body.vehicleCheck;
+				foodDelivery.comment=req.body.comment;
+				foodDelivery.sign=req.body.sign;
+				if(req.file!=undefined){
+					foodDelivery.photoId=req.file.filename;
+				}
+				
+
+            //save to db
+            foodDelivery.save(function(err) {
+              if (err)
+                  res.send(err);
+
+				res.json({success: true, msg: 'Form Saved'});
+			  });
 
         }//end if 
       
