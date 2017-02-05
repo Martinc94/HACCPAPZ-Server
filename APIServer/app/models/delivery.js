@@ -12,7 +12,8 @@ var deliverySchema   = new Schema({
     vehicleCheck: String,
     comment: String,
     sign: String,
-	photoId: String
+	photo: String,
+	photoComment: String
 	
 	
 });
