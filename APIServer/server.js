@@ -1671,7 +1671,7 @@ apiRoutes.get('/getFoodDelivery', passport.authenticate('jwt', { session: false}
 });
 //end FoodDelivery/////////////////////////////////////////////////////////////////////*/
 
-apiRoutes.post('/foodDelivery',upload.single('photo'), passport.authenticate('jwt', { session: false}), function(req, res) {
+/*apiRoutes.post('/foodDelivery',upload.single('photo'), passport.authenticate('jwt', { session: false}), function(req, res) {
   var token = getToken(req.headers);
   if (token) {
     var decoded = jwt.decode(token, config.secret);
@@ -1688,6 +1688,8 @@ apiRoutes.post('/foodDelivery',upload.single('photo'), passport.authenticate('jw
 
 			//add validation here for data coming from ionic to make sure is correct and has all required fields
 			var foodDelVal =foodDeliveryValidation(req.body.date,req.body.food);
+		
+			console.log(req.body);
 
 			if(foodDelVal){
 				
@@ -1718,6 +1720,69 @@ apiRoutes.post('/foodDelivery',upload.single('photo'), passport.authenticate('jw
       
         else {
           res.send({success: false, msg: 'Error Saving photo.'});
+        }//end Else
+
+        }
+    });
+  } else {
+    return res.status(403).send({success: false, msg: 'No token provided.'});
+  }
+});
+//end FoodDeliveryPhoto/////////////////////////////////////////////////////////////////////*/
+
+apiRoutes.post('/foodDelivery',upload.single('photo'), passport.authenticate('jwt', { session: false}), function(req, res) {
+  var token = getToken(req.headers);
+  if (token) {
+    var decoded = jwt.decode(token, config.secret);
+    User.findOne({
+      email: decoded.email
+    }, function(err, user) {
+        if (err) throw err;
+
+        if (!user) {
+          return res.status(403).send({success: false, msg: 'Authentication failed.'});
+        } else {
+			
+			//console.log(req.body);
+			//console.log(req.body.photo);
+			
+			var foodDelivery = new Delivery();
+
+			//add validation here for data coming from ionic to make sure is correct and has all required fields
+			var foodDelVal =foodDeliveryValidation(req.body.date,req.body.food);
+		
+			
+
+			if(foodDelVal){
+				
+				foodDelivery.email=user.email;
+				foodDelivery.date=req.body.date;
+				foodDelivery.food=req.body.food;
+				foodDelivery.batchCode=req.body.batchCode;
+				foodDelivery.supplier=req.body.supplier;
+				foodDelivery.useBy=req.body.useBy;
+				foodDelivery.temp=req.body.temp;
+				foodDelivery.vehicleCheck=req.body.vehicleCheck;
+				foodDelivery.comment=req.body.comment;
+				foodDelivery.sign=req.body.sign;
+				if(req.body.photo != ""){
+					foodDelivery.photo=req.body.photo;
+					foodDelivery.photoComment=req.body.photoComment;
+				}
+				
+
+            //save to db
+            foodDelivery.save(function(err) {
+              if (err)
+                  res.send(err);
+
+				res.json({success: true, msg: 'Form Saved'});
+			  });
+
+        }//end if 
+      
+        else {
+          res.send({success: false, msg: 'Error Saving Form.'});
         }//end Else
 
         }
@@ -1897,7 +1962,7 @@ function createSettings(newEmail) {
 }//End createSettings
 
 function foodDeliveryValidation(date,food) {
-  if (!date||!food) {
+  if (date == "undefined" || date == "null" || food == "undefined" || food == "null") {
     return false;
   }
   else {
