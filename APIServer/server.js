@@ -862,6 +862,8 @@ apiRoutes.post('/transport', passport.authenticate('jwt', { session: false}), fu
             transport.sign=req.body.sign;
             transport.checkon=req.body.checkon;
             transport.managersign=req.body.managersign;
+            transport.lat=req.body.lat;
+            transport.long=req.body.long;
 
             //save to db
             transport.save(function(err) {
