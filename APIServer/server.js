@@ -864,6 +864,9 @@ apiRoutes.post('/transport', passport.authenticate('jwt', { session: false}), fu
             transport.managersign=req.body.managersign;
             transport.lat=req.body.lat;
             transport.long=req.body.long;
+			
+			      //console.log("lat: "+req.body.lat);
+			      //console.log("long: "+req.body.long);
 
             //save to db
             transport.save(function(err) {
@@ -1767,6 +1770,9 @@ apiRoutes.post('/foodDelivery',upload.single('photo'), passport.authenticate('jw
 				foodDelivery.vehicleCheck=req.body.vehicleCheck;
 				foodDelivery.comment=req.body.comment;
 				foodDelivery.sign=req.body.sign;
+        foodDelivery.lat=req.body.lat;
+        foodDelivery.long=req.body.long;
+
 				if(req.body.photo != ""){
 					foodDelivery.photo=req.body.photo;
 					foodDelivery.photoComment=req.body.photoComment;

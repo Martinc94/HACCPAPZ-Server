@@ -13,7 +13,9 @@ var deliverySchema   = new Schema({
     comment: String,
     sign: String,
 	photo: String,
-	photoComment: String
+	photoComment: String,
+    lat: 	    String,
+    long:       String
 	
 	
 });
