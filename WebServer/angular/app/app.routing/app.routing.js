@@ -23,6 +23,7 @@ var transport_detail_component_1 = require("../transport.component/transport-det
 var dashboard_component_1 = require("../dashboard.component/dashboard.component");
 var foodDelivery_component_1 = require("../foodDelivery.component/foodDelivery.component");
 var foodDelivery_detail_component_1 = require("../foodDelivery.component/foodDelivery-detail.component/foodDelivery-detail.component");
+var FoodAnalysis_component_1 = require("../FoodAnalysis.component/FoodAnalysis.component");
 var appRoutes = [
     { path: 'login', component: login_component_1.LoginComponent },
     { path: '', component: home_component_1.HomeComponent, canActivate: [auth_guard_1.AuthGuard] },
@@ -46,6 +47,7 @@ var appRoutes = [
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'foodDelivery', component: foodDelivery_component_1.FoodDeliveryComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'foodDeliveryform/:_id', component: foodDelivery_detail_component_1.FoodDeliveryDetailComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'foodTrend', component: FoodAnalysis_component_1.FoodAnalysisComponent, canActivate: [auth_guard_1.AuthGuard] },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];

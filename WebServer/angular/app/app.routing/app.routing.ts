@@ -26,7 +26,7 @@ import { TransportDetailComponent }   from '../transport.component/transport-det
 import { DashboardComponent }          from '../dashboard.component/dashboard.component';
 import { FoodDeliveryComponent }       from '../foodDelivery.component/foodDelivery.component';
 import { FoodDeliveryDetailComponent }       from '../foodDelivery.component/foodDelivery-detail.component/foodDelivery-detail.component';
-
+import { FoodAnalysisComponent }         from '../FoodAnalysis.component/FoodAnalysis.component';
 
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -51,6 +51,7 @@ const appRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'foodDelivery', component: FoodDeliveryComponent, canActivate: [AuthGuard] },
     { path: 'foodDeliveryform/:_id',component: FoodDeliveryDetailComponent, canActivate: [AuthGuard] },
+    { path: 'foodTrend', component: FoodAnalysisComponent, canActivate: [AuthGuard] },
     
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

@@ -32,6 +32,7 @@ var transport_detail_component_1 = require("./transport.component/transport-deta
 var dashboard_component_1 = require("./dashboard.component/dashboard.component");
 var foodDelivery_component_1 = require("./foodDelivery.component/foodDelivery.component");
 var foodDelivery_detail_component_1 = require("./foodDelivery.component/foodDelivery-detail.component/foodDelivery-detail.component");
+var FoodAnalysis_component_1 = require("./FoodAnalysis.component/FoodAnalysis.component");
 //Services
 //////////////////////////////////////////////////////////////
 //Handles Routing
@@ -42,6 +43,7 @@ var login_service_1 = require("./login.component/login.service");
 //form service
 var form_service_1 = require("./FormService/form.service");
 var Settings_service_1 = require("./SettingsService/Settings.service");
+var analysis_service_1 = require("./AnalysisService/analysis.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -78,12 +80,14 @@ AppModule = __decorate([
             dashboard_component_1.DashboardComponent,
             foodDelivery_component_1.FoodDeliveryComponent,
             foodDelivery_detail_component_1.FoodDeliveryDetailComponent,
+            FoodAnalysis_component_1.FoodAnalysisComponent,
         ],
         providers: [
             auth_guard_1.AuthGuard,
             login_service_1.AuthenticationService,
             form_service_1.FormService,
             Settings_service_1.SettingsService,
+            analysis_service_1.AnalysisService,
         ],
         bootstrap: [app_component_1.AppComponent]
     })

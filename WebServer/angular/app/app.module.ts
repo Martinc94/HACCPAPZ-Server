@@ -29,6 +29,7 @@ import { TransportDetailComponent } from './transport.component/transport-detail
 import { DashboardComponent }       from './dashboard.component/dashboard.component';
 import { FoodDeliveryComponent }       from './foodDelivery.component/foodDelivery.component';
 import { FoodDeliveryDetailComponent }       from './foodDelivery.component/foodDelivery-detail.component/foodDelivery-detail.component';
+import { FoodAnalysisComponent }         from './FoodAnalysis.component/FoodAnalysis.component';
 
 //Services
 //////////////////////////////////////////////////////////////
@@ -41,6 +42,7 @@ import { AuthenticationService } from './login.component/login.service';
 //form service
 import { FormService } from './FormService/form.service';
 import { SettingsService } from './SettingsService/Settings.service';
+import { AnalysisService } from './AnalysisService/analysis.service';
 
 @NgModule({
     imports: [
@@ -72,12 +74,14 @@ import { SettingsService } from './SettingsService/Settings.service';
         DashboardComponent,
         FoodDeliveryComponent,
         FoodDeliveryDetailComponent,
+        FoodAnalysisComponent,
     ],
     providers: [
         AuthGuard,
         AuthenticationService,
         FormService,
         SettingsService,
+        AnalysisService,
     ],
     bootstrap: [ AppComponent ]
 })
