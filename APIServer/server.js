@@ -1626,115 +1626,6 @@ apiRoutes.get('/getFoodDelivery', passport.authenticate('jwt', { session: false}
 });
 //end getFoodDelivery//////////////////////////////////////////////////////////////////////////////
 
-/*apiRoutes.post('/foodDelivery', passport.authenticate('jwt', { session: false}), function(req, res) {
-  var token = getToken(req.headers);
-  if (token) {
-    var decoded = jwt.decode(token, config.secret);
-    User.findOne({
-      email: decoded.email
-    }, function(err, user) {
-        if (err) throw err;
-
-        if (!user) {
-          return res.status(403).send({success: false, msg: 'Authentication failed.'});
-        } else {
-
-          var foodDelivery = new Delivery();
-
-          //add validation here for data coming from ionic to make sure is correct and has all required fields
-          var foodDelVal =foodDeliveryValidation(req.body.date,req.body.food);
-
-          if (foodDelVal) {
-            foodDelivery.email=user.email;
-            foodDelivery.date=req.body.date;
-            foodDelivery.food=req.body.food;
-            foodDelivery.batchCode=req.body.batchCode;
-            foodDelivery.supplier=req.body.supplier;
-            foodDelivery.useBy=req.body.useBy;
-            foodDelivery.temp=req.body.temp;
-            foodDelivery.vehicleCheck=req.body.vehicleCheck;
-            foodDelivery.comment=req.body.comment;
-            foodDelivery.sign=req.body.sign;
-
-            //save to db
-            foodDelivery.save(function(err) {
-              if (err)
-                  res.send(err);
-
-            res.json({success: true, msg: 'Form Saved'});
-          });
-        }//end if Fitval
-        else {
-          res.send({success: false, msg: 'Not enough information provided.'});
-        }//end Else
-
-        }
-    });
-  } else {
-    return res.status(403).send({success: false, msg: 'No token provided.'});
-  }
-});
-//end FoodDelivery/////////////////////////////////////////////////////////////////////*/
-
-/*apiRoutes.post('/foodDelivery',upload.single('photo'), passport.authenticate('jwt', { session: false}), function(req, res) {
-  var token = getToken(req.headers);
-  if (token) {
-    var decoded = jwt.decode(token, config.secret);
-    User.findOne({
-      email: decoded.email
-    }, function(err, user) {
-        if (err) throw err;
-
-        if (!user) {
-          return res.status(403).send({success: false, msg: 'Authentication failed.'});
-        } else {
-			
-			var foodDelivery = new Delivery();
-
-			//add validation here for data coming from ionic to make sure is correct and has all required fields
-			var foodDelVal =foodDeliveryValidation(req.body.date,req.body.food);
-		
-			console.log(req.body);
-
-			if(foodDelVal){
-				
-				foodDelivery.email=user.email;
-				foodDelivery.date=req.body.date;
-				foodDelivery.food=req.body.food;
-				foodDelivery.batchCode=req.body.batchCode;
-				foodDelivery.supplier=req.body.supplier;
-				foodDelivery.useBy=req.body.useBy;
-				foodDelivery.temp=req.body.temp;
-				foodDelivery.vehicleCheck=req.body.vehicleCheck;
-				foodDelivery.comment=req.body.comment;
-				foodDelivery.sign=req.body.sign;
-				if(req.file!=undefined){
-					foodDelivery.photoId=req.file.filename;
-				}
-				
-
-            //save to db
-            foodDelivery.save(function(err) {
-              if (err)
-                  res.send(err);
-
-				res.json({success: true, msg: 'Form Saved'});
-			  });
-
-        }//end if 
-      
-        else {
-          res.send({success: false, msg: 'Error Saving photo.'});
-        }//end Else
-
-        }
-    });
-  } else {
-    return res.status(403).send({success: false, msg: 'No token provided.'});
-  }
-});
-//end FoodDeliveryPhoto/////////////////////////////////////////////////////////////////////*/
-
 apiRoutes.post('/foodDelivery',upload.single('photo'), passport.authenticate('jwt', { session: false}), function(req, res) {
   var token = getToken(req.headers);
   if (token) {
@@ -1800,6 +1691,97 @@ apiRoutes.post('/foodDelivery',upload.single('photo'), passport.authenticate('jw
   }
 });
 //end FoodDeliveryPhoto/////////////////////////////////////////////////////////////////////
+
+apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', { session: false}), function(req, res) {
+  var token = getToken(req.headers);
+  if (token) {
+    var decoded = jwt.decode(token, config.secret);
+    User.findOne({
+      email: decoded.email
+    }, function(err, user) {
+        if (err) throw err;
+        if (!user) {
+          return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
+        } else {
+			//pass in date from url
+			//deliveryAnalysis(req.query.date,req.query.months);
+		  
+			//return res.status(403).send({success: true});
+			
+			var validForms=[];
+			var results=[];
+			var willQueryFood=0;
+			
+			var queryDate = req.query.date;
+			var months = req.query.months;
+			var queryFood = req.query.food;
+			
+	
+			if(queryDate){
+				var queryDate = new Date(queryDate);
+				if(queryDate=="Invalid Date"){
+					var queryDate = new Date();
+				}
+			}
+			else{
+				var queryDate = new Date();
+			}
+			
+			if(!months){
+				months=6;
+			}
+			
+			if(queryFood){
+				//dont filter by food type
+				willQueryFood=1;
+			}
+						
+			//sets date back 6 months
+			queryDate.setMonth(queryDate.getMonth() - months);
+			
+			deliveryAnalysis().then(function(forms) {
+          //loop forms
+          for (i = 0; i < forms.length; i++) {	
+            var date = new Date(forms[i].date);
+
+            //if date newer than query date
+            if(date>queryDate){	
+              //add to valid array
+              validForms.push(forms[i]);	
+            }
+            
+          }//end if date
+          
+          //loop forms with valid date
+          for (i = 0; i < validForms.length; i++) {
+            var tempForm = {};
+            //if searching for food type
+            if(willQueryFood==1){
+              //all where query food matches forms food
+              if(forms[i].food==queryFood){
+                tempForm.date=forms[i].date;
+                tempForm.food=forms[i].food;
+                results.push(tempForm);
+              }//end if	
+            }//end if
+            //if not seatching for food type add all
+            else{
+              tempForm.date=forms[i].date;
+              tempForm.food=forms[i].food;
+              results.push(tempForm);
+            }//end else
+              
+          }//for
+
+          return res.status(403).send(results);
+			  });//end then	
+      }//end else
+    });
+  } else {
+    return res.status(403).send({success: false, msg: 'No token provided.'});
+  }
+});
+//end getFoodDelivery//////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //Init + Start Server
@@ -1977,3 +1959,23 @@ function foodDeliveryValidation(date,food) {
     return true;
   }
 }//End foodDeliveryValidation
+
+//returns true if checkpoint is within given km from centerpoint
+function isPointWithinRadius(checkPoint, centerPoint, km) {
+  var ky = 40000 / 360;
+  var kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
+  var dx = Math.abs(centerPoint.lng - checkPoint.lng) * kx;
+  var dy = Math.abs(centerPoint.lat - checkPoint.lat) * ky;
+  return Math.sqrt(dx * dx + dy * dy) <= km;
+}
+
+//Querys database and returns all delivery forms	
+function deliveryAnalysis() {	
+	var query = Delivery.find({});
+
+	query.exec(function (err, forms) {
+	  if (err) return handleError(err);
+	});
+	
+	return query;
+}//end deliveryAnalysis
