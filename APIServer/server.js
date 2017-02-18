@@ -1772,8 +1772,7 @@ apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', { session: false
             }//end else
               
           }//for
-
-          return res.status(403).send(results);
+		  return res.status(200).json(results);
 			  });//end then	
       }//end else
     });
