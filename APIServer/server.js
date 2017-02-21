@@ -1661,8 +1661,8 @@ apiRoutes.post('/foodDelivery',upload.single('photo'), passport.authenticate('jw
 				foodDelivery.vehicleCheck=req.body.vehicleCheck;
 				foodDelivery.comment=req.body.comment;
 				foodDelivery.sign=req.body.sign;
-        foodDelivery.lat=req.body.lat;
-        foodDelivery.long=req.body.long;
+				foodDelivery.lat=req.body.lat;
+				foodDelivery.long=req.body.long;
 
 				if(req.body.photo != ""){
 					foodDelivery.photo=req.body.photo;
@@ -1702,78 +1702,102 @@ apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', { session: false
         if (err) throw err;
         if (!user) {
           return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
-        } else {
-			//pass in date from url
-			//deliveryAnalysis(req.query.date,req.query.months);
-		  
-			//return res.status(403).send({success: true});
-			
-			var validForms=[];
-			var results=[];
-			var willQueryFood=0;
-			
-			var queryDate = req.query.date;
-			var months = req.query.months;
-			var queryFood = req.query.food;
-			
-	
-			if(queryDate){
-				var queryDate = new Date(queryDate);
-				if(queryDate=="Invalid Date"){
-					var queryDate = new Date();
-				}
-			}
-			else{
-				var queryDate = new Date();
-			}
-			
-			if(!months){
-				months=6;
-			}
-			
-			if(queryFood){
-				//dont filter by food type
-				willQueryFood=1;
-			}
-						
-			//sets date back 6 months
-			queryDate.setMonth(queryDate.getMonth() - months);
-			
-			deliveryAnalysis().then(function(forms) {
-          //loop forms
-          for (i = 0; i < forms.length; i++) {	
-            var date = new Date(forms[i].date);
+        } else {		
+          var validForms=[];
+          var results=[];
+          var willQueryFood=0;
+          
+          var queryDate = req.query.date;
+          var months = req.query.months;
+          var queryFood = req.query.food;
 
-            //if date newer than query date
-            if(date>queryDate){	
-              //add to valid array
-              validForms.push(forms[i]);	
+          var lat = req.query.lat;
+          var lng = req.query.lng;
+          var km = req.query.km;
+          
+      
+          if(queryDate){
+            var queryDate = new Date(queryDate);
+            if(queryDate=="Invalid Date"){
+              var queryDate = new Date();
             }
+          }
+          else{
+            var queryDate = new Date();
+          }
+          
+          if(!months){
+            months=6;
+          }
+
+          if(!km){
+            km=30;
+          }
+
+          if(!lat||!lng){
+            console.log("No lat or long Provided");
+          }
+          
+          if(queryFood){
+            //dont filter by food type
+            willQueryFood=1;
+          }
+						
+          //sets date back 6 months
+          queryDate.setMonth(queryDate.getMonth() - months);
+			
+			    deliveryAnalysis().then(function(forms) {
+            //loop forms
+            for (i = 0; i < forms.length; i++) {	
+              var date = new Date(forms[i].date);
+
+              //if date newer than query date
+              if(date>queryDate){	
+                //add to valid array
+                validForms.push(forms[i]);	
+              }
             
           }//end if date
           
+          var centerpoint={}
+          centerpoint.lat=lat;
+          centerpoint.lng=lng;
+
           //loop forms with valid date
           for (i = 0; i < validForms.length; i++) {
             var tempForm = {};
-            //if searching for food type
-            if(willQueryFood==1){
-              //all where query food matches forms food
-              if(forms[i].food==queryFood){
-                tempForm.date=forms[i].date;
-                tempForm.food=forms[i].food;
-                results.push(tempForm);
-              }//end if	
-            }//end if
-            //if not seatching for food type add all
-            else{
-              tempForm.date=forms[i].date;
-              tempForm.food=forms[i].food;
-              results.push(tempForm);
-            }//end else
-              
-          }//for
+			
+            var querypoint={}
+            querypoint.lat=validForms[i].lat;
+            querypoint.lng=validForms[i].long;
+
+            //check if within radius 
+            if(isPointWithinRadius(querypoint,centerpoint,km)){
+				//if searching for food type
+				if(willQueryFood==1){
+				  //all where query food matches forms food
+				  if(forms[i].food==queryFood){
+					tempForm.date=forms[i].date;
+					tempForm.food=forms[i].food;
+					results.push(tempForm);
+				  }//end if	
+				}//end if
+				//if not seatching for food type add all
+				else{
+				  tempForm.date=forms[i].date;
+				  tempForm.food=forms[i].food;
+				  results.push(tempForm);
+				}//end else
+				  
+			}//end if within range 
+				  
+    }//for
+		  
+		  if(results.length==0){
+			  return res.status(200).send({success: false, msg: 'Nothing found.'});
+		  }
 		  return res.status(200).json(results);
-			  });//end then	
+		});//end then	
       }//end else
     });
   } else {
