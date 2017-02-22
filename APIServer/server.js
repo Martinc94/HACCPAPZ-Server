@@ -1804,7 +1804,72 @@ apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', { session: false
     return res.status(403).send({success: false, msg: 'No token provided.'});
   }
 });
-//end getFoodDelivery//////////////////////////////////////////////////////////////////////////////
+//end getDeliveryTrend//////////////////////////////////////////////////////////////////////////////
+
+apiRoutes.get('/getFormDate', passport.authenticate('jwt', { session: false}), function(req, res) {
+  var token = getToken(req.headers);
+  if (token) {
+    var decoded = jwt.decode(token, config.secret);
+    User.findOne({
+      email: decoded.email
+    }, function(err, user) {
+        if (err) throw err;
+        if (!user) {
+          return res.status(403).send({success: false, msg: 'Authentication failed. User not found.'});
+        } else {		
+          var p1 = getDelivery(user.email);
+          var p2 = getFitness(user.email);
+          var p3 = getRefridgeration(user.email);
+          var p4 = getHothold(user.email);
+          var p5 = getHygieneInspection(user.email);
+          var p6 = getHygieneTraining(user.email);
+          var p7 = getTransport(user.email);
+          var p8 = getTemperature(user.email);
+
+          Promise.all([p1, p2, p3, p4, p5, p6, p7, p8]).then(forms => { 
+            var results=[];
+            var temp={};     
+            var tempforms=[];
+
+            tempforms=forms[0];
+            temp.DeliveryDate=tempforms[tempforms.length-1].date;
+
+            tempforms=forms[1];
+            temp.fitnessDate=tempforms[tempforms.length-1].q2DateOfAssessment;
+
+            tempforms=forms[2];
+            temp.RefridgerationDate=tempforms[tempforms.length-1].date;
+
+            tempforms=forms[3];
+            temp.HotholdDate=tempforms[tempforms.length-1].date;
+
+            tempforms=forms[4];
+            temp.HygieneInspectionDate=tempforms[tempforms.length-1].date;
+
+            tempforms=forms[5];
+            temp.TemperatureDate=tempforms[tempforms.length-1].date;
+
+            tempforms=forms[6];
+            temp.TransportDate=tempforms[tempforms.length-1].date;
+
+            tempforms=forms[7];
+            temp.TemperatureDate=tempforms[tempforms.length-1].date;
+
+            results.push(temp);
+
+            if(results.length==0){
+			        return res.status(200).send({success: false, msg: 'Nothing found.'});
+            }
+            
+            return res.status(200).json(results);
+          });//end then
+        }//end else
+    });
+  } else {
+    return res.status(403).send({success: false, msg: 'No token provided.'});
+  }
+});
+//end getFormDate///////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //Init + Start Server
@@ -1846,9 +1911,6 @@ function fitnessValidation(q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,q12) {
   if (!q1||q2==null||!q3||!q4||!q8||!q9||!q10||!q11||q12==null) {
     return false;
   }
-  /*if (!q5&&!q6&&!q7) {
-    return false;
-  }*/
   else {
     return true;
   }
@@ -2002,3 +2064,91 @@ function deliveryAnalysis() {
 	
 	return query;
 }//end deliveryAnalysis
+
+//Querys database and returns all forms	by email
+function getDelivery(email) {	
+	var query = Delivery.find({email: email});
+
+	query.exec(function (err, forms) {
+	  if (err) return handleError(err);
+	});
+	
+	return query;
+}//end deliveryFroms
+
+//Querys database and returns all forms	by email
+function getFitness(email) {	
+	var query = Fitness.find({email: email});
+
+	query.exec(function (err, forms) {
+	  if (err) return handleError(err);
+	});
+	
+	return query;
+}//end FitnessFroms
+
+//Querys database and returns all forms	by email
+function getRefridgeration(email) {	
+	var query = Refridgeration.find({email: email});
+
+	query.exec(function (err, forms) {
+	  if (err) return handleError(err);
+	});
+	
+	return query;
+}//end getRefridgeration
+
+//Querys database and returns all forms	by email
+function getHothold(email) {	
+	var query = Hothold.find({email: email});
+
+	query.exec(function (err, forms) {
+	  if (err) return handleError(err);
+	});
+	
+	return query;
+}//end getHothold
+
+//Querys database and returns all forms	by email
+function getHygieneInspection(email) {	
+	var query = HygieneInspection.find({email: email});
+
+	query.exec(function (err, forms) {
+	  if (err) return handleError(err);
+	});
+	
+	return query;
+}//end getHygieneInspection
+
+//Querys database and returns all forms	by email
+function getHygieneTraining(email) {	
+	var query = HygieneTraining.find({email: email});
+
+	query.exec(function (err, forms) {
+	  if (err) return handleError(err);
+	});
+	
+	return query;
+}//end getHygieneTraining
+
+//Querys database and returns all forms	by email
+function getTransport(email) {	
+	var query = Transport.find({email: email});
+
+	query.exec(function (err, forms) {
+	  if (err) return handleError(err);
+	});
+	
+	return query;
+}//end getTransport
+
+//Querys database and returns all forms by email
+function getTemperature(email) {	
+	var query = Temperature.find({email: email});
+
+	query.exec(function (err, forms) {
+	  if (err) return handleError(err);
+	});
+	
+	return query;
+}//end getTemperature
