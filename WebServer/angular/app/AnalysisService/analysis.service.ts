@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Rx'
 import '../rxjs-operators';
 
 import {FoodAnalysis} from '../classes/FoodAnalysis/FoodAnalysis';
+import {FormDates} from '../classes/FormDates/FormDates';
  
 @Injectable()
 export class AnalysisService {
@@ -11,6 +12,7 @@ export class AnalysisService {
     private authHeader = new Headers();
     //Urls
     private foodTrendUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getDeliveryTrend';
+    private formDateUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getFormDate';
 
     constructor(private http: Http) {
         // set token if saved in local storage
@@ -40,6 +42,12 @@ export class AnalysisService {
 
     getFoodAnalysisForms (): Observable<FoodAnalysis[]> {
         return this.http.get(this.foodTrendUrl,({ headers: this.authHeader}))
+                        .map(this.extractData)
+                        .catch(this.handleError);
+    }  
+
+    getFormDates (): Observable<FormDates[]> {
+        return this.http.get(this.formDateUrl,({ headers: this.authHeader}))
                         .map(this.extractData)
                         .catch(this.handleError);
     }  

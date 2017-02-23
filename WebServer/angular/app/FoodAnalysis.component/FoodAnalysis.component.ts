@@ -31,7 +31,7 @@ export class FoodAnalysisComponent implements OnInit {
         ).subscribe(
             form => this.foodAnalysisForms = form,
             error =>  this.errorMessage = <any>error);
-    }//end getFitnessForms
+    }//end getForms
 
     
 }
