@@ -1835,7 +1835,7 @@ apiRoutes.get('/getFormDate', passport.authenticate('jwt', { session: false}), f
             temp.DeliveryDate=tempforms[tempforms.length-1].date;
 
             tempforms=forms[1];
-            temp.fitnessDate=tempforms[tempforms.length-1].q2DateOfAssessment;
+            temp.FitnessDate=tempforms[tempforms.length-1].q2DateOfAssessment;
 
             tempforms=forms[2];
             temp.RefridgerationDate=tempforms[tempforms.length-1].date;
@@ -1847,7 +1847,7 @@ apiRoutes.get('/getFormDate', passport.authenticate('jwt', { session: false}), f
             temp.HygieneInspectionDate=tempforms[tempforms.length-1].date;
 
             tempforms=forms[5];
-            temp.TemperatureDate=tempforms[tempforms.length-1].date;
+            temp.HygieneTrainingDate=tempforms[tempforms.length-1].date;
 
             tempforms=forms[6];
             temp.TransportDate=tempforms[tempforms.length-1].date;
