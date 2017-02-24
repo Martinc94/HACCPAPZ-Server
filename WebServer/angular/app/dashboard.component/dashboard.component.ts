@@ -5,8 +5,8 @@ import { Router }       from '@angular/router';
 
 import { AnalysisService } from '../AnalysisService/analysis.service';
 import {FormDates} from '../classes/FormDates/FormDates';
-import '../rxjs-operators';
 import { Observable }     from 'rxjs/Observable';
+import '../rxjs-operators';
 
 @Component({
   moduleId: module.id,
@@ -15,22 +15,22 @@ import { Observable }     from 'rxjs/Observable';
 })
 
 export class DashboardComponent implements OnInit {
-   errorMessage: string;
+    errorMessage: string;
     title = "User Dashboard";
     public userName: string;
     formDatesForms: FormDates[];
-     mode = 'Observable';
+    mode = 'Observable';
 
-  constructor(private router: Router,
-            private analysisService: AnalysisService) {
-    try {
-      var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      this.userName = currentUser.username;
-      
-    } catch (error) {
-      this.userName = null;
+    constructor(private router: Router,
+        private analysisService: AnalysisService) {
+        try {
+            var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            this.userName = currentUser.username;
+
+        } catch (error) {
+            this.userName = null;
+        }
     }
-  }
 
   ngOnInit() {
         this.getFormDates();
@@ -41,6 +41,6 @@ export class DashboardComponent implements OnInit {
         ).subscribe(
             form => this.formDatesForms = form,
             error =>  this.errorMessage = <any>error);
-    }//end getFitnessForms
+    }//end getFormDates
 
 }

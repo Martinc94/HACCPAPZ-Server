@@ -33,7 +33,7 @@ var DashboardComponent = (function () {
     DashboardComponent.prototype.getFormDates = function () {
         var _this = this;
         this.analysisService.getFormDates().subscribe(function (form) { return _this.formDatesForms = form; }, function (error) { return _this.errorMessage = error; });
-    }; //end getFitnessForms
+    }; //end getFormDates
     return DashboardComponent;
 }());
 DashboardComponent = __decorate([

@@ -1,18 +1,16 @@
-   <h1 align= "center">Food Trend Analysis</h1>
+<h1 align="center">Food Trend Analysis</h1>
 
-        <div *ngFor="let form of foodAnalysisForms">
-            <div class="panel panel-default col-med">
-                <div class="panel-body">
-                    <div class="media">
-                        <div class="media-body">
-                            <div>
-                                <h3>Delivery:</h3> 
-                            </div>
-                                <h5>{{form.food}}</h5>
-                                <h5>{{form.date}}</h5>
-                            </div>
-                        </div> 
-                    </div>
+<div *ngFor="let form of foodAnalysisForms">
+    <div class="panel panel-default col-med">
+        <div class="panel-body">
+            <div class="media">
+                <div class="media-body">
+                    <h5>{{form.Msg}}</h5>
+                    <h5>{{form.food}}</h5>
+                    <h5>{{form.date}}</h5>
                 </div>
+            </div>
+        </div>
+    </div>
 
     <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
