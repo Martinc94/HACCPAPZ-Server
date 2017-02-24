@@ -1714,6 +1714,9 @@ apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', { session: false
           var lat = req.query.lat;
           var lng = req.query.lng;
           var km = req.query.km;
+
+          var countFood=0;
+          var Msg="";
           
       
           if(queryDate){
@@ -1777,15 +1780,19 @@ apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', { session: false
 				if(willQueryFood==1){
 				  //all where query food matches forms food
 				  if(forms[i].food==queryFood){
-					tempForm.date=forms[i].date;
+					var tempDate1 = new Date(forms[i].date);
+				    tempForm.date=tempDate1.toDateString();
 					tempForm.food=forms[i].food;
+					countFood++;
 					results.push(tempForm);
 				  }//end if	
 				}//end if
 				//if not seatching for food type add all
 				else{
-				  tempForm.date=forms[i].date;
+				  var tempDate2 = new Date(forms[i].date);
+				  tempForm.date=tempDate2.toDateString();
 				  tempForm.food=forms[i].food;
+				  countFood++;
 				  results.push(tempForm);
 				}//end else
 				  
@@ -1796,6 +1803,13 @@ apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', { session: false
 		  if(results.length==0){
 			  return res.status(200).send({success: false, msg: 'Nothing found.'});
 		  }
+		  Msg="Found "+countFood+" occurrences of "+queryFood+" Between "+ queryDate.toDateString() +" and "+date.toDateString()+".";
+		  
+		  var message={};
+	      message.Msg=Msg;
+		  
+		  results.push(message);
+		  
 		  return res.status(200).json(results);
 		});//end then	
       }//end else
@@ -1830,30 +1844,40 @@ apiRoutes.get('/getFormDate', passport.authenticate('jwt', { session: false}), f
             var results=[];
             var temp={};     
             var tempforms=[];
+			var tempDate = new Date();
 
             tempforms=forms[0];
-            temp.DeliveryDate=tempforms[tempforms.length-1].date;
+			tempDate = new Date(tempforms[tempforms.length-1].date);
+            temp.DeliveryDate=tempDate.toDateString();
+			
 
             tempforms=forms[1];
-            temp.FitnessDate=tempforms[tempforms.length-1].q2DateOfAssessment;
+			tempDate = new Date(tempforms[tempforms.length-1].q2DateOfAssessment);
+            temp.FitnessDate=tempDate.toDateString();
 
             tempforms=forms[2];
-            temp.RefridgerationDate=tempforms[tempforms.length-1].date;
+			tempDate = new Date(tempforms[tempforms.length-1].date);
+            temp.RefridgerationDate=tempDate.toDateString();
 
             tempforms=forms[3];
-            temp.HotholdDate=tempforms[tempforms.length-1].date;
+			tempDate = new Date(tempforms[tempforms.length-1].date);
+            temp.HotholdDate=tempDate.toDateString();
 
             tempforms=forms[4];
-            temp.HygieneInspectionDate=tempforms[tempforms.length-1].date;
+			tempDate = new Date(tempforms[tempforms.length-1].date);
+            temp.HygieneInspectionDate=tempDate.toDateString();
 
             tempforms=forms[5];
-            temp.HygieneTrainingDate=tempforms[tempforms.length-1].date;
-
+			tempDate = new Date(tempforms[tempforms.length-1].date);
+            temp.HygieneTrainingDate=tempDate.toDateString();
+			
             tempforms=forms[6];
-            temp.TransportDate=tempforms[tempforms.length-1].date;
+			tempDate = new Date(tempforms[tempforms.length-1].date);
+            temp.TransportDate=tempDate.toDateString();
 
             tempforms=forms[7];
-            temp.TemperatureDate=tempforms[tempforms.length-1].date;
+			tempDate = new Date(tempforms[tempforms.length-1].date);
+            temp.TemperatureDate=tempDate.toDateString();
 
             results.push(temp);
 
