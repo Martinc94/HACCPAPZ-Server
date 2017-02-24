@@ -16,12 +16,24 @@ export class FoodAnalysisComponent implements OnInit {
      foodAnalysisForms: FoodAnalysis[];
      mode = 'Observable';
 
+     //private lat: any;
+     //private lng: any;
+
     constructor(private router: Router,
             private analysisService: AnalysisService){
     }
 
     ngOnInit() {
         this.getAnalysis();
+
+        var lat;
+        var lng;
+        
+        if(!!navigator.geolocation) {
+            //console.log("Support");
+        } else {
+            console.log("No support");// No support
+        }
     }
 
     getAnalysis(){
@@ -30,4 +42,34 @@ export class FoodAnalysisComponent implements OnInit {
             form => this.foodAnalysisForms = form,
             error =>  this.errorMessage = <any>error);
     }//end getAnalysis 
+
+    /*getGeoLocation(){
+        var options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+        };
+
+        function success(pos) {
+            var crd = pos.coords;
+
+            console.log('Your current position is:');
+            console.log(`Latitude : ${crd.latitude}`);
+            console.log(`Longitude: ${crd.longitude}`);
+            console.log(`More or less ${crd.accuracy} meters.`);
+
+            //this.lat=crd.latitude;
+            //this.lng=crd.longitude;
+
+        };
+
+        function error(err) {
+            console.warn(`ERROR(${err.code}): ${err.message}`);
+        };
+
+        navigator.geolocation.getCurrentPosition(success, error, options);
+        
+
+    }//end getGeoLocation */
+
 }
