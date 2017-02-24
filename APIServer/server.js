@@ -2022,9 +2022,13 @@ apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', {
                     var message = {};
                     message.Msg = Msg;
 
-                    results.push(message);
+                    var resultsWithMessage = []; 
 
-                    return res.status(200).json(results);
+                    resultsWithMessage.push(message);
+
+                    resultsWithMessage = resultsWithMessage.concat(results); 
+
+                    return res.status(200).json(resultsWithMessage);
                 }); //end then	
             } //end else
         });
