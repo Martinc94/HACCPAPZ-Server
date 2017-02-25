@@ -1919,7 +1919,7 @@ apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', {
                 var results = [];
                 var willQueryFood = 0;
 
-                var queryDate = req.query.date;
+                var firstQueryDate = req.query.date;
                 var months = req.query.months;
                 var queryFood = req.query.food;
 
@@ -1930,14 +1930,19 @@ apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', {
                 var countFood = 0;
                 var Msg = "";
 
-
-                if (queryDate) {
-                    var queryDate = new Date(queryDate);
+                if (firstQueryDate) {
+                    var queryDate = new Date(firstQueryDate);
                     if (queryDate == "Invalid Date") {
                         var queryDate = new Date();
                     }
+					
+					var firstQueryDate = new Date(firstQueryDate);
+                    if (firstQueryDate == "Invalid Date") {
+                        var firstQueryDate = new Date();
+                    }
                 } else {
                     var queryDate = new Date();
+					var firstQueryDate = new Date();
                 }
 
                 if (!months) {
@@ -2017,7 +2022,8 @@ apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', {
                             msg: 'Nothing found.'
                         });
                     }
-                    Msg = "Found " + countFood + " occurrences of " + queryFood + " Between " + queryDate.toDateString() + " and " + date.toDateString() + ".";
+
+                    Msg = "Found " + countFood + " occurrences of " + queryFood + " Between " + queryDate.toDateString() + " and " + firstQueryDate.toDateString() + ".";
 
                     var message = {};
                     message.Msg = Msg;
