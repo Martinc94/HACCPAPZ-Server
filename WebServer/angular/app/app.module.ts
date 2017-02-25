@@ -11,7 +11,6 @@ import { AppComponent }             from './app.component';
 import { HomeComponent }            from './home.component/home.component';
 import { AboutComponent }           from './about.component/about.component';
 import { LoginComponent }           from './login.component/login.component';
-import { SignUpComponent }          from './sign-up.component/sign-up.component';
 import { SettingsComponent }        from './settings.component/settings.component';
 import { FitnessComponent }         from './fitness.component/fitness.component';
 import { FitnessDetailComponent }   from './fitness.component/fitness-detail.component/fitness-detail.component';
@@ -56,7 +55,6 @@ import { AnalysisService } from './AnalysisService/analysis.service';
         HomeComponent,
         AboutComponent,
         LoginComponent,
-        SignUpComponent,
         SettingsComponent,
         FitnessComponent,
         FitnessDetailComponent,

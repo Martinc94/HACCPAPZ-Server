@@ -14,7 +14,6 @@ var app_component_1 = require("./app.component");
 var home_component_1 = require("./home.component/home.component");
 var about_component_1 = require("./about.component/about.component");
 var login_component_1 = require("./login.component/login.component");
-var sign_up_component_1 = require("./sign-up.component/sign-up.component");
 var settings_component_1 = require("./settings.component/settings.component");
 var fitness_component_1 = require("./fitness.component/fitness.component");
 var fitness_detail_component_1 = require("./fitness.component/fitness-detail.component/fitness-detail.component");
@@ -62,7 +61,6 @@ AppModule = __decorate([
             home_component_1.HomeComponent,
             about_component_1.AboutComponent,
             login_component_1.LoginComponent,
-            sign_up_component_1.SignUpComponent,
             settings_component_1.SettingsComponent,
             fitness_component_1.FitnessComponent,
             fitness_detail_component_1.FitnessDetailComponent,

@@ -1,12 +1,39 @@
 
-<h1 align="center">Food Trend Analysis</h1>
+<h1 align="center">Food Trend</h1>
 
 <!--Form for query -->
 
+<div class="jumbotron">
+    <h2>Search for Food Trends</h2>
 
+    <form #form="ngForm" (ngSubmit)="submitForm(form.value)">
 
+      <div class="form-group">
+        <label>Food:</label>
+        <input type="text" class="form-control" placeholder="Beef" name="food" ngModel required>
+      </div>
 
+      <div class="form-group">
+        <label>Within how many Months:</label>
+        <input type="number" class="form-control" placeholder="2" name="months" ngModel required>
+      </div>
 
+      <div class="form-group">
+        <label>Within how many Kilometres:</label>
+        <input type="number" class="form-control" placeholder="20" name="km" ngModel required>
+      </div>
+
+      <div class="form-group">
+        <label>Date: (Leave blank to search from today)</label>
+        <input type="date" class="form-control" placeholder="Jan 01 2017" name="date" ngModel>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-default">Submit</button>
+      </div>
+      
+    </form>
+  </div>
 
 <!--Displays Forms -->
 <div *ngFor="let form of foodAnalysisForms">

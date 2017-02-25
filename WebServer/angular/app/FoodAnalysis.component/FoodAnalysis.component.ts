@@ -16,60 +16,64 @@ export class FoodAnalysisComponent implements OnInit {
      foodAnalysisForms: FoodAnalysis[];
      mode = 'Observable';
 
-     //private lat: any;
-     //private lng: any;
-
     constructor(private router: Router,
             private analysisService: AnalysisService){
     }
 
-    ngOnInit() {
-        this.getAnalysis();
+    lattitude = {};
+    longitude = {};
 
-        var lat;
-        var lng;
-        
+    setPosition(position){
+      this.lattitude = position.coords.latitude;
+      this.longitude = position.coords.longitude;
+    }
+    
+    ngOnInit() {
         if(!!navigator.geolocation) {
-            //console.log("Support");
+            //gets GetLocation
+            navigator.geolocation.getCurrentPosition(this.setPosition.bind(this));
         } else {
             console.log("No support");// No support
         }
     }
 
-    getAnalysis(){
-        this.analysisService.getFoodAnalysisForms(
-        ).subscribe(
+    getAnalysis(url){
+        //pass url to analysisService
+        this.analysisService.getFoodAnalysisForms(url)
+            .subscribe(
             form => this.foodAnalysisForms = form,
             error =>  this.errorMessage = <any>error);
     }//end getAnalysis 
 
-    /*getGeoLocation(){
-        var options = {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0
-        };
+    submitForm(form: any): void{
+        //build url
+        var url = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getDeliveryTrend?';
 
-        function success(pos) {
-            var crd = pos.coords;
+        //add food to url
+        if (form.food){
+            url+="food="+form.food;
+        }
+        //add months to url
+        if (form.months){
+            url+="&months="+form.months;
+        }
+        //add km to url
+        if (form.km){
+            url+="&km="+form.km;
+        }
+        //add date to url
+        if (form.date){
+            url+="&date="+form.date;
+        }
 
-            console.log('Your current position is:');
-            console.log(`Latitude : ${crd.latitude}`);
-            console.log(`Longitude: ${crd.longitude}`);
-            console.log(`More or less ${crd.accuracy} meters.`);
+        //add lat long to url
+        url+="&lat="+ this.lattitude;
+        url+="&lng="+ this.longitude;
 
-            //this.lat=crd.latitude;
-            //this.lng=crd.longitude;
+        console.log(url);
 
-        };
-
-        function error(err) {
-            console.warn(`ERROR(${err.code}): ${err.message}`);
-        };
-
-        navigator.geolocation.getCurrentPosition(success, error, options);
-        
-
-    }//end getGeoLocation */
+        //pass url as method param
+        this.getAnalysis(url);
+    }
 
 }

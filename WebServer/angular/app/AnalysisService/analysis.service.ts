@@ -42,14 +42,6 @@ export class AnalysisService {
         return Observable.throw(errMsg);
     }
 
-    getFoodAnalysisForms(): Observable < FoodAnalysis[] > {
-        return this.http.get(this.foodTrendUrl, ({
-                headers: this.authHeader
-            }))
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-
     getFormDates(): Observable < FormDates[] > {
         return this.http.get(this.formDateUrl, ({
                 headers: this.authHeader
@@ -58,32 +50,11 @@ export class AnalysisService {
             .catch(this.handleError);
     }
 
-    getGeoLocation(){
-        var options = {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0
-        };
-
-        function success(pos) {
-            var crd = pos.coords;
-
-            console.log('Your current position is:');
-            console.log(`Latitude : ${crd.latitude}`);
-            console.log(`Longitude: ${crd.longitude}`);
-            console.log(`More or less ${crd.accuracy} meters.`);
-
-            //this.lat=crd.latitude;
-            //this.lng=crd.longitude;
-
-        };
-
-        function error(err) {
-            console.warn(`ERROR(${err.code}): ${err.message}`);
-        };
-
-        navigator.geolocation.getCurrentPosition(success, error, options);
-        
-
-    }//end getGeoLocation 
+    getFoodAnalysisForms(url): Observable < FoodAnalysis[] > {
+        return this.http.get(url, ({
+                headers: this.authHeader
+            }))
+            .map(this.extractData)
+            .catch(this.handleError);
+    } 
 }
