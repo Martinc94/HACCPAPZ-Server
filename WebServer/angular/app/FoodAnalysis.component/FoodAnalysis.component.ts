@@ -61,11 +61,7 @@ export class FoodAnalysisComponent implements OnInit {
         if (form.km){
             url+="&km="+form.km;
         }
-        //add date to url
-        if (form.date){
-            url+="&date="+form.date;
-        }
-
+        
         //add lat long to url
         url+="&lat="+ this.lattitude;
         url+="&lng="+ this.longitude;
