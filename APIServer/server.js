@@ -2000,14 +2000,7 @@ apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', {
                         } //end if within range 
 
                     } //for
-
-                    if (results.length == 0) {
-                        return res.status(200).send({
-                            success: false,
-                            msg: 'Nothing found.'
-                        });
-                    }
-
+                    
                     var today = new Date();
 
                     Msg = "Found " + countFood + " occurrences of " + queryFood + " between " + queryDate.toDateString() + " and " + today.toDateString() + " within a " + km + " Km Radius.";
