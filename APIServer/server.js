@@ -1930,20 +1930,6 @@ apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', {
                 var countFood = 0;
                 var Msg = "";
 
-                /*if (firstQueryDate) {
-                    var queryDate = new Date(firstQueryDate);
-                    if (queryDate == "Invalid Date") {
-                        var queryDate = new Date();
-                    }
-					
-					var firstQueryDate = new Date(firstQueryDate);
-                    if (firstQueryDate == "Invalid Date") {
-                        var firstQueryDate = new Date();
-                    }
-                } else {
-                    var queryDate = new Date();
-                }*/
-
                 if (!months) {
                     months = 6;
                 }
@@ -1968,11 +1954,11 @@ apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', {
                     //loop forms
                     for (i = 0; i < forms.length; i++) {
                         var date = new Date(forms[i].date);
-	
+
                         //if date newer than query date & date newer than firstdate
-                        if (queryDate < date) {					
-							//add to valid array
-							validForms.push(forms[i]);
+                        if (queryDate < date) {
+                            //add to valid array
+                            validForms.push(forms[i]);
                         }
 
                     } //end if date
@@ -2021,19 +2007,19 @@ apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', {
                             msg: 'Nothing found.'
                         });
                     }
-					
-					var today = new Date();
 
-                    Msg = "Found " + countFood + " occurrences of " + queryFood + " between " + queryDate.toDateString() + " and " + today.toDateString() +" within a "+km+ " Km Radius.";
+                    var today = new Date();
+
+                    Msg = "Found " + countFood + " occurrences of " + queryFood + " between " + queryDate.toDateString() + " and " + today.toDateString() + " within a " + km + " Km Radius.";
 
                     var message = {};
                     message.Msg = Msg;
 
-                    var resultsWithMessage = []; 
+                    var resultsWithMessage = [];
 
                     resultsWithMessage.push(message);
 
-                    resultsWithMessage = resultsWithMessage.concat(results); 
+                    resultsWithMessage = resultsWithMessage.concat(results);
 
                     return res.status(200).json(resultsWithMessage);
                 }); //end then	
