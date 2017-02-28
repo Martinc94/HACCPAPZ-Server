@@ -1,21 +1,21 @@
-<h1 align= "center">{{title}}</h1>
+<h1 align="center">{{title}}</h1>
 
 <div align="center">
-  <ul class="nav nav-pills">
-    <li role="presentation" ><a href="/foodDelivery">Food & Delivery Records</a></li>
-    <li role="presentation" ><a href="/fridgetemp">Refrigeration Records</a></li>
-    <li role="presentation" ><a href="/temprecords">Temperature Records</a></li>
-    <li role="presentation" ><a href="/hothold">Hot Holding Records</a></li>
-    <li role="presentation" ><a href="/hygieneIns">Hygiene Inspection</a></li>
-    <li role="presentation" ><a href="/hygieneTraining">Hygiene Training</a></li>
-    <li role="presentation" ><a href="/fitnesstowork">Fitness to Work</a></li>
-    <li role="presentation" ><a href="/transport">Transport & Delivery</a></li>
-    <li role="presentation" ><a href="/foodTrend">Food Trend</a></li>
-  </ul>
+    <ul class="nav nav-pills">
+        <li role="presentation"><a href="/foodDelivery">Food & Delivery Records</a></li>
+        <li role="presentation"><a href="/fridgetemp">Refrigeration Records</a></li>
+        <li role="presentation"><a href="/temprecords">Temperature Records</a></li>
+        <li role="presentation"><a href="/hothold">Hot Holding Records</a></li>
+        <li role="presentation"><a href="/hygieneIns">Hygiene Inspection</a></li>
+        <li role="presentation"><a href="/hygieneTraining">Hygiene Training</a></li>
+        <li role="presentation"><a href="/fitnesstowork">Fitness to Work</a></li>
+        <li role="presentation"><a href="/transport">Transport & Delivery</a></li>
+        <li role="presentation"><a href="/foodTrend">Food Trend</a></li>
+    </ul>
 </div>
 
 <div align="center">
-  <p >Welcome {{userName}}</p>
+    <p>Welcome {{userName}}</p>
 </div>
 
 <br><br>
@@ -26,36 +26,34 @@
             <div class="media">
                 <div align="center" class="media-body">
                     <div>
-                          <h1 align= "center">Date from last form Posted</h1>
+                        <h1 align="center">Date from last form Posted</h1>
                     </div>
-                        <h4>Delivery:</h4>
-                        <h5>{{form.DeliveryDate}}</h5>
+                    <h4>Delivery:</h4>
+                    <h5>{{form.DeliveryDate}}</h5>
 
-                        <h4>Fitness to Work:</h4>
-                        <h5>{{form.FitnessDate}}</h5>
+                    <h4>Fitness to Work:</h4>
+                    <h5>{{form.FitnessDate}}</h5>
 
-                        <h4>Refridgeration:</h4>
-                        <h5>{{form.RefridgerationDate}}</h5>
+                    <h4>Refridgeration:</h4>
+                    <h5>{{form.RefridgerationDate}}</h5>
 
-                        <h4>Hothold:</h4>
-                        <h5>{{form.HotholdDate}}</h5>
+                    <h4>Hothold:</h4>
+                    <h5>{{form.HotholdDate}}</h5>
 
-                        <h4>Hygiene Inspection:</h4>
-                        <h5>{{form.HygieneInspectionDate}}</h5>
+                    <h4>Hygiene Inspection:</h4>
+                    <h5>{{form.HygieneInspectionDate}}</h5>
 
-                        <h4>Hygiene Training:</h4>
-                        <h5>{{form.HygieneTrainingDate}}</h5>
+                    <h4>Hygiene Training:</h4>
+                    <h5>{{form.HygieneTrainingDate}}</h5>
 
-                        <h4>Transport:</h4>
-                        <h5>{{form.TransportDate}}</h5>
+                    <h4>Transport:</h4>
+                    <h5>{{form.TransportDate}}</h5>
 
-                        <h4>Temperature:</h4>
-                        <h5>{{form.TemperatureDate}}</h5>
-                    </div>
-                </div> 
+                    <h4>Temperature:</h4>
+                    <h5>{{form.TemperatureDate}}</h5>
+                </div>
             </div>
         </div>
+    </div>
 
-<p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
-
-
+    <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
