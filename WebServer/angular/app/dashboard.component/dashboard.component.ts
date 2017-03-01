@@ -14,6 +14,7 @@ import '../rxjs-operators';
   templateUrl: 'dashboard.component.html'
 })
 
+//This component manages the users dashboard
 export class DashboardComponent implements OnInit {
     errorMessage: string;
     title = "User Dashboard";
@@ -23,6 +24,7 @@ export class DashboardComponent implements OnInit {
 
     constructor(private router: Router,
         private analysisService: AnalysisService) {
+        //gets user info if available
         try {
             var currentUser = JSON.parse(localStorage.getItem('currentUser'));
             this.userName = currentUser.username;
@@ -32,11 +34,13 @@ export class DashboardComponent implements OnInit {
         }
     }
 
+  //loads forms on page load
   ngOnInit() {
         this.getFormDates();
     }
 
- getFormDates(){
+  //Gets form dates from AnalysisService
+  getFormDates(){
         this.analysisService.getFormDates(
         ).subscribe(
             form => this.formDatesForms = form,

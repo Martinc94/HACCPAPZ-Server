@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { FormService } from '../FormService/form.service';
 import { FoodDelivery} from '../classes/FoodDelivery/FoodDelivery';
 import '../rxjs-operators';
-
 import { Observable }     from 'rxjs/Observable';
  
 @Component({
@@ -12,20 +11,22 @@ import { Observable }     from 'rxjs/Observable';
     templateUrl: 'foodDelivery.component.html'
 })
  
+//This component manages the Food Delivery Forms
 export class FoodDeliveryComponent implements OnInit {
      errorMessage: string;
      foodDeliveryForms: FoodDelivery[];
      mode = 'Observable';
     
-
     constructor(private router: Router,
             private formService: FormService){
     }
 
+    //get form on Page load
     ngOnInit() {
         this.getForms();
     }
 
+    //Gets Food Delivery Forms from Form Service
     getForms(){
         this.formService.getfoodDeliveryForms(
         ).subscribe(

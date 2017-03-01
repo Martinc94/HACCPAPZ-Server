@@ -10,29 +10,29 @@ import { HygIns} from '../classes/HygIns/HygIns';
     selector: 'HygIns',
     templateUrl: 'hygIns.component.html'
 })
- 
+
+//This component manages the Hyg Inspection Forms
 export class HygInsComponent implements OnInit {
      errorMessage: string;
      hygInsForms: HygIns[];
      mode = 'Observable';
-    
 
     constructor(private router: Router,
             private formService: FormService){
     }
 
+    //On page load get forms
     ngOnInit() {
         this.getForms();
     }
 
+    //gets forms from FormService
     getForms(){
         this.formService.getHygInsForms(
         ).subscribe(
             temp => this.hygInsForms = temp,
             error =>  this.errorMessage = <any>error);
     }//end getForms
-
-
 
     //view form
     gotoDetail(hygIns: HygIns): void {

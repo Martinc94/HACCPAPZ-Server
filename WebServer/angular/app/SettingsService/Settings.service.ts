@@ -5,7 +5,8 @@ import '../rxjs-operators';
 import {Food} from '../classes/Settings/Food/Food';
 import {Supplier} from '../classes/Settings/Supplier/Supplier';
 import {Fridge} from '../classes/Settings/Fridge/Fridge';
- 
+
+//This Service manages the settings
 @Injectable()
 export class SettingsService {
     public token: string;
@@ -22,11 +23,13 @@ export class SettingsService {
         this.authHeader.append('Authorization',this.token);
     }
 
+    //extracts json to object
     private extractData(res: Response) {
         let body = res.json();
         return body || { };
       }
 
+    //handles any errors
     private handleError (error: Response | any) {
       let errMsg: string;
       if (error instanceof Response) {
@@ -39,6 +42,8 @@ export class SettingsService {
       console.error(errMsg);
       return Observable.throw(errMsg);
     }
+
+    //methods return Observable of each settings type
 
     getFoodSettings (): Observable<Food[]> {
         return this.http.get(this.foodUrl,({ headers: this.authHeader}))

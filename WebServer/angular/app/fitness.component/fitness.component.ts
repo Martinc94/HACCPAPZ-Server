@@ -11,21 +11,23 @@ import { Observable }     from 'rxjs/Observable';
     selector: 'fitness',
     templateUrl: 'fitness.component.html'
 })
- 
+
+//This component manages fitness Forms
 export class FitnessComponent implements OnInit {
      errorMessage: string;
      fitnessForms: Fitness[];
      mode = 'Observable';
-    
 
     constructor(private router: Router,
             private formService: FormService){
     }
 
+    //gets forms on page load
     ngOnInit() {
         this.getFitnessForms();
     }
 
+    //gets fitness forms from Form Service
     getFitnessForms(){
         this.formService.getFitnessForms(
         ).subscribe(
@@ -33,9 +35,7 @@ export class FitnessComponent implements OnInit {
             error =>  this.errorMessage = <any>error);
     }//end getFitnessForms
 
-
-
-    //view form
+    //function to view form
     gotoDetail(fitness: Fitness): void {
             let link = ['/fitnessform', fitness._id];
             this.router.navigate(link);

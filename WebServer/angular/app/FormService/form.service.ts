@@ -10,7 +10,8 @@ import {Transport} from '../classes/Transport/Transport';
 import {Fitness} from '../classes/Fitness/fitness';
 import {Temp} from '../classes/Temp/temp';
 import {FoodDelivery} from '../classes/FoodDelivery/FoodDelivery';
- 
+
+//This Servive manages the getting Forms
 @Injectable()
 export class FormService {
     public token: string;
@@ -29,10 +30,12 @@ export class FormService {
         // set token if saved in local storage
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser.token;
-       
+        
+        //sets Authorization in Header
         this.authHeader.append('Authorization',this.token);
     }
 
+    //converts from json to Object
     private extractData(res: Response) {
         let body = res.json();
         return body || { };
@@ -50,6 +53,8 @@ export class FormService {
       console.error(errMsg);
       return Observable.throw(errMsg);
     }
+
+    //Each method returns an Observable of Each form type for each form
 
     getTempForms (): Observable<TempRec[]> {
         return this.http.get(this.tempRecUrl,({ headers: this.authHeader}))

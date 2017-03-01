@@ -5,16 +5,14 @@ import '../rxjs-operators';
 
 import {FoodAnalysis} from '../classes/FoodAnalysis/FoodAnalysis';
 import {FormDates} from '../classes/FormDates/FormDates';
- 
+
+//Service that returns date forms were last filled out and food trend analysis 
 @Injectable()
 export class AnalysisService {
     public token: string;
     private authHeader = new Headers();
-    //Urls
-    //private foodTrendUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getDeliveryTrend';
+    //Url
     private formDateUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getFormDate';
-    //test only
-    private foodTrendUrl = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getDeliveryTrend?date=Wed Feb 01 2017 00:00:00 GMT+0000 (GMT)&months=2&food=Beef&lat=53.504357899999995&lng=-8.8292482&km=20';
 
     constructor(private http: Http) {
         // set token if saved in local storage

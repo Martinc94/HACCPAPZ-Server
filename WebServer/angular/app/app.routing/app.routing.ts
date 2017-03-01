@@ -27,6 +27,7 @@ import { FoodDeliveryComponent }       from '../foodDelivery.component/foodDeliv
 import { FoodDeliveryDetailComponent }       from '../foodDelivery.component/foodDelivery-detail.component/foodDelivery-detail.component';
 import { FoodAnalysisComponent }         from '../FoodAnalysis.component/FoodAnalysis.component';
 
+//Links urls to their component
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },

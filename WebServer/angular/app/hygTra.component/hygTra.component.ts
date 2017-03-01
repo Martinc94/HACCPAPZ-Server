@@ -11,7 +11,8 @@ import { Observable }     from 'rxjs/Observable';
     selector: 'hygTra',
     templateUrl: 'hygTra.component.html'
 })
- 
+
+//This component manages the Hyg Training Forms
 export class hygTraComponent implements OnInit {
      errorMessage: string;
      forms: HygTrain[];
@@ -22,18 +23,18 @@ export class hygTraComponent implements OnInit {
             private formService: FormService){
     }
 
+    //On page load get forms
     ngOnInit() {
         this.getForms();
     }
 
+    //gets forms from FormService
     getForms(){
         this.formService.getHygTrainForms(
         ).subscribe(
             temp => this.forms = temp,
             error =>  this.errorMessage = <any>error);
     }//end getTempForms
-
-
 
     //view form
     gotoDetail(hygTrain: HygTrain): void {

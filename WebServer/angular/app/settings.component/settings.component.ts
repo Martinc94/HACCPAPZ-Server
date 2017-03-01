@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { SettingsService } from '../SettingsService/Settings.service';
 import '../rxjs-operators';
 import { Observable }     from 'rxjs/Observable';
-
+//page imports
 import {Food} from '../classes/Settings/Food/Food';
 import {Supplier} from '../classes/Settings/Supplier/Supplier';
 import {Fridge} from '../classes/Settings/Fridge/Fridge';
@@ -16,6 +16,7 @@ import {Fridge} from '../classes/Settings/Fridge/Fridge';
   templateUrl: 'settings.component.html'
 })
 
+//This component manages the users settings
 export class SettingsComponent implements OnInit {
     errorMessage: string;
     mode = 'Observable';
@@ -27,11 +28,14 @@ export class SettingsComponent implements OnInit {
             private settingsService: SettingsService){
     }
 
+    //loads settings on page load
     ngOnInit() {
         this.getFoodForms();
         this.getSupplierForms();
         this.getFridgeForms();
     }
+
+    //Methods for getting settings
 
     getFoodForms(){
         this.settingsService.getFoodSettings(

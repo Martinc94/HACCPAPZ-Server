@@ -9,6 +9,7 @@ import { AuthenticationService } from './login.component/login.service';
   styleUrls: ['app.component.css']
 })
 
+//every page is injected into this page
 export class AppComponent {
   title = 'haccpapz';
   public token: string;
@@ -16,10 +17,11 @@ export class AppComponent {
   
   constructor(
         private authenticationService: AuthenticationService) {
-            this.getUserName();
-       
+            this.getUserName(); 
   }
 
+  //get user name from storage
+  //used to display username on each page
   getUserName(){
     this.userName= this.authenticationService.userName;
 

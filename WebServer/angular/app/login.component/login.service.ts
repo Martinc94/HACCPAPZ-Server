@@ -4,7 +4,8 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
- 
+
+//This service manages Login
 @Injectable()
 export class AuthenticationService {
     public token: string;
@@ -16,6 +17,7 @@ export class AuthenticationService {
         this.token = currentUser && currentUser.token;
     }
 
+    //Passes Login info to server and handles returned data
     login(username, password): Observable<boolean> {
         return this.http.post('http://haccpapz.northeurope.cloudapp.azure.com:8080/api/authenticate',({ email: username, password: password }))
             .map((response: Response) => {
@@ -38,7 +40,8 @@ export class AuthenticationService {
                 }
             });
     }
- 
+
+    //logout the user and remove stored data
     logout(): void {
         // clear token remove user from local storage to log user out
         this.token = null;

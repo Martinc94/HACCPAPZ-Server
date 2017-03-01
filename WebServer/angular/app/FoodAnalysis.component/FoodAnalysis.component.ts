@@ -10,7 +10,8 @@ import '../rxjs-operators';
     selector: 'foodAnalysis',
     templateUrl: 'foodAnalysis.component.html'
 })
- 
+
+//This component manages Food delivery analysis
 export class FoodAnalysisComponent implements OnInit {
      errorMessage: string;
      foodAnalysisForms: FoodAnalysis[];
@@ -23,11 +24,13 @@ export class FoodAnalysisComponent implements OnInit {
     lattitude = {};
     longitude = {};
 
+    //stores Lat and Long
     setPosition(position){
       this.lattitude = position.coords.latitude;
       this.longitude = position.coords.longitude;
     }
     
+    //on load check for navigator and get Geolocation if possible
     ngOnInit() {
         if(!!navigator.geolocation) {
             //gets GetLocation
@@ -37,6 +40,7 @@ export class FoodAnalysisComponent implements OnInit {
         }
     }
 
+    //Passes custom url to Analysis Service
     getAnalysis(url){
         //pass url to analysisService
         this.analysisService.getFoodAnalysisForms(url)
@@ -45,6 +49,7 @@ export class FoodAnalysisComponent implements OnInit {
             error =>  this.errorMessage = <any>error);
     }//end getAnalysis 
 
+    //Builds Url from Html form and passes to getAnalysis method
     submitForm(form: any): void{
         //build url
         var url = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getDeliveryTrend?';
@@ -65,8 +70,6 @@ export class FoodAnalysisComponent implements OnInit {
         //add lat long to url
         url+="&lat="+ this.lattitude;
         url+="&lng="+ this.longitude;
-
-        console.log(url);
 
         //pass url as method param
         this.getAnalysis(url);
