@@ -12,6 +12,7 @@ import { FormService } from '../../FormService/form.service';;
   templateUrl: 'fitness-detail.component.html'
 })
 
+//This component manages Fitness forms in detail
 export class FitnessDetailComponent implements OnInit {
 
     @Input()
@@ -25,9 +26,9 @@ export class FitnessDetailComponent implements OnInit {
       private location: Location
     ) {}
 
+    //On load gets form that matches Url
     ngOnInit(): void {
       this.route.params.forEach((params: Params) => {
-        //let id = +params['_id'];
         let id = params['_id'];
 
         this.getFitnessForm(id);
@@ -35,6 +36,7 @@ export class FitnessDetailComponent implements OnInit {
       });//end foreach
     }//end ngOnInit
 
+    //load Form
     getFitnessForm(id:string){
       this.formService.getFitnessForms()
       .subscribe(
@@ -42,6 +44,7 @@ export class FitnessDetailComponent implements OnInit {
         error =>  this.errorMessage = <any>error)//end subscribe
     }
 
+    //return to last page
     goBack(): void {
       this.location.back();
     }

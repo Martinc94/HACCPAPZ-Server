@@ -12,6 +12,7 @@ import { FormService } from '../../FormService/form.service';
   templateUrl: 'transport-detail.component.html'
 })
 
+//This component manages the Transport forms in detail
 export class TransportDetailComponent implements OnInit {
 
     @Input()
@@ -25,6 +26,7 @@ export class TransportDetailComponent implements OnInit {
       private location: Location
     ) {}
 
+    //On page load gets form from Url param
     ngOnInit(): void {
       this.route.params.forEach((params: Params) => {
         let id = params['_id'];
@@ -34,6 +36,7 @@ export class TransportDetailComponent implements OnInit {
       });//end foreach
     }//end ngOnInit
 
+    //get form from FormService by Id
     getForm(id:string){
       this.formService.getTransportForms()
       .subscribe(

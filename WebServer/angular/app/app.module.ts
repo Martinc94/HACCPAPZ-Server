@@ -11,7 +11,6 @@ import { AppComponent }             from './app.component';
 import { HomeComponent }            from './home.component/home.component';
 import { AboutComponent }           from './about.component/about.component';
 import { LoginComponent }           from './login.component/login.component';
-import { SignUpComponent }          from './sign-up.component/sign-up.component';
 import { SettingsComponent }        from './settings.component/settings.component';
 import { FitnessComponent }         from './fitness.component/fitness.component';
 import { FitnessDetailComponent }   from './fitness.component/fitness-detail.component/fitness-detail.component';
@@ -29,6 +28,7 @@ import { TransportDetailComponent } from './transport.component/transport-detail
 import { DashboardComponent }       from './dashboard.component/dashboard.component';
 import { FoodDeliveryComponent }       from './foodDelivery.component/foodDelivery.component';
 import { FoodDeliveryDetailComponent }       from './foodDelivery.component/foodDelivery-detail.component/foodDelivery-detail.component';
+import { FoodAnalysisComponent }         from './FoodAnalysis.component/FoodAnalysis.component';
 
 //Services
 //////////////////////////////////////////////////////////////
@@ -36,11 +36,12 @@ import { FoodDeliveryDetailComponent }       from './foodDelivery.component/food
 import { routing }          from './app.routing/app.routing';
 //login and authenticaton services
 import { AuthGuard } from './guards/auth.guard';
-import { UserService } from './testservice/user.service';
+
 import { AuthenticationService } from './login.component/login.service';
 //form service
 import { FormService } from './FormService/form.service';
 import { SettingsService } from './SettingsService/Settings.service';
+import { AnalysisService } from './AnalysisService/analysis.service';
 
 @NgModule({
     imports: [
@@ -54,7 +55,6 @@ import { SettingsService } from './SettingsService/Settings.service';
         HomeComponent,
         AboutComponent,
         LoginComponent,
-        SignUpComponent,
         SettingsComponent,
         FitnessComponent,
         FitnessDetailComponent,
@@ -72,13 +72,14 @@ import { SettingsService } from './SettingsService/Settings.service';
         DashboardComponent,
         FoodDeliveryComponent,
         FoodDeliveryDetailComponent,
+        FoodAnalysisComponent,
     ],
     providers: [
         AuthGuard,
         AuthenticationService,
-        UserService,
         FormService,
         SettingsService,
+        AnalysisService,
     ],
     bootstrap: [ AppComponent ]
 })

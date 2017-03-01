@@ -12,6 +12,7 @@ import { FormService } from '../../FormService/form.service';
   templateUrl: 'tempRec-detail.component.html'
 })
 
+//This component manages the Temp Records in detail
 export class TempRecDetailComponent implements OnInit {
 
     @Input()
@@ -25,6 +26,7 @@ export class TempRecDetailComponent implements OnInit {
       private location: Location
     ) {}
 
+    //On page load get form fro url param
     ngOnInit(): void {
       this.route.params.forEach((params: Params) => {
         let id = params['_id'];
@@ -34,6 +36,7 @@ export class TempRecDetailComponent implements OnInit {
       });//end foreach
     }//end ngOnInit
 
+    //get url from FormService by Id
     getForm(id:string){
       this.formService.getTempForms()
       .subscribe(

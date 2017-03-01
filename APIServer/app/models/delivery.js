@@ -11,7 +11,13 @@ var deliverySchema   = new Schema({
     temp: String,
     vehicleCheck: String,
     comment: String,
-    sign: String
+    sign: String,
+	photo: String,
+	photoComment: String,
+    lat: 	    String,
+    long:       String
+	
+	
 });
 
 module.exports = mongoose.model('Delivery', deliverySchema);

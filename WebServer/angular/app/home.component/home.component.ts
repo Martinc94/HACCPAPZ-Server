@@ -9,6 +9,7 @@ import { Router }       from '@angular/router';
   templateUrl: 'home.component.html'
 })
 
+//This component manages the Homepage
 export class HomeComponent {
 
     title = "Haccpapz Home";

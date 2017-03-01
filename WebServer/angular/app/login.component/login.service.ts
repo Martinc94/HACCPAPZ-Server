@@ -3,11 +3,13 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map'
- 
+import 'rxjs/add/operator/map';
+
+//This service manages Login
 @Injectable()
 export class AuthenticationService {
     public token: string;
+    public userName: string;
  
     constructor(private http: Http) {
         // set token if saved in local storage
@@ -15,6 +17,7 @@ export class AuthenticationService {
         this.token = currentUser && currentUser.token;
     }
 
+    //Passes Login info to server and handles returned data
     login(username, password): Observable<boolean> {
         return this.http.post('http://haccpapz.northeurope.cloudapp.azure.com:8080/api/authenticate',({ email: username, password: password }))
             .map((response: Response) => {
@@ -24,6 +27,7 @@ export class AuthenticationService {
                 if (token) {
                     // set token property
                     this.token = token;
+                    this.userName=username;
 
                     // store username and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
@@ -36,10 +40,12 @@ export class AuthenticationService {
                 }
             });
     }
- 
+
+    //logout the user and remove stored data
     logout(): void {
         // clear token remove user from local storage to log user out
         this.token = null;
+        this.userName = null;
         localStorage.removeItem('currentUser');
     }
 }

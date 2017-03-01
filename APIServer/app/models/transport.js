@@ -12,7 +12,9 @@ var transportSchema   = new Schema({
     comment: 	String,
     sign: 		String,
     checkon: 	String,
-    managersign:String
+    managersign:String,
+    lat: 	    String,
+    long:       String
 
 
 });

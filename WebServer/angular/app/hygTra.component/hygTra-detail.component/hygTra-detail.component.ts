@@ -12,6 +12,7 @@ import { FormService } from '../../FormService/form.service';
   templateUrl: 'hygTra-detail.component.html'
 })
 
+//This component manages the Hyg Tra Forms in detail
 export class HygTraDetailComponent implements OnInit {
 
     @Input()
@@ -25,6 +26,7 @@ export class HygTraDetailComponent implements OnInit {
       private location: Location
     ) {}
 
+    //get form from url Params
     ngOnInit(): void {
       this.route.params.forEach((params: Params) => {
         let id = params['_id'];
@@ -34,6 +36,7 @@ export class HygTraDetailComponent implements OnInit {
       });//end foreach
     }//end ngOnInit
 
+    //gets form from FormService by id
     getForm(id:string){
       this.formService.getHygTrainForms()
       .subscribe(

@@ -3,6 +3,7 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
  
+//This component manages the authentication
 @Injectable()
 export class AuthGuard implements CanActivate {
  

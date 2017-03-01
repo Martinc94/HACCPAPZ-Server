@@ -12,6 +12,7 @@ import { FormService } from '../../FormService/form.service';
   templateUrl: 'hygIns-detail.component.html'
 })
 
+//This component manages the Hyg Ins Forms in detail
 export class HygInsDetailComponent implements OnInit {
 
     @Input()
@@ -25,6 +26,7 @@ export class HygInsDetailComponent implements OnInit {
       private location: Location
     ) {}
 
+    //on page load get form from url param
     ngOnInit(): void {
       this.route.params.forEach((params: Params) => {
         let id = params['_id'];
@@ -34,6 +36,7 @@ export class HygInsDetailComponent implements OnInit {
       });//end foreach
     }//end ngOnInit
 
+    //get form from FormService by Id
     getForm(id:string){
       this.formService.getHygInsForms()
       .subscribe(

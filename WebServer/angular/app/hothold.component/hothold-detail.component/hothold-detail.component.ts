@@ -11,6 +11,7 @@ import { Hothold } from '../../classes/Hothold/Hothold';
   templateUrl: 'hothold-detail.component.html'
 })
 
+//This component manages the Hothold Forms in detail
 export class HotholdDetailComponent implements OnInit {
 
     @Input()
@@ -24,6 +25,7 @@ export class HotholdDetailComponent implements OnInit {
       private location: Location
     ) {}
 
+    //On page load calls form
     ngOnInit(): void {
       this.route.params.forEach((params: Params) => {
         let id = params['_id'];
@@ -33,6 +35,7 @@ export class HotholdDetailComponent implements OnInit {
       });//end foreach
     }//end ngOnInit
 
+    //gets form from FormService
     getForm(id:string){
       this.formService.getHotholdForms()
       .subscribe(

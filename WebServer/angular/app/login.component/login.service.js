@@ -28,6 +28,7 @@ var AuthenticationService = (function () {
             if (token) {
                 // set token property
                 _this.token = token;
+                _this.userName = username;
                 // store username and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
                 // return true to indicate successful login
@@ -42,6 +43,7 @@ var AuthenticationService = (function () {
     AuthenticationService.prototype.logout = function () {
         // clear token remove user from local storage to log user out
         this.token = null;
+        this.userName = null;
         localStorage.removeItem('currentUser');
     };
     return AuthenticationService;

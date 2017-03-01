@@ -10,9 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 // System imports
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var analysis_service_1 = require("../AnalysisService/analysis.service");
+require("../rxjs-operators");
 var DashboardComponent = (function () {
-    function DashboardComponent() {
+    function DashboardComponent(router, analysisService) {
+        this.router = router;
+        this.analysisService = analysisService;
         this.title = "User Dashboard";
+        this.mode = 'Observable';
         try {
             var currentUser = JSON.parse(localStorage.getItem('currentUser'));
             this.userName = currentUser.username;
@@ -21,6 +27,13 @@ var DashboardComponent = (function () {
             this.userName = null;
         }
     }
+    DashboardComponent.prototype.ngOnInit = function () {
+        this.getFormDates();
+    };
+    DashboardComponent.prototype.getFormDates = function () {
+        var _this = this;
+        this.analysisService.getFormDates().subscribe(function (form) { return _this.formDatesForms = form; }, function (error) { return _this.errorMessage = error; });
+    }; //end getFormDates
     return DashboardComponent;
 }());
 DashboardComponent = __decorate([
@@ -29,7 +42,8 @@ DashboardComponent = __decorate([
         selector: 'dashboard-page',
         templateUrl: 'dashboard.component.html'
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [router_1.Router,
+        analysis_service_1.AnalysisService])
 ], DashboardComponent);
 exports.DashboardComponent = DashboardComponent;
 //# sourceMappingURL=dashboard.component.js.map

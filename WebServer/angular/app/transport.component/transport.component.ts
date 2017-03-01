@@ -11,30 +11,30 @@ import { Observable }     from 'rxjs/Observable';
     selector: 'transport',
     templateUrl: 'transport.component.html'
 })
- 
+
+//This component manages the Transport forms
 export class TransportComponent implements OnInit {
      errorMessage: string;
      forms: Transport[];
-     mode = 'Observable';
-    
+     mode = 'Observable';  
 
     constructor(private router: Router,
             private formService: FormService){
     }
 
+    //onPage load get forms
     ngOnInit() {
         this.getForms();
     }
 
+    //gets forms from FormService
     getForms(){
         this.formService.getTransportForms(
         ).subscribe(
             temp => this.forms = temp,
             error =>  this.errorMessage = <any>error);
     }//end getTempForms
-
-
-
+    
     //view form
     gotoDetail(transport: Transport): void {
             let link = ['/transportform', transport._id];
