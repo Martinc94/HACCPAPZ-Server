@@ -31,8 +31,11 @@
         <h4>Sign:</h4>
             <h5>{{form.sign}}</h5>  
 
-        <p>Photo Here</p>     
+        <img [attr.src]="form.photo"> 
 
+        <h4 *ngIf="form.photoComment">Photo Comment:</h4>
+            <h5>{{form.photoComment}}</h5> 
+            
 <button (click)="goBack()">Back</button>
 
 <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
