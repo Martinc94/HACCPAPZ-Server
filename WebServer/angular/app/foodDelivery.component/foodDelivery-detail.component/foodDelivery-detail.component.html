@@ -1,42 +1,42 @@
-<h1 align= "center">Food Delivery Record form</h1>
+<h1 align="center">Food Delivery Record form</h1>
 
 <p *ngIf="!form">There isnt any form matching id!</p>
 
 
 <div *ngIf="form">
-        <h4>Date:</h4>
-            <h5>{{form.date}}</h5>
+    <h4>Date:</h4>
+    <h5>{{form.date}}</h5>
 
-        <h4>Food:</h4>
-            <h5>{{form.food}}</h5>
+    <h4>Food:</h4>
+    <h5>{{form.food}}</h5>
 
-        <h4>Batch Code:</h4>
-            <h5>{{form.batchCode}}</h5>
+    <h4>Batch Code:</h4>
+    <h5>{{form.batchCode}}</h5>
 
-        <h4>Supplier:</h4>
-            <h5>{{form.supplier}}</h5>
+    <h4>Supplier:</h4>
+    <h5>{{form.supplier}}</h5>
 
-        <h4>UseBy:</h4>
-            <h5>{{form.useBy}}</h5>
+    <h4>UseBy:</h4>
+    <h5>{{form.useBy}}</h5>
 
-        <h4>Temp:</h4>
-            <h5>{{form.temp}}</h5>
+    <h4>Temp:</h4>
+    <h5>{{form.temp}}</h5>
 
-        <h4>Vehicle Check:</h4>
-            <h5>{{form.vehicleCheck}}</h5>
+    <h4>Vehicle Check:</h4>
+    <h5>{{form.vehicleCheck}}</h5>
 
-        <h4>Comment:</h4>
-            <h5>{{form.comment}}</h5>
+    <h4>Comment:</h4>
+    <h5>{{form.comment}}</h5>
 
-        <h4>Sign:</h4>
-            <h5>{{form.sign}}</h5>  
+    <h4>Sign:</h4>
+    <h5>{{form.sign}}</h5>
 
-        <img [attr.src]="form.photo"> 
+    <img [attr.src]="form.photo"> 
 
-        <h4 *ngIf="form.photoComment">Photo Comment:</h4>
-            <h5>{{form.photoComment}}</h5> 
+    <h4 *ngIf="form.photoComment">Photo Comment:</h4>
+    <h5>{{form.photoComment}}</h5> 
             
 <button (click)="goBack()">Back</button>
 
-<p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
 
+<p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
