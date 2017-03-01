@@ -1,4 +1,9 @@
-//Variables
+//Api server for Haccpapz
+//Author Martin Coleman
+//This server manages the passing and sending data to the App and the Angular 2 web server
+
+
+//System Variables
 var express = require('express');
 var cors = require('cors');
 var app = express();
@@ -14,7 +19,7 @@ var fs = require('fs');
 var multer = require('multer');
 var crypto = require('crypto');
 
-//Schemas
+//Schemas for loading and storing data models
 var Settings = require('./app/models/settings');
 var LoginTime = require('./app/models/loginTimes');
 var RefridgerationUnit = require('./app/models/refridgerationUnit');
@@ -29,10 +34,12 @@ var Transport = require('./app/models/transport');
 var Temperature = require('./app/models/temperature');
 var Food = require('./app/models/food');
 
-//User auth Code adapted from http://devdactic.com/restful-api-user-authentication-1
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//allows cors on server
 app.use(cors());
 
+//settings for body parser
 app.use(bodyParser.json({
     limit: "50mb"
 }));
@@ -48,16 +55,14 @@ app.use(morgan('dev'));
 // Use the passport package in our application
 app.use(passport.initialize());
 
-//Multer for photos
-//var upload =multer({dest:'C:/uploads'});
-
+//Settings for photo uploads
 var path = require('path');
 var multer = require('multer');
 
 var storage = multer.diskStorage({
     destination: 'C:/uploads',
-    filename: function(req, file, cb) {
-        crypto.pseudoRandomBytes(16, function(err, raw) {
+    filename: function (req, file, cb) {
+        crypto.pseudoRandomBytes(16, function (err, raw) {
             if (err) return cb(err)
 
             cb(null, raw.toString('hex') + path.extname(file.originalname))
@@ -70,13 +75,13 @@ var upload = multer({
 })
 
 // demo Route (GET http://localhost:8080)
-//can be removed
-app.get('/', function(req, res) {
+//Can be used to test if server is running
+app.get('/', function (req, res) {
     res.send('Hello! The API is at http://localhost:' + port + '/api');
 });
 
 //Allows CORS
-app.all('*', function(req, res, next) {
+app.all('*', function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
@@ -95,8 +100,10 @@ var apiRoutes = express.Router();
 ////////////////////////////////////////////////////////////////////////////////////
 //ROUTES///////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
+//User auth Code adapted from http://devdactic.com/restful-api-user-authentication-1
+
 // creates a new user account
-apiRoutes.post('/signup', function(req, res) {
+apiRoutes.post('/signup', function (req, res) {
     if (!req.body.email || !req.body.password) {
         res.json({
             success: false,
@@ -108,7 +115,7 @@ apiRoutes.post('/signup', function(req, res) {
             password: req.body.password
         });
         // save the user
-        newUser.save(function(err) {
+        newUser.save(function (err) {
             if (err) {
                 return res.json({
                     success: false,
@@ -127,11 +134,11 @@ apiRoutes.post('/signup', function(req, res) {
 //end signup////////////////////////////////////////////////////////////////////////
 
 //checks if email and pass are in db and returns a token in json form
-apiRoutes.post('/authenticate', function(req, res) {
+apiRoutes.post('/authenticate', function (req, res) {
 
     User.findOne({
         email: req.body.email
-    }, function(err, user) {
+    }, function (err, user) {
         if (err) throw err;
 
         if (!user) {
@@ -141,7 +148,7 @@ apiRoutes.post('/authenticate', function(req, res) {
             });
         } else {
             // check if password matches
-            user.comparePassword(req.body.password, function(err, isMatch) {
+            user.comparePassword(req.body.password, function (err, isMatch) {
                 if (isMatch && !err) {
                     // if user is found and password is right create a token
                     var token = jwt.encode(user, config.secret);
@@ -161,7 +168,7 @@ apiRoutes.post('/authenticate', function(req, res) {
                     loginTime.date = date;
 
                     //save to db
-                    loginTime.save(function(err) {});
+                    loginTime.save(function (err) {});
 
                 } else {
                     res.send({
@@ -175,11 +182,12 @@ apiRoutes.post('/authenticate', function(req, res) {
 });
 //end authenticate/////////////////////////////////////////////////////////////////
 
-apiRoutes.post('/forgot', function(req, res) {
+//Handles forgotten password requests 
+apiRoutes.post('/forgot', function (req, res) {
     //if email in DB send password in email.
     User.findOne({
         email: req.body.email
-    }, function(err, user) {
+    }, function (err, user) {
         if (err) throw err;
 
         if (!user) {
@@ -203,15 +211,16 @@ apiRoutes.post('/forgot', function(req, res) {
 });
 //end forgot///////////////////////////////////////////////////////////////////////
 
+//Post for saving Fitness To Work Forms
 apiRoutes.post('/fitnessToWork', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
 
             if (!user) {
@@ -243,7 +252,7 @@ apiRoutes.post('/fitnessToWork', passport.authenticate('jwt', {
                     fitness.q12DateSigned = req.body.q12;
 
                     //save to db
-                    fitness.save(function(err) {
+                    fitness.save(function (err) {
                         if (err)
                             res.send(err);
 
@@ -271,15 +280,16 @@ apiRoutes.post('/fitnessToWork', passport.authenticate('jwt', {
 });
 //end Fitness/////////////////////////////////////////////////////////////////////
 
+//Post for saving Refridgeration Forms
 apiRoutes.post('/refridgeration', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
 
             if (!user) {
@@ -301,7 +311,7 @@ apiRoutes.post('/refridgeration', passport.authenticate('jwt', {
                     refridgeration.date = req.body.date;
 
                     //save to db
-                    refridgeration.save(function(err) {
+                    refridgeration.save(function (err) {
                         if (err)
                             res.send(err);
 
@@ -329,15 +339,16 @@ apiRoutes.post('/refridgeration', passport.authenticate('jwt', {
 });
 //end refridgeration/////////////////////////////////////////////////////////////////////
 
+//Post for saving Hothold Forms
 apiRoutes.post('/hothold', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
 
             if (!user) {
@@ -365,7 +376,7 @@ apiRoutes.post('/hothold', passport.authenticate('jwt', {
                     hothold.managersign = req.body.managersign;
 
                     //save to db
-                    hothold.save(function(err) {
+                    hothold.save(function (err) {
                         if (err)
                             res.send(err);
 
@@ -393,15 +404,16 @@ apiRoutes.post('/hothold', passport.authenticate('jwt', {
 });
 //end hothold/////////////////////////////////////////////////////////////////////
 
+//Post for saving Suppliers
 apiRoutes.post('/suppliers', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
 
             if (!user) {
@@ -430,7 +442,7 @@ apiRoutes.post('/suppliers', passport.authenticate('jwt', {
                     suppliers.Supplier10 = req.body.Supplier10;
 
                     //save to db
-                    suppliers.save(function(err) {
+                    suppliers.save(function (err) {
                         if (err)
                             res.send(err);
                         res.json({
@@ -457,15 +469,16 @@ apiRoutes.post('/suppliers', passport.authenticate('jwt', {
 });
 //end postsuppliers/////////////////////////////////////////////////////////////////////
 
+//Get for returning Suppliers
 apiRoutes.get('/suppliers', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
 
             if (!user) {
@@ -477,7 +490,7 @@ apiRoutes.get('/suppliers', passport.authenticate('jwt', {
                 //get settings
                 Supplier.findOne({
                     email: user.email
-                }, function(err, supplier) {
+                }, function (err, supplier) {
                     if (err) throw err;
                     if (!supplier) {
                         return res.status(403).send({
@@ -511,15 +524,16 @@ apiRoutes.get('/suppliers', passport.authenticate('jwt', {
 });
 //end getSuppliers////////////////////////////////////////////////////////////////////
 
+//Put for updating Suppliers
 apiRoutes.put('/suppliers', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
 
             if (!user) {
@@ -531,7 +545,7 @@ apiRoutes.put('/suppliers', passport.authenticate('jwt', {
                 //get settings
                 Supplier.findOne({
                     email: user.email
-                }, function(err, suppliers) {
+                }, function (err, suppliers) {
                     if (err) throw err;
                     if (!suppliers) {
                         return res.status(403).send({
@@ -555,7 +569,7 @@ apiRoutes.put('/suppliers', passport.authenticate('jwt', {
                             suppliers.Supplier10 = req.body.Supplier10;
 
                             //save to db
-                            suppliers.save(function(err) {
+                            suppliers.save(function (err) {
                                 if (err)
                                     res.send(err);
                                 res.json({
@@ -584,15 +598,16 @@ apiRoutes.put('/suppliers', passport.authenticate('jwt', {
 });
 //end putSuppliers/////////////////////////////////////////////////////////////////////
 
+//Post for saving hygieneInspection Forms
 apiRoutes.post('/hygieneInspection', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
 
             if (!user) {
@@ -705,7 +720,7 @@ apiRoutes.post('/hygieneInspection', passport.authenticate('jwt', {
                     hygieneInspection.sign = req.body.sign;
 
                     //save to db
-                    hygieneInspection.save(function(err) {
+                    hygieneInspection.save(function (err) {
                         if (err)
                             res.send(err);
 
@@ -733,15 +748,16 @@ apiRoutes.post('/hygieneInspection', passport.authenticate('jwt', {
 });
 //end hygieneInspection/////////////////////////////////////////////////////////////////////
 
+//Post for saving HygieneTraining Forms
 apiRoutes.post('/hygieneTraining', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
 
             if (!user) {
@@ -773,7 +789,7 @@ apiRoutes.post('/hygieneTraining', passport.authenticate('jwt', {
                     hygieneTraining.furtherEmployeeSig = req.body.empsignfurther;
 
                     //save to db
-                    hygieneTraining.save(function(err) {
+                    hygieneTraining.save(function (err) {
                         if (err)
                             res.send(err);
 
@@ -801,15 +817,16 @@ apiRoutes.post('/hygieneTraining', passport.authenticate('jwt', {
 });
 //end hygieneTraining/////////////////////////////////////////////////////////////////////
 
+//Post for saving Transport Forms
 apiRoutes.post('/transport', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
 
             if (!user) {
@@ -839,7 +856,7 @@ apiRoutes.post('/transport', passport.authenticate('jwt', {
                     transport.long = req.body.long;
 
                     //save to db
-                    transport.save(function(err) {
+                    transport.save(function (err) {
                         if (err)
                             res.send(err);
 
@@ -867,15 +884,16 @@ apiRoutes.post('/transport', passport.authenticate('jwt', {
 });
 //end transport/////////////////////////////////////////////////////////////////////
 
+//Post for saving RefridgerationUnits
 apiRoutes.post('/refridgerationUnit', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
 
             if (!user) {
@@ -899,7 +917,7 @@ apiRoutes.post('/refridgerationUnit', passport.authenticate('jwt', {
                     refridgerationUnit.name6 = req.body.name6;
 
                     //save to db
-                    refridgerationUnit.save(function(err) {
+                    refridgerationUnit.save(function (err) {
                         if (err)
                             res.send(err);
 
@@ -927,15 +945,16 @@ apiRoutes.post('/refridgerationUnit', passport.authenticate('jwt', {
 });
 //end refridgerationUnit /////////////////////////////////////////////////////////////////////
 
+//Put for Updating RefridgerationUnits
 apiRoutes.put('/refridgerationUnit', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
 
             if (!user) {
@@ -947,7 +966,7 @@ apiRoutes.put('/refridgerationUnit', passport.authenticate('jwt', {
                 //get settings
                 RefridgerationUnit.findOne({
                     email: user.email
-                }, function(err, refridgerationUnit) {
+                }, function (err, refridgerationUnit) {
                     if (err) throw err;
                     if (!refridgerationUnit) {
                         return res.status(403).send({
@@ -966,7 +985,7 @@ apiRoutes.put('/refridgerationUnit', passport.authenticate('jwt', {
                             refridgerationUnit.name6 = req.body.Fridge6;
 
                             //save to db
-                            refridgerationUnit.save(function(err) {
+                            refridgerationUnit.save(function (err) {
                                 if (err)
                                     res.send(err);
                                 res.json({
@@ -995,15 +1014,16 @@ apiRoutes.put('/refridgerationUnit', passport.authenticate('jwt', {
 });
 //end refridgerationUnit /////////////////////////////////////////////////////////////////////
 
+//Get for returning RefridgerationUnits
 apiRoutes.get('/refridgerationUnit', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
 
             if (!user) {
@@ -1015,7 +1035,7 @@ apiRoutes.get('/refridgerationUnit', passport.authenticate('jwt', {
                 //get refUnits
                 RefridgerationUnit.findOne({
                     email: user.email
-                }, function(err, refridgerationUnit) {
+                }, function (err, refridgerationUnit) {
                     if (err) throw err;
                     if (!refridgerationUnit) {
                         res.status(403).send({
@@ -1047,15 +1067,16 @@ apiRoutes.get('/refridgerationUnit', passport.authenticate('jwt', {
 });
 //end refridgerationUnit /////////////////////////////////////////////////////////////////////
 
+//Post for saving Temperature Forms
 apiRoutes.post('/temperature', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
 
             if (!user) {
@@ -1086,7 +1107,7 @@ apiRoutes.post('/temperature', passport.authenticate('jwt', {
                     temperature.managersign = req.body.managersign;
 
                     //save to db
-                    temperature.save(function(err) {
+                    temperature.save(function (err) {
                         if (err)
                             res.send(err);
 
@@ -1114,15 +1135,16 @@ apiRoutes.post('/temperature', passport.authenticate('jwt', {
 });
 //end temperature/////////////////////////////////////////////////////////////////////
 
+//Post for saving Food
 apiRoutes.post('/food', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
 
             if (!user) {
@@ -1151,7 +1173,7 @@ apiRoutes.post('/food', passport.authenticate('jwt', {
                     food.Food10 = req.body.Food10;
 
                     //save to db
-                    food.save(function(err) {
+                    food.save(function (err) {
                         if (err)
                             res.send(err);
                         res.json({
@@ -1177,15 +1199,16 @@ apiRoutes.post('/food', passport.authenticate('jwt', {
 });
 //end postfood/////////////////////////////////////////////////////////////////////
 
+//Get for returning Food
 apiRoutes.get('/food', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
 
             if (!user) {
@@ -1197,7 +1220,7 @@ apiRoutes.get('/food', passport.authenticate('jwt', {
                 //get settings
                 Food.findOne({
                     email: user.email
-                }, function(err, food) {
+                }, function (err, food) {
                     if (err) throw err;
                     if (!food) {
                         return res.status(403).send({
@@ -1231,15 +1254,16 @@ apiRoutes.get('/food', passport.authenticate('jwt', {
 });
 //end food////////////////////////////////////////////////////////////////////
 
+//Put for updating Food
 apiRoutes.put('/food', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
 
             if (!user) {
@@ -1251,7 +1275,7 @@ apiRoutes.put('/food', passport.authenticate('jwt', {
                 //get settings
                 Food.findOne({
                     email: user.email
-                }, function(err, food) {
+                }, function (err, food) {
                     if (err) throw err;
                     if (!food) {
                         return res.status(403).send({
@@ -1275,7 +1299,7 @@ apiRoutes.put('/food', passport.authenticate('jwt', {
                             food.Food10 = req.body.Food10;
 
                             //save to db
-                            food.save(function(err) {
+                            food.save(function (err) {
                                 if (err)
                                     res.send(err);
                                 res.json({
@@ -1304,15 +1328,16 @@ apiRoutes.put('/food', passport.authenticate('jwt', {
 });
 //end putfood/////////////////////////////////////////////////////////////////////
 
+//Get for returning Fitness to Work Forms
 apiRoutes.get('/getFitnessToWork', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
             if (!user) {
                 return res.status(403).send({
@@ -1324,7 +1349,7 @@ apiRoutes.get('/getFitnessToWork', passport.authenticate('jwt', {
                 Fitness.
                 find({
                     'email': decoded.email
-                }, function(err, fitforms) {
+                }, function (err, fitforms) {
                     if (err) {
                         return res.status(403).send({
                             success: false
@@ -1346,15 +1371,16 @@ apiRoutes.get('/getFitnessToWork', passport.authenticate('jwt', {
 });
 //end getFitnessToWork////////////////////////////////////////////////////////////////////
 
+//Post for saving fridge temp forms
 apiRoutes.post('/fridgetemp', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
 
             if (!user) {
@@ -1376,7 +1402,7 @@ apiRoutes.post('/fridgetemp', passport.authenticate('jwt', {
                     refridgeration.date = req.body.date;
 
                     //save to db
-                    refridgeration.save(function(err) {
+                    refridgeration.save(function (err) {
                         if (err)
                             res.send(err);
 
@@ -1404,15 +1430,16 @@ apiRoutes.post('/fridgetemp', passport.authenticate('jwt', {
 });
 //end fridgetemp/////////////////////////////////////////////////////////////////////
 
+//Get for returning fridgetemp Forms
 apiRoutes.get('/getFridgetemp', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
             if (!user) {
                 return res.status(403).send({
@@ -1424,7 +1451,7 @@ apiRoutes.get('/getFridgetemp', passport.authenticate('jwt', {
                 Refridgeration.
                 find({
                     'email': decoded.email
-                }, function(err, tempforms) {
+                }, function (err, tempforms) {
                     if (err) {
                         return res.status(403).send({
                             success: false
@@ -1445,15 +1472,16 @@ apiRoutes.get('/getFridgetemp', passport.authenticate('jwt', {
 });
 //end getFridgetemp////////////////////////////////////////////////////////////////////
 
+//Get for returning Transpost Forms
 apiRoutes.get('/getTransport', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
             if (!user) {
                 return res.status(403).send({
@@ -1465,7 +1493,7 @@ apiRoutes.get('/getTransport', passport.authenticate('jwt', {
                 Transport.
                 find({
                     'email': decoded.email
-                }, function(err, Transportforms) {
+                }, function (err, Transportforms) {
                     if (err) {
                         return res.status(403).send({
                             success: false
@@ -1487,15 +1515,16 @@ apiRoutes.get('/getTransport', passport.authenticate('jwt', {
 });
 //end getTransport//////////////////////////////////////////////////////////////////////////////
 
+//Get for returning TempRecords Forms
 apiRoutes.get('/getTempRecords', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
             if (!user) {
                 return res.status(403).send({
@@ -1507,7 +1536,7 @@ apiRoutes.get('/getTempRecords', passport.authenticate('jwt', {
                 Temperature.
                 find({
                     'email': decoded.email
-                }, function(err, Temperatureforms) {
+                }, function (err, Temperatureforms) {
                     if (err) {
                         return res.status(403).send({
                             success: false
@@ -1529,15 +1558,16 @@ apiRoutes.get('/getTempRecords', passport.authenticate('jwt', {
 });
 //end getTempRecords//////////////////////////////////////////////////////////////////////////////
 
+//Get for returning Hothold Forms
 apiRoutes.get('/getHothold', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
             if (!user) {
                 return res.status(403).send({
@@ -1549,7 +1579,7 @@ apiRoutes.get('/getHothold', passport.authenticate('jwt', {
                 Hothold.
                 find({
                     'email': decoded.email
-                }, function(err, Hotholdforms) {
+                }, function (err, Hotholdforms) {
                     if (err) {
                         return res.status(403).send({
                             success: false
@@ -1571,15 +1601,16 @@ apiRoutes.get('/getHothold', passport.authenticate('jwt', {
 });
 //end getHothold//////////////////////////////////////////////////////////////////////////////
 
+//Get for returning HygieneInspection Forms
 apiRoutes.get('/getHygieneInspection', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
             if (!user) {
                 return res.status(403).send({
@@ -1591,7 +1622,7 @@ apiRoutes.get('/getHygieneInspection', passport.authenticate('jwt', {
                 HygieneInspection.
                 find({
                     'email': decoded.email
-                }, function(err, HygieneInspectionforms) {
+                }, function (err, HygieneInspectionforms) {
                     if (err) {
                         return res.status(403).send({
                             success: false
@@ -1613,15 +1644,16 @@ apiRoutes.get('/getHygieneInspection', passport.authenticate('jwt', {
 });
 //end getHygieneInspection//////////////////////////////////////////////////////////////////////////////
 
+//Get for returning HygieneTraining Forms
 apiRoutes.get('/getHygieneTraining', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
             if (!user) {
                 return res.status(403).send({
@@ -1633,7 +1665,7 @@ apiRoutes.get('/getHygieneTraining', passport.authenticate('jwt', {
                 HygieneTraining.
                 find({
                     'email': decoded.email
-                }, function(err, HygieneTrainingforms) {
+                }, function (err, HygieneTrainingforms) {
                     if (err) {
                         return res.status(403).send({
                             success: false
@@ -1655,15 +1687,16 @@ apiRoutes.get('/getHygieneTraining', passport.authenticate('jwt', {
 });
 //end getHygieneInspection//////////////////////////////////////////////////////////////////////////////
 
+//Get for returning Food
 apiRoutes.get('/getfood', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
 
             if (!user) {
@@ -1675,7 +1708,7 @@ apiRoutes.get('/getfood', passport.authenticate('jwt', {
                 //get settings
                 Food.findOne({
                     email: user.email
-                }, function(err, food) {
+                }, function (err, food) {
                     if (err) throw err;
                     if (!food) {
                         return res.status(403).send({
@@ -1698,15 +1731,16 @@ apiRoutes.get('/getfood', passport.authenticate('jwt', {
 });
 //end getfood////////////////////////////////////////////////////////////////////
 
+//Get for returning RefridgerationUnits
 apiRoutes.get('/getrefridgerationUnit', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
 
             if (!user) {
@@ -1718,7 +1752,7 @@ apiRoutes.get('/getrefridgerationUnit', passport.authenticate('jwt', {
                 //get refUnits
                 RefridgerationUnit.findOne({
                     email: user.email
-                }, function(err, refridgerationUnit) {
+                }, function (err, refridgerationUnit) {
                     if (err) throw err;
                     if (!refridgerationUnit) {
                         res.status(403).send({
@@ -1742,15 +1776,16 @@ apiRoutes.get('/getrefridgerationUnit', passport.authenticate('jwt', {
 });
 //end getRefridgerationUnit /////////////////////////////////////////////////////////////////////
 
+//Get for returning Suppliers
 apiRoutes.get('/getsuppliers', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
 
             if (!user) {
@@ -1762,7 +1797,7 @@ apiRoutes.get('/getsuppliers', passport.authenticate('jwt', {
                 //get settings
                 Supplier.findOne({
                     email: user.email
-                }, function(err, supplier) {
+                }, function (err, supplier) {
                     if (err) throw err;
                     if (!supplier) {
                         return res.status(403).send({
@@ -1785,15 +1820,16 @@ apiRoutes.get('/getsuppliers', passport.authenticate('jwt', {
 });
 //end getSuppliers////////////////////////////////////////////////////////////////////
 
+//Get for returning FoodDeliveryForms Forms
 apiRoutes.get('/getFoodDelivery', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
             if (!user) {
                 return res.status(403).send({
@@ -1805,7 +1841,7 @@ apiRoutes.get('/getFoodDelivery', passport.authenticate('jwt', {
                 Delivery.
                 find({
                     'email': decoded.email
-                }, function(err, Deliveryforms) {
+                }, function (err, Deliveryforms) {
                     if (err) {
                         return res.status(403).send({
                             success: false
@@ -1827,15 +1863,16 @@ apiRoutes.get('/getFoodDelivery', passport.authenticate('jwt', {
 });
 //end getFoodDelivery//////////////////////////////////////////////////////////////////////////////
 
+//Post for saving FoodDeliveryForms Forms with photo
 apiRoutes.post('/foodDelivery', upload.single('photo'), passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
 
             if (!user) {
@@ -1870,7 +1907,7 @@ apiRoutes.post('/foodDelivery', upload.single('photo'), passport.authenticate('j
 
 
                     //save to db
-                    foodDelivery.save(function(err) {
+                    foodDelivery.save(function (err) {
                         if (err)
                             res.send(err);
 
@@ -1899,15 +1936,16 @@ apiRoutes.post('/foodDelivery', upload.single('photo'), passport.authenticate('j
 });
 //end FoodDeliveryPhoto/////////////////////////////////////////////////////////////////////
 
+//Get for returning Delivery Trends
 apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
             if (!user) {
                 return res.status(403).send({
@@ -1950,7 +1988,7 @@ apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', {
                 //sets date back 6 months
                 queryDate.setMonth(queryDate.getMonth() - months);
 
-                deliveryAnalysis().then(function(forms) {
+                deliveryAnalysis().then(function (forms) {
                     //loop forms
                     for (i = 0; i < forms.length; i++) {
                         var date = new Date(forms[i].date);
@@ -2000,7 +2038,7 @@ apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', {
                         } //end if within range 
 
                     } //for
-                    
+
                     var today = new Date();
 
                     Msg = "Found " + countFood + " occurrences of " + queryFood + " between " + queryDate.toDateString() + " and " + today.toDateString() + " within a " + km + " Km Radius.";
@@ -2027,15 +2065,16 @@ apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', {
 });
 //end getDeliveryTrend//////////////////////////////////////////////////////////////////////////////
 
+//Get for returning Forms dates(Last date of filled out form)
 apiRoutes.get('/getFormDate', passport.authenticate('jwt', {
     session: false
-}), function(req, res) {
+}), function (req, res) {
     var token = getToken(req.headers);
     if (token) {
         var decoded = jwt.decode(token, config.secret);
         User.findOne({
             email: decoded.email
-        }, function(err, user) {
+        }, function (err, user) {
             if (err) throw err;
             if (!user) {
                 return res.status(403).send({
@@ -2126,7 +2165,8 @@ console.log('Server live on: http://localhost:' + port);
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //Functions and Validation 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-getToken = function(headers) {
+//gets token from header
+getToken = function (headers) {
     if (headers && headers.authorization) {
         var parted = headers.authorization.split(' ');
         if (parted.length === 2) {
@@ -2138,7 +2178,7 @@ getToken = function(headers) {
         return null;
     }
 };
-
+//Validation For settings
 function settingsValidation(noOfRef) {
     if (!noOfRef) {
         return false;
@@ -2147,6 +2187,7 @@ function settingsValidation(noOfRef) {
     }
 } //End settingsValidation
 
+//Validation For Fitness
 function fitnessValidation(q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12) {
     if (!q1 || q2 == null || !q3 || !q4 || !q8 || !q9 || !q10 || !q11 || q12 == null) {
         return false;
@@ -2155,6 +2196,7 @@ function fitnessValidation(q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12) {
     }
 } //End fitnessValidation
 
+//Validation For refridgeration
 function refridgerationValidation(temp) {
     if (!temp) {
         return false;
@@ -2163,6 +2205,7 @@ function refridgerationValidation(temp) {
     }
 } //End refridgerationValidation
 
+//Validation For hothold
 function hotholdValidation(date, food, time, firstTemp, secondTemp, thirdTemp, comment, sign) {
     if (date == '' || !food || time == '' || !firstTemp || !secondTemp || !thirdTemp || !comment || !sign) {
         return false;
@@ -2171,6 +2214,7 @@ function hotholdValidation(date, food, time, firstTemp, secondTemp, thirdTemp, c
     }
 } //End hotholdValidation
 
+//Validation For hygieneInspection
 function hygInspectionValidation(date, frequency, name, position, sign, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14, q15, q16, q17, q18, q19, q20, q21, q22, q23, q24, q25, q26, q27, q28, q29, q30, q31, q32, q33, q34, q35, q36, q37, q38, q39, q40, q41, q42, q43, q44, q45) {
     if (!date || !name || !position || !sign || !q1 || !q2 || !q3 || !q4 || !q5 || !q6 || !q7 || !q8 || !q9 || !q10 || !q11 || !q12 || !q13 || !q14 || !q15 || !q16 || !q17 || !q18 || !q19 || !q20 || !q21 || !q22 || !q23 || !q24 || !q25 || !q26 || !q27 || !q28 || !q29 || !q30 || !q31 || !q32 || !q33 || !q34 || !q35 || !q36 || !q37 || !q38 || !q39 || !q40 || !q41 || !q42 || !q43 || !q44 || !q45) {
         console.log(date, name, position, sign, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q21, q22, q23, q24, q25, q26, q27, q28, q29, q30, q31, q32, q33, q34, q35, q36, q37, q38, q39, q40, q41, q42, q43, q44, q45);
@@ -2180,6 +2224,7 @@ function hygInspectionValidation(date, frequency, name, position, sign, q1, q2, 
     }
 } //End hygInspectionValidation
 
+//Validation For HygieneTraining
 function hygTrainingValidation(name, position, dateEmp, type, date,
     trainer, empsign, furthertraining, provider,
     furtherdate, empsignfurther, empsignfurther) {
@@ -2192,6 +2237,7 @@ function hygTrainingValidation(name, position, dateEmp, type, date,
     }
 } //End hygTrainingValidation
 
+//Validation For Transport
 function transportValidation(date, food, batch, customer, separation, temp, sign) {
     if (!date || !food || !batch || !customer || !separation || !temp || !sign) {
         return false;
@@ -2200,6 +2246,7 @@ function transportValidation(date, food, batch, customer, separation, temp, sign
     }
 } //End transportValidation
 
+//Validation For RefridgerationUnits
 function refridgerationUnitValidation(name) {
     if (!name) {
         return false;
@@ -2208,20 +2255,17 @@ function refridgerationUnitValidation(name) {
     }
 } //End refridgerationValidation
 
+//promise for refridgerationUnit
 function getFridgesQuery(email) {
-
-    //RefridgerationUnit.find({ email: email});
-
     var query = RefridgerationUnit.find({
         email: email
     });
     var promise = query.exec();
-    promise.addBack(function(err, docs) {});
-
-    //console.log(query);
+    promise.addBack(function (err, docs) {});
     return query;
 }
 
+//Validation For Temperature
 function temperatureValidation(date, food, startTime, finishTime, cookTemp, cookSign, fridgeTime, coolSign, reheatTemp, reheatSign, comment) {
     if (date == '' || !food || !startTime || !finishTime || !cookTemp || !cookSign || !fridgeTime || !coolSign || !reheatTemp || !reheatSign || !comment) {
         return false;
@@ -2230,6 +2274,7 @@ function temperatureValidation(date, food, startTime, finishTime, cookTemp, cook
     }
 } //End refridgerationValidation
 
+//Validation For supplier
 function supplierValidation(Supplier1) {
     if (!Supplier1) {
         return false;
@@ -2238,6 +2283,7 @@ function supplierValidation(Supplier1) {
     }
 } //End settingsValidation
 
+//Validation For food
 function foodValidation(Food1) {
     if (!Food1) {
         return false;
@@ -2246,27 +2292,29 @@ function foodValidation(Food1) {
     }
 } //End settingsValidation
 
+//Creates settings for new signup
 function createSettings(newEmail) {
     var newSupplier = new Supplier({
         email: newEmail
     });
     // save the user
-    newSupplier.save(function(err) {});
+    newSupplier.save(function (err) {});
 
     var newFood = new Food({
         email: newEmail
     });
     // save the user
-    newFood.save(function(err) {});
+    newFood.save(function (err) {});
 
     var newRefridgerationUnit = new RefridgerationUnit({
         email: newEmail
     });
     // save the user
-    newRefridgerationUnit.save(function(err) {});
+    newRefridgerationUnit.save(function (err) {});
 
 } //End createSettings
 
+//Validation For food delivery
 function foodDeliveryValidation(date, food) {
     if (date == "undefined" || date == "null" || food == "undefined" || food == "null") {
         return false;
@@ -2288,7 +2336,7 @@ function isPointWithinRadius(checkPoint, centerPoint, km) {
 function deliveryAnalysis() {
     var query = Delivery.find({});
 
-    query.exec(function(err, forms) {
+    query.exec(function (err, forms) {
         if (err) return handleError(err);
     });
 
@@ -2301,7 +2349,7 @@ function getDelivery(email) {
         email: email
     });
 
-    query.exec(function(err, forms) {
+    query.exec(function (err, forms) {
         if (err) return handleError(err);
     });
 
@@ -2314,7 +2362,7 @@ function getFitness(email) {
         email: email
     });
 
-    query.exec(function(err, forms) {
+    query.exec(function (err, forms) {
         if (err) return handleError(err);
     });
 
@@ -2327,7 +2375,7 @@ function getRefridgeration(email) {
         email: email
     });
 
-    query.exec(function(err, forms) {
+    query.exec(function (err, forms) {
         if (err) return handleError(err);
     });
 
@@ -2340,7 +2388,7 @@ function getHothold(email) {
         email: email
     });
 
-    query.exec(function(err, forms) {
+    query.exec(function (err, forms) {
         if (err) return handleError(err);
     });
 
@@ -2353,7 +2401,7 @@ function getHygieneInspection(email) {
         email: email
     });
 
-    query.exec(function(err, forms) {
+    query.exec(function (err, forms) {
         if (err) return handleError(err);
     });
 
@@ -2366,7 +2414,7 @@ function getHygieneTraining(email) {
         email: email
     });
 
-    query.exec(function(err, forms) {
+    query.exec(function (err, forms) {
         if (err) return handleError(err);
     });
 
@@ -2379,7 +2427,7 @@ function getTransport(email) {
         email: email
     });
 
-    query.exec(function(err, forms) {
+    query.exec(function (err, forms) {
         if (err) return handleError(err);
     });
 
@@ -2392,7 +2440,7 @@ function getTemperature(email) {
         email: email
     });
 
-    query.exec(function(err, forms) {
+    query.exec(function (err, forms) {
         if (err) return handleError(err);
     });
 
