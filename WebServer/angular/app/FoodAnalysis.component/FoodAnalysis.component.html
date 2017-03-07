@@ -30,6 +30,10 @@
   </form>
 </div>
 
+<sebm-google-map [latitude]="lat" [longitude]="lng">
+  <sebm-google-map-marker [latitude]="lat" [longitude]="lng" [markerDraggable]=true (dragEnd)="updateLocation($event)"></sebm-google-map-marker>
+</sebm-google-map>
+
 <!--Displays Forms -->
 <div *ngFor="let form of foodAnalysisForms">
   <div class="panel panel-default col-med">
