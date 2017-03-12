@@ -1,8 +1,9 @@
 
-import { NgModule }      from '@angular/core';
+import { NgModule, ApplicationRef}      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule}     from '@angular/http';
+import { CommonModule } from '@angular/common';
 
 import {} from '@angular/core/testing';
 
@@ -29,6 +30,7 @@ import { DashboardComponent }       from './dashboard.component/dashboard.compon
 import { FoodDeliveryComponent }       from './foodDelivery.component/foodDelivery.component';
 import { FoodDeliveryDetailComponent }       from './foodDelivery.component/foodDelivery-detail.component/foodDelivery-detail.component';
 import { FoodAnalysisComponent }         from './FoodAnalysis.component/FoodAnalysis.component';
+import { AgmCoreModule } from 'angular2-google-maps/core';
 
 //Services
 //////////////////////////////////////////////////////////////
@@ -46,9 +48,13 @@ import { AnalysisService } from './AnalysisService/analysis.service';
 @NgModule({
     imports: [
         BrowserModule,
+		CommonModule,
         FormsModule,
         HttpModule,
-        routing
+        routing,
+		 AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBqriJbrqEdrssuqCI1kDsstT-bhL6so7U'
+    })
     ],
     declarations: [
         AppComponent,

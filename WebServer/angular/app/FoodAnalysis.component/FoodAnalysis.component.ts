@@ -8,7 +8,8 @@ import '../rxjs-operators';
 @Component({
     moduleId: module.id,
     selector: 'foodAnalysis',
-    templateUrl: 'foodAnalysis.component.html'
+    templateUrl: 'foodAnalysis.component.html',
+	styleUrls: ['./FoodAnalysis.component.css']
 })
 
 //This component manages Food delivery analysis
@@ -21,14 +22,19 @@ export class FoodAnalysisComponent implements OnInit {
             private analysisService: AnalysisService){
     }
 
-    lattitude = {};
-    longitude = {};
+    lng: number ;
+    lat: number ;
 
     //stores Lat and Long
     setPosition(position){
-      this.lattitude = position.coords.latitude;
-      this.longitude = position.coords.longitude;
+        this.lat = position.coords.latitude;
+        this.lng = position.coords.longitude;
     }
+	
+	updateLocation(pos) {	
+	    this.lat = pos.coords.lat;
+		this.lng = pos.coords.lng;
+	}
     
     //on load check for navigator and get Geolocation if possible
     ngOnInit() {
@@ -68,8 +74,8 @@ export class FoodAnalysisComponent implements OnInit {
         }
         
         //add lat long to url
-        url+="&lat="+ this.lattitude;
-        url+="&lng="+ this.longitude;
+        url+="&lat="+ this.lat;
+        url+="&lng="+ this.lng;
 
         //pass url as method param
         this.getAnalysis(url);
