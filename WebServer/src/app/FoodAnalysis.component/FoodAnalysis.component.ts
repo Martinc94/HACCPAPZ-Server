@@ -20,11 +20,41 @@ export class FoodAnalysisComponent implements OnInit {
 
     constructor(private router: Router,
             private analysisService: AnalysisService){
+
+                // console.log(this.m);
+
+               // var m  = {};
+
+                let marker = <any>{};
+
+                marker.lat=-7.940689799999973;
+marker.lng=53.4239331;
+
+                this.markers.push(marker);
+                this.markers.push(marker);
+                this.markers.push(marker);
+
+                console.log(marker);
+
+                console.log(this.markers);
+                console.log(this.markers[0]);
+                
+                
     }
+
+   markers=[];
+  
+
+    
+
+    
+    
+
+   /* m.coordinates.lat=-7.940689799999973;
+    m.lng=53.4239331;*/
 
     lng: number=53.4239331 ;
     lat: number=-7.940689799999973;
-    
 
     //stores Lat and Long
     setPosition(position){
@@ -36,7 +66,10 @@ export class FoodAnalysisComponent implements OnInit {
 	    this.lat = pos.coords.lat;
 		this.lng = pos.coords.lng;
 	}
-    
+
+    markerClick(e) {	
+	    console.log(e);
+	}
     //on load check for navigator and get Geolocation if possible
     ngOnInit() {
         if(!!navigator.geolocation) {
