@@ -22,8 +22,9 @@ export class FoodAnalysisComponent implements OnInit {
             private analysisService: AnalysisService){
     }
 
-    lng: number ;
-    lat: number ;
+    lng: number=53.4239331 ;
+    lat: number=-7.940689799999973;
+    
 
     //stores Lat and Long
     setPosition(position){
