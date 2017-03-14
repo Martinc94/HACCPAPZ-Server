@@ -80,6 +80,22 @@ export class FoodAnalysisComponent implements OnInit {
 
         //pass url as method param
         this.getAnalysis(url);
+
+        //go to results
+        //this.goToResults(10);
+
+        this.goToBottom(10);
     }
+
+    goToResults(timeout: number): void {
+      // wait a selected amount of time before scrolling to bottom of page
+      window.setTimeout( function () { document.getElementById('results').scrollIntoView(); }, timeout );
+    } // goToResults()
+
+    goToBottom(timeout: number): void {
+      // wait a selected amount of time before scrolling to bottom of page
+      window.setTimeout( function () { document.getElementById('bottom').scrollIntoView(); }, timeout );
+    } // goToBottom()
+
 
 }
