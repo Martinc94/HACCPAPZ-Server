@@ -4,10 +4,10 @@
 ## Introduction
 This repository contains all the source code of the Haccpapz web server and Api server.
 
-### Api Server
+## Api Server
 This server handles all the data management for Haccpapz. It manages HTTP requests such as Get and Post. It is responsible for authentication of users on the mobile app and web app, handling and storing forms posted from the mobile app, providing infomation such as settings to the app and forms to the webapp. It is also used for handling data analysis on the stored forms.
 
-#### Example of some API calls
+### Example of some API calls
 Url:
 http://haccpapz.northeurope.cloudapp.azure.com:8080
 
@@ -18,10 +18,10 @@ API URL | HTTP Method | Response Data
 "url/api/suppliers" | GET | Returns supplier settings
 "url/api/suppliers" | PUT | Updates supplier settings
 
-#### Technologies
-##### NodeJS
+### Technologies
+#### NodeJS
 Node is an asynchronous event driven JavaScript runtime that is designed to build scalable network applications. I chose node as it will be scaleable with the growth of Haccpapz. Node is lightweight yet extremely effective and handling HTTP Services such as GET, POST, PUT and DELETE.
-##### Mongoose
+#### Mongoose
 Mongoose is the driver that connects the Node server to the MongoDB database.
 
 Example of Javascript code to connect to mongoDB
@@ -41,7 +41,7 @@ kitty.save(function (err) {
 });
 ```
 
-#### Database
+### Database
 The database i chose to use was MongoDB[5]. I chose this database as it is a document-oriented database that works well with photo storage.
 As Haccpapz deals with text based forms a document-oriented database was most suitable. It was also a requirement to be able to store photos.
 MongoDB stores documents as JSON.
@@ -103,19 +103,19 @@ node server
 ```
 Open port 8080 if you wish server to be accessed from remote source.
 
-### Web Server
+## Web Server
 This server handles viewing forms and viewing data analysis. It allows users to login and view their saved forms.
 It allows Admins to perform analysis on data.
 
-#### Technologies
-##### Angular 2
+### Technologies
+#### Angular 2
 Angular[3] 2 is the improved version of Angular. Angular is great for managing MVC(Model-View-Controller) which made it ideal for this project that would be handling data(JSON) and displaying it to the user in a human readable manner. Angular 2 improves usability of services allowing observables rather than traditional callbacks. This was also useful and this web application consumes a large amount of services.
 Angular 2's templating, rendering speed , data management, HTTP services, form handling and routing makes it the perfect choice for a modern web application.
 
-##### Typescript
+#### Typescript
 Angular 2 requires the use of typescript. Angular 2 uses Typescript to add type security to Javascript.
 
-##### Angular Maps
+#### Angular Maps
 I used Angular maps[6] to display google maps for using location services during the food trend analysis.
 
 ### Requirements
