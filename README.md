@@ -23,6 +23,7 @@ API URL | HTTP Method | Response Data
 Node is an asynchronous event driven JavaScript runtime that is designed to build scalable network applications. I chose node as it will be scaleable with the growth of Haccpapz. Node is lightweight yet extremely effective and handling HTTP Services such as GET, POST, PUT and DELETE.
 ##### Mongoose
 Mongoose is the driver that connects the Node server to the MongoDB database.
+
 Example of Javascript code to connect to mongoDB
 ```
 var mongoose = require('mongoose');
