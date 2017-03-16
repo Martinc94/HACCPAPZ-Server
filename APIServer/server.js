@@ -147,6 +147,13 @@ apiRoutes.post('/authenticate', function (req, res) {
                 msg: 'Authentication failed. Email not found.'
             });
         } else {
+            var isAdmin;
+            if(!user.admin){
+                isAdmin=false;
+            }
+            if(user.admin){
+                isAdmin=true;
+            }
             // check if password matches
             user.comparePassword(req.body.password, function (err, isMatch) {
                 if (isMatch && !err) {
@@ -155,6 +162,7 @@ apiRoutes.post('/authenticate', function (req, res) {
                     // return the information including token as JSON
                     res.json({
                         success: true,
+                        admin: isAdmin,
                         token: 'JWT ' + token
                     });
                     //save time of login
