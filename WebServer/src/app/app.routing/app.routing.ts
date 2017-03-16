@@ -5,6 +5,7 @@ import { Routes, RouterModule }     from '@angular/router';
 
 // page imports
 import { AuthGuard }                from '../guards/auth.guard';
+import { AdminGuard }               from '../guards/admin.guard';
 import { HomeComponent }            from '../home.component/home.component';
 import { AboutComponent }           from '../about.component/about.component';
 import { LoginComponent }           from '../login.component/login.component';
@@ -50,7 +51,7 @@ const appRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'foodDelivery', component: FoodDeliveryComponent, canActivate: [AuthGuard] },
     { path: 'foodDeliveryform/:_id',component: FoodDeliveryDetailComponent, canActivate: [AuthGuard] },
-    { path: 'foodTrend', component: FoodAnalysisComponent, canActivate: [AuthGuard] },
+    { path: 'foodTrend', component: FoodAnalysisComponent,canActivate: [AdminGuard]},
     
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

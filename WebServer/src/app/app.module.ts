@@ -38,7 +38,7 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
 import { routing }          from './app.routing/app.routing';
 //login and authenticaton services
 import { AuthGuard } from './guards/auth.guard';
-
+import { AdminGuard } from './guards/admin.guard';
 import { AuthenticationService } from './login.component/login.service';
 //form service
 import { FormService } from './FormService/form.service';
@@ -86,6 +86,7 @@ import { AnalysisService } from './AnalysisService/analysis.service';
         FormService,
         SettingsService,
         AnalysisService,
+        AdminGuard,
     ],
     bootstrap: [ AppComponent ]
 })

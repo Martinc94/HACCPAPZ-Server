@@ -10,6 +10,7 @@ import 'rxjs/add/operator/map';
 export class AuthenticationService {
     public token: string;
     public userName: string;
+    public admin: string;
  
     constructor(private http: Http) {
         // set token if saved in local storage
@@ -22,15 +23,17 @@ export class AuthenticationService {
         return this.http.post('http://haccpapz.northeurope.cloudapp.azure.com:8080/api/authenticate',({ email: username, password: password }))
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
-                let token = response.json() && response.json().token;      
+                let token = response.json() && response.json().token; 
+                let admin = response.json() && response.json().admin;       
 
                 if (token) {
                     // set token property
                     this.token = token;
                     this.userName=username;
+                    this.admin=admin;
 
                     // store username and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
+                    localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token, admin: admin}));
  
                     // return true to indicate successful login
                     return true;
