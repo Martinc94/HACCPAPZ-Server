@@ -19,39 +19,8 @@ export class FoodAnalysisComponent implements OnInit {
      mode = 'Observable';
 
     constructor(private router: Router,
-            private analysisService: AnalysisService){
-
-                // console.log(this.m);
-
-               // var m  = {};
-
-                let marker = <any>{};
-
-                marker.lat=-7.940689799999973;
-marker.lng=53.4239331;
-
-                this.markers.push(marker);
-                this.markers.push(marker);
-                this.markers.push(marker);
-
-                console.log(marker);
-
-                console.log(this.markers);
-                console.log(this.markers[0]);
-                
-                
+            private analysisService: AnalysisService){                 
     }
-
-   markers=[];
-  
-
-    
-
-    
-    
-
-   /* m.coordinates.lat=-7.940689799999973;
-    m.lng=53.4239331;*/
 
     lng: number=53.4239331 ;
     lat: number=-7.940689799999973;

@@ -56,18 +56,14 @@
 
   <div id="resultsmap" class="map_div" *ngIf="foodAnalysisForms">
     <h2>Results Map</h2>
-    <sebm-google-map [latitude]="lat" [longitude]="lng">
-      <sebm-google-map-marker [latitude]="lat" [longitude]="lng" [label]="'F'" [title]="Marker" (markerClick)="markerClick()"></sebm-google-map-marker>
-      <!--<sebm-google-map-marker *ngFor="let marker of markers" (markerClick)="markerClick()" [latitude]="marker.lat" [longitude]="marker.lng" [label]="marker.id"></sebm-google-map-marker>-->
-    </sebm-google-map>
-
-  <p class="error" *ngIf="marker">Marker</p>
-  <p class="error" *ngIf="!marker">no Marker</p>
-  <p class="error" *ngIf="markers">have Markers</p>
-  <p class="error" *ngIf="!markers">no Markers</p>
-  <p class="error" *ngIf="errorMessage">error</p>
+      <sebm-google-map [latitude]="lat" [longitude]="lng">
+          <sebm-google-map-circle *ngFor="let form of foodAnalysisForms" [latitude]="form.lat" [longitude]="form.long" 
+              [radius]="1000"
+              [fillColor]="'red'"
+              [circleDraggable]="false"
+              [editable]="false">
+          </sebm-google-map-circle>
+        </sebm-google-map>
   </div>
-
   
-
   <div id="bottom"></div>
