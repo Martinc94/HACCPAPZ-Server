@@ -27,6 +27,7 @@ import { DashboardComponent }          from '../dashboard.component/dashboard.co
 import { FoodDeliveryComponent }       from '../foodDelivery.component/foodDelivery.component';
 import { FoodDeliveryDetailComponent }       from '../foodDelivery.component/foodDelivery-detail.component/foodDelivery-detail.component';
 import { FoodAnalysisComponent }         from '../FoodAnalysis.component/FoodAnalysis.component';
+import { FoodAnalysisYearlyComponent }         from '../FoodAnalysisYearly.component/FoodAnalysisYearly.component';
 
 //Links urls to their component
 const appRoutes: Routes = [
@@ -52,6 +53,7 @@ const appRoutes: Routes = [
     { path: 'foodDelivery', component: FoodDeliveryComponent, canActivate: [AuthGuard] },
     { path: 'foodDeliveryform/:_id',component: FoodDeliveryDetailComponent, canActivate: [AuthGuard] },
     { path: 'foodTrend', component: FoodAnalysisComponent,canActivate: [AdminGuard]},
+    { path: 'foodTrendYearly', component: FoodAnalysisYearlyComponent,canActivate: [AdminGuard]},
     
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

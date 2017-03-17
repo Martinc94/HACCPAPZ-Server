@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Rx'
 import '../rxjs-operators';
 
 import {FoodAnalysis} from '../classes/FoodAnalysis/FoodAnalysis';
+import {FoodAnalysisYearly} from '../classes/FoodAnalysisYearly/FoodAnalysisYearly';
 import {FormDates} from '../classes/FormDates/FormDates';
 
 //Service that returns date forms were last filled out and food trend analysis 
@@ -54,5 +55,13 @@ export class AnalysisService {
             }))
             .map(this.extractData)
             .catch(this.handleError);
-    } 
+    }
+
+    getFoodAnalysisYearlyForms(url): Observable < FoodAnalysisYearly[] > {
+        return this.http.get(url, ({
+                headers: this.authHeader
+            }))
+            .map(this.extractData)
+            .catch(this.handleError);
+    }  
 }

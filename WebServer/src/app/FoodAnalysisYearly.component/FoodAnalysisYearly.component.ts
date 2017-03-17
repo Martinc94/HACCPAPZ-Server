@@ -1,22 +1,55 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnalysisService } from '../AnalysisService/analysis.service';
-import { FoodAnalysis} from '../classes/FoodAnalysis/foodAnalysis';
+import { FoodAnalysisYearly} from '../classes/FoodAnalysisYearly/FoodAnalysisYearly';
 import { Observable }     from 'rxjs/Observable';
 import '../rxjs-operators';
  
 @Component({
     moduleId: module.id,
-    selector: 'foodAnalysis',
-    templateUrl: 'foodAnalysis.component.html',
-	styleUrls: ['./FoodAnalysis.component.css']
+    selector: 'FoodAnalysisYearly',
+    templateUrl: 'FoodAnalysisYearly.component.html',
+	styleUrls: ['./FoodAnalysisYearly.component.css']
 })
 
-//This component manages Food delivery analysis
-export class FoodAnalysisComponent implements OnInit {
-     errorMessage: string;
-     foodAnalysisForms: FoodAnalysis[];
-     mode = 'Observable';
+//This component manages Food delivery analysis yearly
+export class FoodAnalysisYearlyComponent implements OnInit {
+
+    public barChartOptions:any = {
+    scaleShowVerticalLines: false,
+    responsive: true
+    };
+
+    public barChartLabels:string[] = ['January '];
+    public barChartType:string = 'bar';
+    public barChartLegend:boolean = true;
+
+    public barChartData:any[] = [
+        {data: [65], label: '2016'},
+        {data: [28], label: '2017'}
+    ];
+
+    public chartClicked(e:any):void {
+        console.log(e);
+    }
+    
+    public chartHovered(e:any):void {
+        console.log(e);
+    }
+    
+    public randomize():void {
+        // Only Change 3 values
+        let data = [
+        Math.round(Math.random() * 20)];
+
+        let clone = JSON.parse(JSON.stringify(this.barChartData));
+        clone[0].data = data;
+        this.barChartData = clone;
+    }
+
+    errorMessage: string;
+    foodAnalysisForms: FoodAnalysisYearly[];
+    mode = 'Observable';
 
     constructor(private router: Router,
             private analysisService: AnalysisService){                 
@@ -50,9 +83,9 @@ export class FoodAnalysisComponent implements OnInit {
     }
 
     //Passes custom url to Analysis Service
-    getAnalysis(url){
+    getAnalysisYearly(url){
         //pass url to analysisService
-        this.analysisService.getFoodAnalysisForms(url)
+        this.analysisService.getFoodAnalysisYearlyForms(url)
             .subscribe(
             form => this.foodAnalysisForms = form,
             error =>  this.errorMessage = <any>error);
@@ -61,19 +94,22 @@ export class FoodAnalysisComponent implements OnInit {
     //Builds Url from Html form and passes to getAnalysis method
     submitForm(form: any): void{
         //build url
-        var url = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getDeliveryTrend?';
+        var url = 'http://haccpapz.northeurope.cloudapp.azure.com:8080/api/getDeliveryTrendYearly?';
 
         //add food to url
         if (form.food){
             url+="food="+form.food;
         }
-        //add months to url
-        if (form.months){
-            url+="&months="+form.months;
-        }
         //add km to url
         if (form.km){
             url+="&km="+form.km;
+        }
+        //add years to url
+        if (form.year1){
+            url+="&year1="+form.year1;
+        }
+        if (form.year2){
+            url+="&year2="+form.year2;
         }
         
         //add lat long to url
@@ -81,11 +117,16 @@ export class FoodAnalysisComponent implements OnInit {
         url+="&lng="+ this.lng;
 
         //pass url as method param
-        this.getAnalysis(url);
+        this.getAnalysisYearly(url);
 
         //go to results
         this.goToBottom(10);
     }
+
+    goToResults(timeout: number): void {
+      // wait a selected amount of time before scrolling to bottom of page
+      window.setTimeout( function () { document.getElementById('results').scrollIntoView(); }, timeout );
+    } // goToResults()
 
     goToBottom(timeout: number): void {
       // wait a selected amount of time before scrolling to bottom of page

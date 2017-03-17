@@ -4,7 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule}     from '@angular/http';
 import { CommonModule } from '@angular/common';
-
+import { AgmCoreModule } from 'angular2-google-maps/core';
+import { ChartsModule } from 'ng2-charts';
 import {} from '@angular/core/testing';
 
 //Pages
@@ -30,7 +31,7 @@ import { DashboardComponent }       from './dashboard.component/dashboard.compon
 import { FoodDeliveryComponent }       from './foodDelivery.component/foodDelivery.component';
 import { FoodDeliveryDetailComponent }       from './foodDelivery.component/foodDelivery-detail.component/foodDelivery-detail.component';
 import { FoodAnalysisComponent }         from './FoodAnalysis.component/FoodAnalysis.component';
-import { AgmCoreModule } from 'angular2-google-maps/core';
+import { FoodAnalysisYearlyComponent }         from './FoodAnalysisYearly.component/FoodAnalysisYearly.component';
 
 //Services
 //////////////////////////////////////////////////////////////
@@ -51,6 +52,7 @@ import { AnalysisService } from './AnalysisService/analysis.service';
 		CommonModule,
         FormsModule,
         HttpModule,
+        ChartsModule,
         routing,
 		 AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBqriJbrqEdrssuqCI1kDsstT-bhL6so7U'
@@ -79,6 +81,7 @@ import { AnalysisService } from './AnalysisService/analysis.service';
         FoodDeliveryComponent,
         FoodDeliveryDetailComponent,
         FoodAnalysisComponent,
+        FoodAnalysisYearlyComponent,
     ],
     providers: [
         AuthGuard,

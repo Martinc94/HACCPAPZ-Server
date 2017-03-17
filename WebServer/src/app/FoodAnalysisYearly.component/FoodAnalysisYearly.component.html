@@ -13,13 +13,18 @@
       </div>
 
       <div class="form-group">
-        <label>Within how many Months:</label>
-        <input type="number" class="form-control" placeholder="2" name="months" ngModel required>
+        <label>Within how many Kilometres:</label>
+        <input type="number" class="form-control" placeholder="20" name="km" ngModel required>
       </div>
 
       <div class="form-group">
-        <label>Within how many Kilometres:</label>
-        <input type="number" class="form-control" placeholder="20" name="km" ngModel required>
+        <label>Year 1:</label>
+        <input type="number" class="form-control" placeholder="2016" name="year1" ngModel required>
+      </div>
+
+      <div class="form-group">
+        <label>Year 2:</label>
+        <input type="number" class="form-control" placeholder="2017" name="year2" ngModel required>
       </div>
 
       <div class="form-group">
@@ -44,25 +49,30 @@
       <div class="media">
         <div class="media-body">
           <h5>{{form.Msg}}</h5>
-          <h5>{{form.food}}</h5>
-          <h5>{{form.date}}</h5>
         </div>
       </div>
     </div>
   </div>
-  <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
 </div>
 
   <div id="resultsmap" class="map_div" *ngIf="foodAnalysisForms">
-    <h2>Results Map</h2>
-      <sebm-google-map [latitude]="lat" [longitude]="lng">
-          <sebm-google-map-circle *ngFor="let form of foodAnalysisForms" [latitude]="form.lat" [longitude]="form.long" 
-              [radius]="1000"
-              [fillColor]="'red'"
-              [circleDraggable]="false"
-              [editable]="false">
-          </sebm-google-map-circle>
-        </sebm-google-map>
-      </div>
+    <h2>Results Chart</h2>
 
+    <div style="display: block">
+        <canvas baseChart
+                [datasets]="barChartData"
+                [labels]="barChartLabels"
+                [options]="barChartOptions"
+                [legend]="barChartLegend"
+                [chartType]="barChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+      </div>
+      
+    </div>
   <div id="bottom"></div>
+
+
+
+
+  
