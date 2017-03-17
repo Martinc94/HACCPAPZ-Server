@@ -2038,8 +2038,14 @@ apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', {
                                     var tempDate1 = new Date(forms[i].date);
                                     tempForm.date = tempDate1.toDateString();
                                     tempForm.food = forms[i].food;
-                                    tempForm.lat =  parseFloat(forms[i].lat);
-                                    tempForm.long = parseFloat(forms[i].long);
+									try{
+										tempForm.lat =  parseFloat(forms[i].lat);
+										tempForm.long = parseFloat(forms[i].long);
+									}catch(error){
+										tempForm.lat = 0;
+										tempForm.long = 0;
+									}
+                                    
                                     countFood++;
                                     results.push(tempForm);
                                 } //end if	
