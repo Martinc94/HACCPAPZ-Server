@@ -154,6 +154,9 @@ apiRoutes.post('/authenticate', function (req, res) {
             if(user.admin){
                 isAdmin=true;
             }
+            else{
+                isAdmin=false;
+            }
             // check if password matches
             user.comparePassword(req.body.password, function (err, isMatch) {
                 if (isMatch && !err) {
@@ -2026,10 +2029,17 @@ apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', {
                             //if searching for food type
                             if (willQueryFood == 1) {
                                 //all where query food matches forms food
-                                if (forms[i].food == queryFood) {
+                                var tmpStr = new String(forms[i].food);
+                                var tmpStr2 = new String(queryFood);
+
+                                //convert to lower string
+                                if(tmpStr.toLowerCase()==tmpStr2.toLowerCase()){
+                                //if (forms[i].food == queryFood) {
                                     var tempDate1 = new Date(forms[i].date);
                                     tempForm.date = tempDate1.toDateString();
                                     tempForm.food = forms[i].food;
+                                    tempForm.lat =  parseFloat(forms[i].lat);
+                                    tempForm.long = parseFloat(forms[i].long);
                                     countFood++;
                                     results.push(tempForm);
                                 } //end if	
