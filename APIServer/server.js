@@ -2089,6 +2089,149 @@ apiRoutes.get('/getDeliveryTrend', passport.authenticate('jwt', {
 });
 //end getDeliveryTrend//////////////////////////////////////////////////////////////////////////////
 
+//Get for returning Delivery Trends yearly
+apiRoutes.get('/getDeliveryTrendYearly', passport.authenticate('jwt', {
+    session: false
+}), function (req, res) {
+    var token = getToken(req.headers);
+    if (token) {
+        var decoded = jwt.decode(token, config.secret);
+        User.findOne({
+            email: decoded.email
+        }, function (err, user) {
+            if (err) throw err;
+            if (!user) {
+                return res.status(403).send({
+                    success: false,
+                    msg: 'Authentication failed. User not found.'
+                });
+            } else {
+                var validForms = [];
+                var results = [];
+                var willQueryFood = 0;
+
+                var queryDate = new Date();
+                var months = req.query.months;
+                var queryFood = req.query.food;
+
+                var lat = req.query.lat;
+                var lng = req.query.lng;
+                var km = req.query.km;
+
+                var countFood = 0;
+                var Msg = "";
+
+                if (!months) {
+                    months = 6;
+                }
+
+                if (!km) {
+                    km = 30;
+                }
+
+                if (!lat || !lng) {
+                    console.log("No lat or long Provided");
+                }
+
+                if (queryFood) {
+                    //dont filter by food type
+                    willQueryFood = 1;
+                }
+
+                //sets date back 6 months
+                queryDate.setMonth(queryDate.getMonth() - months);
+
+                deliveryAnalysis().then(function (forms) {
+                    //loop forms
+                    for (i = 0; i < forms.length; i++) {
+                        var date = new Date(forms[i].date);
+
+                        //if date newer than query date & date newer than firstdate
+                        if (queryDate < date) {
+                            //add to valid array
+                            validForms.push(forms[i]);
+                        }
+
+                    } //end if date
+
+                    var centerpoint = {}
+                    centerpoint.lat = lat;
+                    centerpoint.lng = lng;
+
+                    //loop forms with valid date
+                    for (i = 0; i < validForms.length; i++) {
+                        var tempForm = {};
+
+                        var querypoint = {}
+                        querypoint.lat = validForms[i].lat;
+                        querypoint.lng = validForms[i].long;
+
+                        //check if within radius 
+                        if (isPointWithinRadius(querypoint, centerpoint, km)) {
+                            //if searching for food type
+                            if (willQueryFood == 1) {
+                                //all where query food matches forms food
+                                var tmpStr = new String(forms[i].food);
+                                var tmpStr2 = new String(queryFood);
+
+                                //convert to lower string
+                                if(tmpStr.toLowerCase()==tmpStr2.toLowerCase()){
+                                //if (forms[i].food == queryFood) {
+                                    var tempDate1 = new Date(forms[i].date);
+                                    tempForm.date = tempDate1.toDateString();
+                                    tempForm.food = forms[i].food;
+									try{
+										tempForm.lat =  parseFloat(forms[i].lat);
+										tempForm.long = parseFloat(forms[i].long);
+									}catch(error){
+										tempForm.lat = 0;
+										tempForm.long = 0;
+									}
+                                    
+                                    countFood++;
+                                    results.push(tempForm);
+                                } //end if	
+                            } //end if
+                            //if not seatching for food type add all
+                            else {
+                                var tempDate2 = new Date(forms[i].date);
+                                tempForm.date = tempDate2.toDateString();
+                                tempForm.food = forms[i].food;
+                                countFood++;
+                                results.push(tempForm);
+                            } //end else
+
+                        } //end if within range 
+
+                    } //for
+
+                    var today = new Date();
+
+                   // Msg = "Found " + countFood + " occurrences of " + queryFood + " between " + queryDate.toDateString() + " and " + today.toDateString() + " within a " + km + " Km Radius.";
+                   Msg = "Found " + countFood + " occurrences of " + queryFood + " In month ... within a " + km + " Km Radius.";
+
+                    var message = {};
+                    message.Msg = Msg;
+
+                    var resultsWithMessage = [];
+
+                    resultsWithMessage.push(message);
+
+                    resultsWithMessage = resultsWithMessage.concat(results);
+
+                    return res.status(200).json(resultsWithMessage);
+                }); //end then	
+            } //end else
+        });
+    } else {
+        return res.status(403).send({
+            success: false,
+            msg: 'No token provided.'
+        });
+    }
+});
+//end getDeliveryTrend//////////////////////////////////////////////////////////////////////////////
+
 //Get for returning Forms dates(Last date of filled out form)
 apiRoutes.get('/getFormDate', passport.authenticate('jwt', {
     session: false
