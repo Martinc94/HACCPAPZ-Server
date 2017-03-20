@@ -24,7 +24,7 @@ Node is an asynchronous event driven JavaScript runtime that is designed to buil
 #### Mongoose
 Mongoose is the driver that connects the Node server to the MongoDB database.
 
-Example of Javascript code to connect to mongoDB
+Example of Javascript code to connect to mongoDB:
 ```
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/test');
@@ -46,7 +46,7 @@ The database i chose to use was MongoDB[5]. I chose this database as it is a doc
 As Haccpapz deals with text based forms a document-oriented database was most suitable. It was also a requirement to be able to store photos.
 MongoDB stores documents as JSON.
 
-Example of document stored in Json
+Example of document stored in Json:
 ```json
 {
     "_id" :"5877a15809a313c40d244609",
@@ -81,8 +81,10 @@ https://www.mongodb.com/
 ### How to run
 Download source code and required frameworks(Node, Npm).
 
-Download and setup MongoDB if dont already it. 
+Download and setup MongoDB if dont already it.
+
 Tutorial below:
+
 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
 
 Make sure mondoDB is running if not the following command will start it from mongoDB install location.
