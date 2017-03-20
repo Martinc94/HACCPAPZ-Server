@@ -4,6 +4,13 @@
 ## Introduction
 This repository contains all the source code of the Haccpapz web server and Api server.
 
+This repository is part of my final year project for my B.Sc. in Software Development.
+This repository contains the server that serves the Mobile application and the server that serves a Web application.
+
+The other half of the project can be found at: https://github.com/Martinc94/HACCPManagementApp.
+
+It contains the mobile application developed using Ionic.
+
 ## Api Server
 This server handles all the data management for Haccpapz. It manages HTTP requests such as Get and Post. It is responsible for authentication of users on the mobile app and web app, handling and storing forms posted from the mobile app, providing infomation such as settings to the app and forms to the webapp. It is also used for handling data analysis on the stored forms.
 
