@@ -20,17 +20,17 @@ export class FoodAnalysisYearlyComponent implements OnInit {
     responsive: true
     };
 
-    public barChartLabels:string[] = ['January '];
+    public barChartLabels:string[] = ['Month '];
     public barChartType:string = 'bar';
     public barChartLegend:boolean = true;
 
-    public barChartData:any[] = [
-        {data: [65], label: '2016'},
-        {data: [28], label: '2017'}
+    public barChartData: FoodAnalysisYearly[] = [
+        {data: [1], label: '2016'},
+        {data: [1], label: '2017'}
     ];
 
     public chartClicked(e:any):void {
-        console.log(e);
+        this.randomize();
     }
     
     public chartHovered(e:any):void {
@@ -38,17 +38,13 @@ export class FoodAnalysisYearlyComponent implements OnInit {
     }
     
     public randomize():void {
-        // Only Change 3 values
-        let data = [
-        Math.round(Math.random() * 20)];
 
         let clone = JSON.parse(JSON.stringify(this.barChartData));
-        clone[0].data = data;
+        //clone[0].data = data;
         this.barChartData = clone;
     }
 
     errorMessage: string;
-    foodAnalysisForms: FoodAnalysisYearly[];
     mode = 'Observable';
 
     constructor(private router: Router,
@@ -87,7 +83,7 @@ export class FoodAnalysisYearlyComponent implements OnInit {
         //pass url to analysisService
         this.analysisService.getFoodAnalysisYearlyForms(url)
             .subscribe(
-            form => this.foodAnalysisForms = form,
+            form => this.barChartData = form,
             error =>  this.errorMessage = <any>error);
     }//end getAnalysis 
 
@@ -111,6 +107,10 @@ export class FoodAnalysisYearlyComponent implements OnInit {
         if (form.year2){
             url+="&year2="+form.year2;
         }
+        if (form.month){
+            url+="&month="+form.month;
+        }
+        
         
         //add lat long to url
         url+="&lat="+ this.lat;
@@ -120,7 +120,7 @@ export class FoodAnalysisYearlyComponent implements OnInit {
         this.getAnalysisYearly(url);
 
         //go to results
-        this.goToBottom(10);
+        this.goToBottom(10);  
     }
 
     goToResults(timeout: number): void {

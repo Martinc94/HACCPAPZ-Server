@@ -2111,26 +2111,25 @@ apiRoutes.get('/getDeliveryTrendYearly', passport.authenticate('jwt', {
                 var willQueryFood = 0;
 
                 var queryDate = new Date();
-                var months = req.query.months;
                 var queryFood = req.query.food;
 
                 var lat = req.query.lat;
                 var lng = req.query.lng;
                 var km = req.query.km;
+                var year1 = req.query.year1;
+                var year2 = req.query.year2;
+                var month = req.query.month;
 
                 var countFood = 0;
                 var Msg = "";
-
-                if (!months) {
-                    months = 6;
-                }
 
                 if (!km) {
                     km = 30;
                 }
 
                 if (!lat || !lng) {
-                    console.log("No lat or long Provided");
+                    //console.log("No lat or long Provided");
+                    Msg="Please Turn on Location";
                 }
 
                 if (queryFood) {
@@ -2138,10 +2137,23 @@ apiRoutes.get('/getDeliveryTrendYearly', passport.authenticate('jwt', {
                     willQueryFood = 1;
                 }
 
-                //sets date back 6 months
-                queryDate.setMonth(queryDate.getMonth() - months);
+                //setup dates 
+                var date1 = new Date();
+                date1.setFullYear(year1);
+                console.log(date1.getDate());
+                date1.setMonth(month);
 
-                deliveryAnalysis().then(function (forms) {
+                console.log(date1.getDate());
+
+                var date2 = new Date();
+
+
+
+
+                //sets date back 6 months
+                //queryDate.setMonth(queryDate.getMonth() - months);
+
+                /*deliveryAnalysis().then(function (forms) {
                     //loop forms
                     for (i = 0; i < forms.length; i++) {
                         var date = new Date(forms[i].date);
@@ -2220,7 +2232,7 @@ apiRoutes.get('/getDeliveryTrendYearly', passport.authenticate('jwt', {
                     resultsWithMessage = resultsWithMessage.concat(results);
 
                     return res.status(200).json(resultsWithMessage);
-                }); //end then	
+                }); //end then	*/
             } //end else
         });
     } else {

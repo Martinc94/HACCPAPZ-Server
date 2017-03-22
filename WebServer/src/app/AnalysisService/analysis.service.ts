@@ -24,7 +24,9 @@ export class AnalysisService {
     }
 
     private extractData(res: Response) {
+        console.log(res.json);
         let body = res.json();
+        console.log(body);
         return body || {};
     }
 

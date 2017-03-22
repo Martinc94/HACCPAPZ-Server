@@ -28,6 +28,11 @@
       </div>
 
       <div class="form-group">
+        <label>Month(1-12):</label>
+        <input type="number" class="form-control" placeholder="1" name="month" ngModel required>
+      </div>
+
+      <div class="form-group">
         <button type="submit" class="btn btn-default">Submit</button>
       </div>
 
@@ -43,7 +48,7 @@
 </div>
 
 <!--Displays Forms -->
-<div *ngFor="let form of foodAnalysisForms" id="results" class="box_div">
+<div *ngFor="let form of barChartData" id="results" class="box_div">
   <div class="panel panel-default col-med">
     <div class="panel-body">
       <div class="media">
@@ -55,7 +60,7 @@
   </div>
 </div>
 
-  <div id="resultsmap" class="map_div" *ngIf="foodAnalysisForms">
+  <div id="resultsmap" class="map_div" *ngIf="barChartData">
     <h2>Results Chart</h2>
 
     <div style="display: block">
