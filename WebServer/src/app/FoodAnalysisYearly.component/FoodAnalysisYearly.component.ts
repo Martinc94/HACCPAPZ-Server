@@ -29,21 +29,6 @@ export class FoodAnalysisYearlyComponent implements OnInit {
         {data: [1], label: '2017'}
     ];
 
-    public chartClicked(e:any):void {
-        this.randomize();
-    }
-    
-    public chartHovered(e:any):void {
-        console.log(e);
-    }
-    
-    public randomize():void {
-
-        let clone = JSON.parse(JSON.stringify(this.barChartData));
-        //clone[0].data = data;
-        this.barChartData = clone;
-    }
-
     errorMessage: string;
     mode = 'Observable';
 

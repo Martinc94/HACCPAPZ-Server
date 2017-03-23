@@ -47,37 +47,13 @@
   </sebm-google-map>
 </div>
 
-<!--Displays Forms -->
-<div *ngFor="let form of barChartData" id="results" class="box_div">
-  <div class="panel panel-default col-med">
-    <div class="panel-body">
-      <div class="media">
-        <div class="media-body">
-          <h5>{{form.Msg}}</h5>
-        </div>
-      </div>
-    </div>
+<div id="resultsmap" class="map_div" *ngIf="barChartData">
+  <h2>Results Chart</h2>
+
+  <div style="display: block">
+    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+      [chartType]="barChartType"></canvas>
   </div>
+
 </div>
-
-  <div id="resultsmap" class="map_div" *ngIf="barChartData">
-    <h2>Results Chart</h2>
-
-    <div style="display: block">
-        <canvas baseChart
-                [datasets]="barChartData"
-                [labels]="barChartLabels"
-                [options]="barChartOptions"
-                [legend]="barChartLegend"
-                [chartType]="barChartType"
-                (chartHover)="chartHovered($event)"
-                (chartClick)="chartClicked($event)"></canvas>
-      </div>
-      
-    </div>
-  <div id="bottom"></div>
-
-
-
-
-  
+<div id="bottom"></div>
